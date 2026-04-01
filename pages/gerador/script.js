@@ -462,7 +462,7 @@
           btnBg +
           ";color:" +
           btnTxtClr +
-          ";font-weight:900;padding:12px 30px;font-size:16px;border-radius:10px;border:1px solid " +
+          ";font-weight:900;padding:12px 30px;font-size:16px;border-radius:10px;border:2px solid " +
           btnBorder +
           ';text-transform:uppercase;"><span style="max-width:100%;display:inline-block;line-height:120%;">' +
           esc(btnTxt) +
