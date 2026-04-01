@@ -406,15 +406,23 @@
     toggleOpt('footerEnabled','footerFields','footerBlock');
   }
 
-  /* ── NOVO EMAIL ── */
-  window.novoEmail = function(){
-    if(!confirm('Resetar tudo e começar um novo e-mail?')) return;
-    try { localStorage.removeItem(SAVE_KEY); } catch(e){}
+  var DEFAULT_BLOCK_TEXT = 'Olá! Escreva aqui o conteúdo do seu e-mail. Você pode usar <b>negrito</b>, <i>itálico</i>, listas e muito mais.<br><br>Adicione quantos blocos de texto quiser usando o botão abaixo.';
+
+  function resetToDefaults(){
     applyDefaults();
     document.getElementById('blocksContainer').innerHTML = '';
     blockCount = 0;
     addBlock();
+    var ed = document.getElementById('ed_' + blockCount);
+    if(ed) ed.innerHTML = DEFAULT_BLOCK_TEXT;
     updatePreview();
+  }
+
+  /* ── NOVO EMAIL ── */
+  window.novoEmail = function(){
+    if(!confirm('Resetar tudo e começar um novo e-mail?')) return;
+    try { localStorage.removeItem(SAVE_KEY); } catch(e){}
+    resetToDefaults();
   };
 
   /* ── AUTO-SAVE / RESTORE ── */
@@ -538,14 +546,8 @@
     document.querySelectorAll('textarea').forEach(function(t){ autoResize(t); });
     hookSave();
     var restored = restoreState();
-    if(!restored){
-      applyDefaults();
-      addBlock();
-      // texto padrão no primeiro bloco
-      var ed = document.getElementById('ed_1');
-      if(ed) ed.innerHTML = 'Olá! Escreva aqui o conteúdo do seu e-mail. Você pode usar <b>negrito</b>, <i>itálico</i>, listas e muito mais.<br><br>Adicione quantos blocos de texto quiser usando o botão abaixo.';
-    }
-    updatePreview();
+    if(!restored) resetToDefaults();
+    else updatePreview();
   });
 
 }());
