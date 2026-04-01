@@ -262,9 +262,9 @@
     var footerCard='';
     if(footerOn){
       var socCells='';
-      if(instaOn&&instaUrl) socCells+='<td style="padding:0 15px;"><a href="'+instaUrl+'" target="_blank" rel="noopener noreferrer"><img alt="Instagram" src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" style="display:block;outline:none;border:none;text-decoration:none;border-radius:100%;" width="35" /></a></td>';
-      if(teleOn&&teleUrl)   socCells+='<td style="padding:0 15px;"><a href="'+teleUrl+'"  target="_blank" rel="noopener noreferrer"><img alt="Telegram"  src="https://cdn-icons-png.flaticon.com/512/2111/2111644.png" style="display:block;outline:none;border:none;text-decoration:none;border-radius:10%;"  width="30" /></a></td>';
-      if(ytOn&&ytUrl)       socCells+='<td style="padding:0 15px;"><a href="'+ytUrl+'"    target="_blank" rel="noopener noreferrer"><img alt="YouTube"   src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" style="display:block;outline:none;border:none;text-decoration:none;border-radius:10%;"  width="35" /></a></td>';
+      if(instaOn) socCells+='<td style="padding:0 15px;"><a href="'+(instaUrl||'#')+'" target="_blank" rel="noopener noreferrer"><img alt="Instagram" src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" style="display:block;outline:none;border:none;text-decoration:none;border-radius:100%;" width="35" /></a></td>';
+      if(teleOn)  socCells+='<td style="padding:0 15px;"><a href="'+(teleUrl||'#')+'"  target="_blank" rel="noopener noreferrer"><img alt="Telegram"  src="https://cdn-icons-png.flaticon.com/512/2111/2111644.png" style="display:block;outline:none;border:none;text-decoration:none;border-radius:10%;"  width="30" /></a></td>';
+      if(ytOn)    socCells+='<td style="padding:0 15px;"><a href="'+(ytUrl||'#')+'"    target="_blank" rel="noopener noreferrer"><img alt="YouTube"   src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" style="display:block;outline:none;border:none;text-decoration:none;border-radius:10%;"  width="35" /></a></td>';
 
       footerCard='<table align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="max-width:600px;margin:0 auto 10px;background-color:'+cardVerde+';color:#f0f0f0;border-radius:15px;overflow:hidden;"><tbody><tr style="width:100%"><td>'
         +'<p style="font-size:14px;line-height:24px;color:'+fLegalColor+';margin-top:20px;margin-bottom:10px;text-align:center;padding-inline:40px;">'+fLegal+'</p>'
@@ -337,23 +337,36 @@
     });
   };
 
-  /* ── NOVO EMAIL ── */
-  window.novoEmail = function(){
-    if(!confirm('Resetar tudo e começar um novo e-mail?')) return;
-    try { localStorage.removeItem(SAVE_KEY); } catch(e){}
+  /* ── DEFAULTS ── */
+  function applyDefaults(){
+    // Logo genérica
+    document.getElementById('logoUrl').value = 'https://via.placeholder.com/200x60/1e293b/ffffff?text=Sua+Logo';
+    document.getElementById('logoLink').value = '';
 
-    ['previewText','logoUrl','logoLink','bannerUrl','bannerLink','titleText','btnText','btnLink',
-     'btnBgHex','btnTxtHex','btnBorderHex','bgHex','cardVerdeHex','cardBgHex','cardBorderHex',
-     'titleColorHex','footerSocialText','footerUnsub','footerUnsubUrl','instaUrl','teleUrl','ytUrl'].forEach(function(id){
-      var el = document.getElementById(id); if(el) el.value = '';
-    });
+    // Banner vazio
+    document.getElementById('bannerUrl').value = '';
+    document.getElementById('bannerLink').value = '';
 
+    // Título
+    document.getElementById('titleText').value = 'Seu titulo aqui';
+    document.getElementById('titleColorHex').value = '#242424';
+    document.getElementById('titleColor').value = '#242424';
+
+    // Preview text
+    document.getElementById('previewText').value = '';
+
+    // Botão CTA — pré-ativado com texto padrão
+    document.getElementById('btnText').value = 'Botão';
+    document.getElementById('btnLink').value = '';
     document.getElementById('btnBgHex').value = '#2563eb';
     document.getElementById('btnBgColor').value = '#2563eb';
     document.getElementById('btnTxtHex').value = '#ffffff';
     document.getElementById('btnTxtColor').value = '#ffffff';
     document.getElementById('btnBorderHex').value = '#1d4ed8';
     document.getElementById('btnBorderColor').value = '#1d4ed8';
+    document.getElementById('btnNewTab').checked = true;
+
+    // Cores globais
     document.getElementById('bgHex').value = '#f0f0f0';
     document.getElementById('bgColor').value = '#f0f0f0';
     document.getElementById('cardVerdeHex').value = '#1e293b';
@@ -362,21 +375,13 @@
     document.getElementById('cardBgColor').value = '#ffffff';
     document.getElementById('cardBorderHex').value = '#e1e1e6';
     document.getElementById('cardBorderColor').value = '#e1e1e6';
-    document.getElementById('titleColorHex').value = '#242424';
-    document.getElementById('titleColor').value = '#242424';
-    document.getElementById('titleText').value = 'Seu titulo aqui';
-    document.getElementById('footerSocialText').value = 'Siga nossas redes sociais!';
-    document.getElementById('footerUnsub').value = 'Para cancelar o recebimento destes e-mails,';
 
-    ['logoEnabled','titleEnabled','footerEnabled'].forEach(function(id){ document.getElementById(id).checked = true; });
-    ['btnEnabled','instaOn','teleOn','ytOn'].forEach(function(id){ document.getElementById(id).checked = false; });
-    toggleOpt('logoEnabled','logoFields','logoBlock');
-    toggleOpt('titleEnabled','titleFields','titleBlock');
-    toggleOpt('btnEnabled','btnFields','btnBlock');
-    toggleOpt('footerEnabled','footerFields','footerBlock');
-
+    // Rodapé
     document.getElementById('footerLegal').value = 'Este e-mail foi enviado para voce porque voce se cadastrou em nossa lista.\n© 2025 Sua Empresa. Todos os direitos reservados.';
     autoResize(document.getElementById('footerLegal'));
+    document.getElementById('footerSocialText').value = 'Siga nossas redes sociais!';
+    document.getElementById('footerUnsub').value = 'Para cancelar o recebimento destes e-mails,';
+    document.getElementById('footerUnsubUrl').value = '';
     document.getElementById('footerLegalColorHex').value = '#dadada';
     document.getElementById('footerLegalColor').value = '#dadada';
     document.getElementById('footerSocialColorHex').value = '#ffffff';
@@ -384,6 +389,28 @@
     document.getElementById('footerUnsubColorHex').value = '#999999';
     document.getElementById('footerUnsubColor').value = '#999999';
 
+    // Redes sociais pré-selecionadas (sem URL — aparece o ícone mesmo assim no preview)
+    document.getElementById('instaUrl').value = '';
+    document.getElementById('teleUrl').value = '';
+    document.getElementById('ytUrl').value = '';
+
+    // Checkboxes
+    ['logoEnabled','titleEnabled','footerEnabled','btnEnabled','instaOn','teleOn','ytOn'].forEach(function(id){
+      document.getElementById(id).checked = true;
+    });
+
+    // Aplicar toggles visuais
+    toggleOpt('logoEnabled','logoFields','logoBlock');
+    toggleOpt('titleEnabled','titleFields','titleBlock');
+    toggleOpt('btnEnabled','btnFields','btnBlock');
+    toggleOpt('footerEnabled','footerFields','footerBlock');
+  }
+
+  /* ── NOVO EMAIL ── */
+  window.novoEmail = function(){
+    if(!confirm('Resetar tudo e começar um novo e-mail?')) return;
+    try { localStorage.removeItem(SAVE_KEY); } catch(e){}
+    applyDefaults();
     document.getElementById('blocksContainer').innerHTML = '';
     blockCount = 0;
     addBlock();
@@ -511,7 +538,13 @@
     document.querySelectorAll('textarea').forEach(function(t){ autoResize(t); });
     hookSave();
     var restored = restoreState();
-    if(!restored) addBlock();
+    if(!restored){
+      applyDefaults();
+      addBlock();
+      // texto padrão no primeiro bloco
+      var ed = document.getElementById('ed_1');
+      if(ed) ed.innerHTML = 'Olá! Escreva aqui o conteúdo do seu e-mail. Você pode usar <b>negrito</b>, <i>itálico</i>, listas e muito mais.<br><br>Adicione quantos blocos de texto quiser usando o botão abaixo.';
+    }
     updatePreview();
   });
 
