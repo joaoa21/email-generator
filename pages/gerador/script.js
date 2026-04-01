@@ -593,7 +593,7 @@
     frame.src = currentBlobUrl;
   };
 
-  /* ── COPY ── */
+  /* ── COPY HTML ── */
   window.copyHTML = function () {
     navigator.clipboard.writeText(generateEmailHTML()).then(function () {
       var btn = document.getElementById("btnCopy");
@@ -607,26 +607,44 @@
     });
   };
 
+  /* ── COPY PARA GMAIL ── */
+  window.copyForGmail = function () {
+    var html = generateEmailHTML();
+    var btn = document.getElementById("btnGmail");
+    try {
+      var blob = new Blob([html], { type: "text/html" });
+      var item = new ClipboardItem({ "text/html": blob });
+      navigator.clipboard.write([item]).then(function () {
+        btn.classList.add("copied");
+        btn.textContent = "✓ Copiado! Cole no Gmail";
+        setTimeout(function () {
+          btn.classList.remove("copied");
+          btn.innerHTML =
+            '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg> Copiar para Gmail';
+        }, 3000);
+      }).catch(function () {
+        alert(
+          'Seu navegador não suportou a cópia direta.\n\nUse "Copiar HTML", cole num arquivo .html, abra no navegador e cole no Gmail.'
+        );
+      });
+    } catch (e) {
+      alert(
+        'Seu navegador não suportou a cópia direta.\n\nUse "Copiar HTML", cole num arquivo .html, abra no navegador e cole no Gmail.'
+      );
+    }
+  };
+
   /* ── DEFAULTS ── */
   function applyDefaults() {
-    // Logo genérica
     document.getElementById("logoUrl").value =
       "https://via.placeholder.com/200x60/1e293b/ffffff?text=Sua+Logo";
     document.getElementById("logoLink").value = "";
-
-    // Banner vazio
     document.getElementById("bannerUrl").value = "";
     document.getElementById("bannerLink").value = "";
-
-    // Título
     document.getElementById("titleText").value = "Seu titulo aqui";
     document.getElementById("titleColorHex").value = "#242424";
     document.getElementById("titleColor").value = "#242424";
-
-    // Preview text
     document.getElementById("previewText").value = "";
-
-    // Botão CTA — pré-ativado com texto padrão
     document.getElementById("btnText").value = "Botão";
     document.getElementById("btnLink").value = "";
     document.getElementById("btnBgHex").value = "#2563eb";
@@ -636,8 +654,6 @@
     document.getElementById("btnBorderHex").value = "#1d4ed8";
     document.getElementById("btnBorderColor").value = "#1d4ed8";
     document.getElementById("btnNewTab").checked = true;
-
-    // Cores globais
     document.getElementById("bgHex").value = "#f0f0f0";
     document.getElementById("bgColor").value = "#f0f0f0";
     document.getElementById("cardVerdeHex").value = "#1e293b";
@@ -646,10 +662,8 @@
     document.getElementById("cardBgColor").value = "#ffffff";
     document.getElementById("cardBorderHex").value = "#e1e1e6";
     document.getElementById("cardBorderColor").value = "#e1e1e6";
-
-    // Rodapé
     document.getElementById("footerLegal").value =
-      "Este e-mail foi enviado para voce porque voce se cadastrou em nossa lista.\n© 2026 Sua Empresa. Todos os direitos reservados.";
+      "Este e-mail foi enviado para voce porque voce se cadastrou em nossa lista.\n© 2025 Sua Empresa. Todos os direitos reservados.";
     autoResize(document.getElementById("footerLegal"));
     document.getElementById("footerSocialText").value =
       "Siga nossas redes sociais!";
@@ -662,13 +676,9 @@
     document.getElementById("footerSocialColor").value = "#ffffff";
     document.getElementById("footerUnsubColorHex").value = "#999999";
     document.getElementById("footerUnsubColor").value = "#999999";
-
-    // Redes sociais pré-selecionadas (sem URL — aparece o ícone mesmo assim no preview)
     document.getElementById("instaUrl").value = "";
     document.getElementById("teleUrl").value = "";
     document.getElementById("ytUrl").value = "";
-
-    // Checkboxes
     [
       "logoEnabled",
       "titleEnabled",
@@ -680,8 +690,6 @@
     ].forEach(function (id) {
       document.getElementById(id).checked = true;
     });
-
-    // Aplicar toggles visuais
     toggleOpt("logoEnabled", "logoFields", "logoBlock");
     toggleOpt("titleEnabled", "titleFields", "titleBlock");
     toggleOpt("btnEnabled", "btnFields", "btnBlock");
@@ -692,21 +700,17 @@
     "Olá! Escreva aqui o conteúdo do seu e-mail. Você pode usar <b>negrito</b>, <i>itálico</i>, listas e muito mais.<br><br>Adicione quantos blocos de texto quiser usando o botão abaixo.";
 
   function resetToDefaults() {
-    // pausar auto-save durante o reset
     var paused = true;
     var origUpdate = window.updatePreview;
     window.updatePreview = function () {
       if (!paused) origUpdate();
     };
-
     applyDefaults();
     document.getElementById("blocksContainer").innerHTML = "";
     blockCount = 0;
     addBlock();
     var ed = document.getElementById("ed_" + blockCount);
     if (ed) ed.innerHTML = DEFAULT_BLOCK_TEXT;
-
-    // retomar e disparar uma única vez
     paused = false;
     window.updatePreview = origUpdate;
     origUpdate();
@@ -725,49 +729,22 @@
   var SAVE_KEY = "emailgen_state";
   var saveTimer = null;
 
-  // Lista de todos os campos simples a salvar
   var FIELDS = [
-    "previewText",
-    "logoUrl",
-    "logoLink",
-    "bannerUrl",
-    "bannerLink",
-    "titleText",
-    "titleColorHex",
-    "btnText",
-    "btnLink",
-    "btnBgHex",
-    "btnTxtHex",
-    "btnBorderHex",
-    "bgHex",
-    "cardVerdeHex",
-    "cardBgHex",
-    "cardBorderHex",
-    "footerLegal",
-    "footerSocialText",
-    "footerSocialColorHex",
-    "footerLegalColorHex",
-    "footerUnsub",
-    "footerUnsubColorHex",
-    "footerUnsubUrl",
-    "instaUrl",
-    "teleUrl",
-    "ytUrl",
+    "previewText", "logoUrl", "logoLink", "bannerUrl", "bannerLink",
+    "titleText", "titleColorHex",
+    "btnText", "btnLink", "btnBgHex", "btnTxtHex", "btnBorderHex",
+    "bgHex", "cardVerdeHex", "cardBgHex", "cardBorderHex",
+    "footerLegal", "footerSocialText", "footerSocialColorHex",
+    "footerLegalColorHex", "footerUnsub", "footerUnsubColorHex", "footerUnsubUrl",
+    "instaUrl", "teleUrl", "ytUrl",
   ];
   var CHECKS = [
-    "logoEnabled",
-    "titleEnabled",
-    "btnEnabled",
-    "btnNewTab",
-    "footerEnabled",
-    "instaOn",
-    "teleOn",
-    "ytOn",
+    "logoEnabled", "titleEnabled", "btnEnabled", "btnNewTab",
+    "footerEnabled", "instaOn", "teleOn", "ytOn",
   ];
 
   function saveState() {
     var state = { fields: {}, checks: {}, blocks: [] };
-
     FIELDS.forEach(function (id) {
       var el = document.getElementById(id);
       if (el) state.fields[id] = el.value;
@@ -776,8 +753,6 @@
       var el = document.getElementById(id);
       if (el) state.checks[id] = el.checked;
     });
-
-    // salvar blocos de texto
     document.querySelectorAll(".block-wrap").forEach(function (block) {
       var ed = block.querySelector(".editor");
       state.blocks.push({
@@ -785,12 +760,9 @@
         content: ed ? ed.innerHTML : "",
       });
     });
-
     try {
       localStorage.setItem(SAVE_KEY, JSON.stringify(state));
     } catch (e) {}
-
-    // mostrar indicador
     var badge = document.getElementById("saveBadge");
     if (badge) {
       badge.classList.add("show");
@@ -807,35 +779,20 @@
       raw = localStorage.getItem(SAVE_KEY);
     } catch (e) {}
     if (!raw) return false;
-
     var state;
     try {
       state = JSON.parse(raw);
     } catch (e) {
       return false;
     }
-
-    // restaurar campos
     (state.fields ? Object.keys(state.fields) : []).forEach(function (id) {
       var el = document.getElementById(id);
-      if (el) {
-        el.value = state.fields[id];
-      }
+      if (el) el.value = state.fields[id];
     });
-
-    // sincronizar color pickers com os hex
     [
-      "btnBgHex",
-      "btnTxtHex",
-      "btnBorderHex",
-      "bgHex",
-      "cardVerdeHex",
-      "cardBgHex",
-      "cardBorderHex",
-      "titleColorHex",
-      "footerLegalColorHex",
-      "footerSocialColorHex",
-      "footerUnsubColorHex",
+      "btnBgHex", "btnTxtHex", "btnBorderHex", "bgHex", "cardVerdeHex",
+      "cardBgHex", "cardBorderHex", "titleColorHex", "footerLegalColorHex",
+      "footerSocialColorHex", "footerUnsubColorHex",
     ].forEach(function (hexId) {
       var colorId = hexId.replace("Hex", "");
       var hexEl = document.getElementById(hexId);
@@ -843,25 +800,17 @@
       if (hexEl && colorEl && /^#[0-9a-fA-F]{6}$/.test(hexEl.value))
         colorEl.value = hexEl.value;
     });
-
-    // restaurar checkboxes
     (state.checks ? Object.keys(state.checks) : []).forEach(function (id) {
       var el = document.getElementById(id);
       if (el) el.checked = state.checks[id];
     });
-
-    // aplicar toggles visuais
     toggleOpt("logoEnabled", "logoFields", "logoBlock");
     toggleOpt("titleEnabled", "titleFields", "titleBlock");
     toggleOpt("btnEnabled", "btnFields", "btnBlock");
     toggleOpt("footerEnabled", "footerFields", "footerBlock");
-
-    // auto-resize textareas
     document.querySelectorAll("textarea").forEach(function (t) {
       autoResize(t);
     });
-
-    // restaurar blocos
     document.getElementById("blocksContainer").innerHTML = "";
     blockCount = 0;
     if (state.blocks && state.blocks.length > 0) {
@@ -871,22 +820,18 @@
         var ed = document.getElementById("ed_" + blockCount);
         if (ed) ed.innerHTML = b.content;
         if (wrap) wrap.dataset.align = b.align;
-        // atualizar botões de alinhamento
         if (wrap) setAlign("block_" + blockCount, b.align);
       });
     } else {
       addBlock();
     }
-
     return true;
   }
 
-  // disparar save com debounce após qualquer updatePreview
-  var _origUpdatePreview;
   function hookSave() {
-    _origUpdatePreview = window.updatePreview;
+    var _orig = window.updatePreview;
     window.updatePreview = function () {
-      _origUpdatePreview();
+      _orig();
       clearTimeout(saveTimer);
       saveTimer = setTimeout(saveState, 800);
     };
@@ -902,4 +847,5 @@
     if (!restored) resetToDefaults();
     else updatePreview();
   });
+
 })();

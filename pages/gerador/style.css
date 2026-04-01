@@ -94,6 +94,33 @@ body {
   color: #fff;
 }
 
+.btn-gmail {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 8px 14px;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-gmail:hover {
+  background: rgba(37, 99, 235, 0.08);
+  border-color: var(--accent);
+}
+
+.btn-gmail.copied {
+  background: var(--green);
+  color: #fff;
+  border-color: var(--green);
+}
+
 .btn-new {
   display: flex;
   align-items: center;
