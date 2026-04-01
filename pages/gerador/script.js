@@ -377,7 +377,7 @@
     document.getElementById('cardBorderColor').value = '#e1e1e6';
 
     // Rodapé
-    document.getElementById('footerLegal').value = 'Este e-mail foi enviado para voce porque voce se cadastrou em nossa lista.\n© 2025 Sua Empresa. Todos os direitos reservados.';
+    document.getElementById('footerLegal').value = 'Este e-mail foi enviado para voce porque voce se cadastrou em nossa lista.\n© 2026 Sua Empresa. Todos os direitos reservados.';
     autoResize(document.getElementById('footerLegal'));
     document.getElementById('footerSocialText').value = 'Siga nossas redes sociais!';
     document.getElementById('footerUnsub').value = 'Para cancelar o recebimento destes e-mails,';
