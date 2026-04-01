@@ -167,31 +167,14 @@
 
     var edVis = document.getElementById(edId);
 
-    /* PASTE: insere conteúdo limpo diretamente no DOM */
+    /* PASTE: sempre texto puro — formata no próprio editor */
     edVis.addEventListener('paste', function(e){
       e.preventDefault();
-      var html = (e.clipboardData||window.clipboardData).getData('text/html');
       var text = (e.clipboardData||window.clipboardData).getData('text/plain');
-
-      var insertHtml = html ? cleanPastedHTML(html)
-        : text.split(/\r?\n/).map(function(l){ return '<p>'+(l||'&nbsp;')+'</p>'; }).join('');
-
-      var sel = window.getSelection();
-      if(sel && sel.rangeCount > 0){
-        var range = sel.getRangeAt(0);
-        range.deleteContents();
-        var tempDiv = document.createElement('div');
-        tempDiv.innerHTML = insertHtml;
-        var frag = document.createDocumentFragment();
-        while(tempDiv.firstChild) frag.appendChild(tempDiv.firstChild);
-        range.insertNode(frag);
-        range.collapse(false);
-        sel.removeAllRanges();
-        sel.addRange(range);
-      } else {
-        edVis.innerHTML += insertHtml;
-      }
-
+      // preservar quebras de linha como <br>
+      var lines = text.split(/\r?\n/);
+      var html = lines.map(function(l){ return l || ''; }).join('<br>');
+      document.execCommand('insertHTML', false, html);
       updatePreview();
     });
 
@@ -232,8 +215,11 @@
     var cardBg=val('cardBgHex')||'#ffffff',cardBorder=val('cardBorderHex')||'#e1e1e6';
     var footerOn=checked('footerEnabled');
     var fLegal=val('footerLegal').replace(/\n/g,'<br />');
+    var fLegalColor=val('footerLegalColorHex')||'#dadada';
     var fSocText=val('footerSocialText');
+    var fSocColor=val('footerSocialColorHex')||'#ffffff';
     var fUnsub=val('footerUnsub');
+    var fUnsubColor=val('footerUnsubColorHex')||'#999999';
     var fUnsubUrl=val('footerUnsubUrl')||'#';
     var instaOn=checked('instaOn'),instaUrl=val('instaUrl');
     var teleOn=checked('teleOn'),teleUrl=val('teleUrl');
@@ -281,15 +267,15 @@
       if(ytOn&&ytUrl)       socCells+='<td style="padding:0 15px;"><a href="'+ytUrl+'"    target="_blank" rel="noopener noreferrer"><img alt="YouTube"   src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" style="display:block;outline:none;border:none;text-decoration:none;border-radius:10%;"  width="35" /></a></td>';
 
       footerCard='<table align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="max-width:600px;margin:0 auto 10px;background-color:'+cardVerde+';color:#f0f0f0;border-radius:15px;overflow:hidden;"><tbody><tr style="width:100%"><td>'
-        +'<p style="font-size:14px;line-height:24px;color:#dadada;margin-top:20px;margin-bottom:10px;text-align:center;padding-inline:40px;">'+fLegal+'</p>'
+        +'<p style="font-size:14px;line-height:24px;color:'+fLegalColor+';margin-top:20px;margin-bottom:10px;text-align:center;padding-inline:40px;">'+fLegal+'</p>'
         +(socCells?
           '<table align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="text-align:center;"><tbody><tr><td>'
-          +'<p style="font-size:15px;line-height:24px;color:#ffffff;margin-bottom:16px;padding-inline:40px;margin-top:16px;">'+esc(fSocText)+'</p>'
+          +'<p style="font-size:15px;line-height:24px;color:'+fSocColor+';margin-bottom:16px;padding-inline:40px;margin-top:16px;">'+esc(fSocText)+'</p>'
           +'<table style="margin:0 auto" cellpadding="0" cellspacing="0" role="presentation"><tr>'+socCells+'</tr></table>'
           +'</td></tr></tbody></table>'
           :'')
         +'<table align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="padding:12px 10px;text-align:center;"><tbody><tr><td>'
-        +'<p style="font-size:12px;line-height:24px;color:#999;margin-top:16px;margin-bottom:16px;">'+esc(fUnsub)+' <a href="'+fUnsubUrl+'" style="color:#2563eb;text-decoration:underline;">clique aqui</a>.</p>'
+        +'<p style="font-size:12px;line-height:24px;color:'+fUnsubColor+';margin-top:16px;margin-bottom:16px;">'+esc(fUnsub)+' <a href="'+fUnsubUrl+'" style="color:'+fUnsubColor+';text-decoration:underline;">clique aqui</a>.</p>'
         +'</td></tr></tbody></table>'
         +'</td></tr></tbody></table>';
     }
@@ -354,6 +340,7 @@
   /* ── NOVO EMAIL ── */
   window.novoEmail = function(){
     if(!confirm('Resetar tudo e começar um novo e-mail?')) return;
+    try { localStorage.removeItem(SAVE_KEY); } catch(e){}
 
     ['previewText','logoUrl','logoLink','bannerUrl','bannerLink','titleText','btnText','btnLink',
      'btnBgHex','btnTxtHex','btnBorderHex','bgHex','cardVerdeHex','cardBgHex','cardBorderHex',
@@ -390,6 +377,12 @@
 
     document.getElementById('footerLegal').value = 'Este e-mail foi enviado para voce porque voce se cadastrou em nossa lista.\n© 2025 Sua Empresa. Todos os direitos reservados.';
     autoResize(document.getElementById('footerLegal'));
+    document.getElementById('footerLegalColorHex').value = '#dadada';
+    document.getElementById('footerLegalColor').value = '#dadada';
+    document.getElementById('footerSocialColorHex').value = '#ffffff';
+    document.getElementById('footerSocialColor').value = '#ffffff';
+    document.getElementById('footerUnsubColorHex').value = '#999999';
+    document.getElementById('footerUnsubColor').value = '#999999';
 
     document.getElementById('blocksContainer').innerHTML = '';
     blockCount = 0;
@@ -397,11 +390,129 @@
     updatePreview();
   };
 
-  /* ── INIT ── */
-  window.addEventListener('DOMContentLoaded',function(){
-    // auto-resize textarea do rodapé
+  /* ── AUTO-SAVE / RESTORE ── */
+  var SAVE_KEY = 'emailgen_state';
+  var saveTimer = null;
+
+  // Lista de todos os campos simples a salvar
+  var FIELDS = [
+    'previewText','logoUrl','logoLink','bannerUrl','bannerLink',
+    'titleText','titleColorHex',
+    'btnText','btnLink','btnBgHex','btnTxtHex','btnBorderHex',
+    'bgHex','cardVerdeHex','cardBgHex','cardBorderHex',
+    'footerLegal','footerSocialText','footerSocialColorHex',
+    'footerLegalColorHex','footerUnsub','footerUnsubColorHex','footerUnsubUrl',
+    'instaUrl','teleUrl','ytUrl'
+  ];
+  var CHECKS = [
+    'logoEnabled','titleEnabled','btnEnabled','btnNewTab',
+    'footerEnabled','instaOn','teleOn','ytOn'
+  ];
+
+  function saveState() {
+    var state = { fields: {}, checks: {}, blocks: [] };
+
+    FIELDS.forEach(function(id){
+      var el = document.getElementById(id);
+      if(el) state.fields[id] = el.value;
+    });
+    CHECKS.forEach(function(id){
+      var el = document.getElementById(id);
+      if(el) state.checks[id] = el.checked;
+    });
+
+    // salvar blocos de texto
+    document.querySelectorAll('.block-wrap').forEach(function(block){
+      var ed = block.querySelector('.editor');
+      state.blocks.push({
+        align: block.dataset.align || 'left',
+        content: ed ? ed.innerHTML : ''
+      });
+    });
+
+    try { localStorage.setItem(SAVE_KEY, JSON.stringify(state)); } catch(e){}
+
+    // mostrar indicador
+    var badge = document.getElementById('saveBadge');
+    if(badge){ badge.classList.add('show'); clearTimeout(badge._t); badge._t = setTimeout(function(){ badge.classList.remove('show'); }, 2000); }
+  }
+
+  function restoreState() {
+    var raw;
+    try { raw = localStorage.getItem(SAVE_KEY); } catch(e){}
+    if(!raw) return false;
+
+    var state;
+    try { state = JSON.parse(raw); } catch(e){ return false; }
+
+    // restaurar campos
+    (state.fields ? Object.keys(state.fields) : []).forEach(function(id){
+      var el = document.getElementById(id);
+      if(el){ el.value = state.fields[id]; }
+    });
+
+    // sincronizar color pickers com os hex
+    ['btnBgHex','btnTxtHex','btnBorderHex','bgHex','cardVerdeHex','cardBgHex',
+     'cardBorderHex','titleColorHex','footerLegalColorHex','footerSocialColorHex','footerUnsubColorHex'].forEach(function(hexId){
+      var colorId = hexId.replace('Hex','');
+      var hexEl = document.getElementById(hexId);
+      var colorEl = document.getElementById(colorId);
+      if(hexEl && colorEl && /^#[0-9a-fA-F]{6}$/.test(hexEl.value)) colorEl.value = hexEl.value;
+    });
+
+    // restaurar checkboxes
+    (state.checks ? Object.keys(state.checks) : []).forEach(function(id){
+      var el = document.getElementById(id);
+      if(el) el.checked = state.checks[id];
+    });
+
+    // aplicar toggles visuais
+    toggleOpt('logoEnabled','logoFields','logoBlock');
+    toggleOpt('titleEnabled','titleFields','titleBlock');
+    toggleOpt('btnEnabled','btnFields','btnBlock');
+    toggleOpt('footerEnabled','footerFields','footerBlock');
+
+    // auto-resize textareas
     document.querySelectorAll('textarea').forEach(function(t){ autoResize(t); });
-    addBlock();
+
+    // restaurar blocos
+    document.getElementById('blocksContainer').innerHTML = '';
+    blockCount = 0;
+    if(state.blocks && state.blocks.length > 0){
+      state.blocks.forEach(function(b){
+        addBlock();
+        var wrap = document.getElementById('block_' + blockCount);
+        var ed = document.getElementById('ed_' + blockCount);
+        if(ed) ed.innerHTML = b.content;
+        if(wrap) wrap.dataset.align = b.align;
+        // atualizar botões de alinhamento
+        if(wrap) setAlign('block_' + blockCount, b.align);
+      });
+    } else {
+      addBlock();
+    }
+
+    return true;
+  }
+
+  // disparar save com debounce após qualquer updatePreview
+  var _origUpdatePreview;
+  function hookSave(){
+    _origUpdatePreview = window.updatePreview;
+    window.updatePreview = function(){
+      _origUpdatePreview();
+      clearTimeout(saveTimer);
+      saveTimer = setTimeout(saveState, 800);
+    };
+  }
+
+  /* ── INIT ── */
+  window.addEventListener('DOMContentLoaded', function(){
+    document.querySelectorAll('textarea').forEach(function(t){ autoResize(t); });
+    hookSave();
+    var restored = restoreState();
+    if(!restored) addBlock();
     updatePreview();
   });
+
 }());

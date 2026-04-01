@@ -20,6 +20,7 @@
         </div>
       </a>
       <div style="display: flex; gap: 8px; align-items: center">
+        <span id="saveBadge" style="font-size:0.72rem;color:var(--green);font-weight:600;opacity:0;transition:opacity 0.3s;">✓ Salvo</span>
         <button class="btn-new" id="btnNew" onclick="novoEmail()">
           <svg
             width="13"
@@ -474,115 +475,72 @@
               />
               <span>Incluir rodapé</span>
             </label>
-            <div
-              id="footerFields"
-              style="display: flex; flex-direction: column; gap: 10px"
-            >
-              <div class="field">
-                <label>Texto legal</label
-                ><textarea
-                  id="footerLegal"
-                  style="min-height: 80px"
-                  oninput="
-                    autoResize(this);
-                    updatePreview();
-                  "
-                >
-Este e-mail foi enviado para voce porque voce se cadastrou em nossa lista.
-© 2025 Sua Empresa. Todos os direitos reservados.</textarea
-                >
-              </div>
-              <div class="field">
-                <label>Chamada redes sociais</label
-                ><input
-                  type="text"
-                  id="footerSocialText"
-                  value="Siga nossas redes sociais!"
-                  oninput="updatePreview()"
-                />
+            <div id="footerFields" style="display: flex; flex-direction: column; gap: 10px">
+
+              <div class="two-col">
+                <div class="field">
+                  <label>Texto legal</label>
+                  <textarea id="footerLegal" style="min-height: 80px" oninput="autoResize(this); updatePreview();">Este e-mail foi enviado para voce porque voce se cadastrou em nossa lista.
+© 2025 Sua Empresa. Todos os direitos reservados.</textarea>
+                </div>
+                <div class="field">
+                  <label>Cor do texto legal</label>
+                  <div class="color-row">
+                    <input type="text" id="footerLegalColorHex" value="#dadada" oninput="syncHex('footerLegalColorHex','footerLegalColor'); updatePreview()">
+                    <input type="color" id="footerLegalColor" value="#dadada" oninput="syncPicker('footerLegalColor','footerLegalColorHex'); updatePreview()">
+                  </div>
+                </div>
               </div>
 
-              <div class="section-label titulo-social" style="margin-bottom: 2px">
-                Redes Sociais
+              <div class="two-col">
+                <div class="field">
+                  <label>Chamada redes sociais</label>
+                  <input type="text" id="footerSocialText" value="Siga nossas redes sociais!" oninput="updatePreview()" />
+                </div>
+                <div class="field">
+                  <label>Cor da chamada</label>
+                  <div class="color-row">
+                    <input type="text" id="footerSocialColorHex" value="#ffffff" oninput="syncHex('footerSocialColorHex','footerSocialColor'); updatePreview()">
+                    <input type="color" id="footerSocialColor" value="#ffffff" oninput="syncPicker('footerSocialColor','footerSocialColorHex'); updatePreview()">
+                  </div>
+                </div>
               </div>
+
+              <div class="section-label titulo-social" style="margin-bottom: 2px">Redes Sociais</div>
               <div class="social-grid">
                 <div class="social-row">
-                  <label class="social-check"
-                    ><input
-                      type="checkbox"
-                      id="instaOn"
-                      onchange="updatePreview()"
-                    /><span>Instagram</span></label
-                  >
-                  <input
-                    type="url"
-                    class="social-url"
-                    id="instaUrl"
-                    placeholder="https://instagram.com/suaempresa"
-                    oninput="updatePreview()"
-                  />
+                  <label class="social-check"><input type="checkbox" id="instaOn" onchange="updatePreview()"/><span>Instagram</span></label>
+                  <input type="url" class="social-url" id="instaUrl" placeholder="https://instagram.com/suaempresa" oninput="updatePreview()" />
                 </div>
                 <div class="social-row">
-                  <label class="social-check"
-                    ><input
-                      type="checkbox"
-                      id="teleOn"
-                      onchange="updatePreview()"
-                    /><span>Telegram</span></label
-                  >
-                  <input
-                    type="url"
-                    class="social-url"
-                    id="teleUrl"
-                    placeholder="https://t.me/suaempresa"
-                    oninput="updatePreview()"
-                  />
+                  <label class="social-check"><input type="checkbox" id="teleOn" onchange="updatePreview()"/><span>Telegram</span></label>
+                  <input type="url" class="social-url" id="teleUrl" placeholder="https://t.me/suaempresa" oninput="updatePreview()" />
                 </div>
                 <div class="social-row">
-                  <label class="social-check"
-                    ><input
-                      type="checkbox"
-                      id="ytOn"
-                      onchange="updatePreview()"
-                    /><span>YouTube</span></label
-                  >
-                  <input
-                    type="url"
-                    class="social-url"
-                    id="ytUrl"
-                    placeholder="https://youtube.com/@suaempresa"
-                    oninput="updatePreview()"
-                  />
+                  <label class="social-check"><input type="checkbox" id="ytOn" onchange="updatePreview()"/><span>YouTube</span></label>
+                  <input type="url" class="social-url" id="ytUrl" placeholder="https://youtube.com/@suaempresa" oninput="updatePreview()" />
+                </div>
+              </div>
+
+              <div class="two-col">
+                <div class="field">
+                  <label>Texto de descadastro</label>
+                  <input type="text" id="footerUnsub" value="Para cancelar o recebimento destes e-mails," oninput="updatePreview()" />
+                </div>
+                <div class="field">
+                  <label>Cor do descadastro</label>
+                  <div class="color-row">
+                    <input type="text" id="footerUnsubColorHex" value="#999999" oninput="syncHex('footerUnsubColorHex','footerUnsubColor'); updatePreview()">
+                    <input type="color" id="footerUnsubColor" value="#999999" oninput="syncPicker('footerUnsubColor','footerUnsubColorHex'); updatePreview()">
+                  </div>
                 </div>
               </div>
 
               <div class="field">
-                <label>Texto de descadastro</label
-                ><input
-                  type="text"
-                  id="footerUnsub"
-                  value="Para cancelar o recebimento destes e-mails,"
-                  oninput="updatePreview()"
-                />
+                <label>Link de desinscrever <span style="color: var(--muted); font-weight: 400; font-size: 0.65rem;">(use o link do seu ESP)</span></label>
+                <input type="url" id="footerUnsubUrl" placeholder="https://... ou {{unsubscribe_url}}" oninput="updatePreview()" />
               </div>
-              <div class="field">
-                <label
-                  >Link de desinscrever
-                  <span
-                    style="
-                      color: var(--muted);
-                      font-weight: 400;
-                      font-size: 0.65rem;
-                    "
-                    >(use o link do seu ESP)</span
-                  ></label
-                ><input
-                  type="url"
-                  id="footerUnsubUrl"
-                  placeholder="https://... ou {{unsubscribe_url}}"
-                  oninput="updatePreview()"
-                />
-              </div>
+
             </div>
           </div>
         </div>
