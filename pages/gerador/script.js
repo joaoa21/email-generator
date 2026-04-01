@@ -409,13 +409,22 @@
   var DEFAULT_BLOCK_TEXT = 'Olá! Escreva aqui o conteúdo do seu e-mail. Você pode usar <b>negrito</b>, <i>itálico</i>, listas e muito mais.<br><br>Adicione quantos blocos de texto quiser usando o botão abaixo.';
 
   function resetToDefaults(){
+    // pausar auto-save durante o reset
+    var paused = true;
+    var origUpdate = window.updatePreview;
+    window.updatePreview = function(){ if(!paused) origUpdate(); };
+
     applyDefaults();
     document.getElementById('blocksContainer').innerHTML = '';
     blockCount = 0;
     addBlock();
     var ed = document.getElementById('ed_' + blockCount);
     if(ed) ed.innerHTML = DEFAULT_BLOCK_TEXT;
-    updatePreview();
+
+    // retomar e disparar uma única vez
+    paused = false;
+    window.updatePreview = origUpdate;
+    origUpdate();
   }
 
   /* ── NOVO EMAIL ── */
