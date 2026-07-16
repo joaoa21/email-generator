@@ -1,0 +1,121 @@
+(function () {
+  var generatedUrl = "";
+
+  /* ── FORMATAR TELEFONE ── */
+  window.formatPhone = function (input) {
+    var v = input.value.replace(/\D/g, "").slice(0, 11);
+    if (v.length <= 2) {
+      input.value = v;
+    } else if (v.length <= 6) {
+      input.value = v.slice(0, 2) + " " + v.slice(2);
+    } else if (v.length <= 10) {
+      input.value = v.slice(0, 2) + " " + v.slice(2, 6) + "-" + v.slice(6);
+    } else {
+      input.value = v.slice(0, 2) + " " + v.slice(2, 7) + "-" + v.slice(7);
+    }
+  };
+
+  /* ── CONTADOR DE CARACTERES ── */
+  window.updateCharCount = function () {
+    var len = document.getElementById("msgText").value.length;
+    var el = document.getElementById("charCount");
+    el.textContent = len + " / 1000";
+    el.classList.toggle("warn", len > 800);
+  };
+
+  /* ── FORMATAR MENSAGEM (WhatsApp markdown) ── */
+  window.formatMsg = function (type) {
+    var ta = document.getElementById("msgText");
+    var start = ta.selectionStart;
+    var end = ta.selectionEnd;
+    var selected = ta.value.slice(start, end);
+    var before = ta.value.slice(0, start);
+    var after = ta.value.slice(end);
+
+    var wrap = { bold: "*", italic: "_", strike: "~", mono: "`" };
+    var char = wrap[type];
+
+    if (!char) return;
+
+    if (selected.length > 0) {
+      ta.value = before + char + selected + char + after;
+      ta.selectionStart = start + 1;
+      ta.selectionEnd = end + 1;
+    } else {
+      ta.value = before + char + char + after;
+      ta.selectionStart = start + 1;
+      ta.selectionEnd = start + 1;
+    }
+
+    ta.focus();
+    updateCharCount();
+    updateLink();
+  };
+
+  /* ── USAR TEMPLATE ── */
+  window.useTemplate = function (text) {
+    document.getElementById("msgText").value = text;
+    updateCharCount();
+    updateLink();
+  };
+
+  /* ── GERAR LINK ── */
+  window.updateLink = function () {
+    var raw = document.getElementById("phoneNumber").value.replace(/\D/g, "");
+    var msg = document.getElementById("msgText").value.trim();
+
+    var emptyState = document.getElementById("emptyState");
+    var resultCard = document.getElementById("resultCard");
+    var btnCopy = document.getElementById("btnCopy");
+
+    if (raw.length < 10) {
+      emptyState.style.display = "flex";
+      resultCard.style.display = "none";
+      btnCopy.disabled = true;
+      generatedUrl = "";
+      return;
+    }
+
+    // Montar número com DDI 55
+    var number = raw.startsWith("55") ? raw : "55" + raw;
+
+    // Montar URL
+    var url = "https://wa.me/" + number;
+    if (msg) {
+      url += "?text=" + encodeURIComponent(msg);
+    }
+
+    generatedUrl = url;
+
+    // Exibir resultado
+    var display = url.length > 60 ? url.slice(0, 60) + "…" : url;
+    document.getElementById("linkDisplay").textContent = display;
+
+    emptyState.style.display = "none";
+    resultCard.style.display = "flex";
+    btnCopy.disabled = false;
+  };
+
+  /* ── TOAST ── */
+  function showToast(msg) {
+    var zone = document.getElementById("toastZone");
+    if (!zone) return;
+    var t = document.createElement("div");
+    t.className = "toast";
+    t.textContent = msg;
+    zone.appendChild(t);
+    setTimeout(function () { t.remove(); }, 3100);
+  }
+  /* ── COPIAR LINK ── */
+  window.copyLink = function () {
+    if (!generatedUrl) return;
+    navigator.clipboard.writeText(generatedUrl).then(function () {
+      showToast("Link copiado — cole onde quiser");
+    });
+  };
+
+  /* ── ABRIR WHATSAPP ── */
+  window.openWhatsApp = function () {
+    if (generatedUrl) window.open(generatedUrl, "_blank");
+  };
+})();

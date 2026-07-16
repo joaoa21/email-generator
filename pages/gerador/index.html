@@ -1,0 +1,684 @@
+<!doctype html>
+<html lang="pt-BR">
+  
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Email Generator</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Fraunces:ital,wght@1,500&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6XZ57LGL1Q"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-6XZ57LGL1Q');
+    </script>
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <div class="header">
+      <div class="header-left">
+        <a href="../../" class="header-brand" title="Voltar para o início">
+          <span class="brand-mark">e.</span>
+          <span class="brand-text">Email Generator</span>
+        </a>
+        <nav class="tool-switch" aria-label="Trocar de ferramenta">
+          <a href="../gerador/index.html" class="tool-tab active" aria-current="page">E-mail</a>
+          <a href="../whatsapp/index.html" class="tool-tab">WhatsApp</a>
+        </nav>
+      </div>
+      <div style="display: flex; gap: 8px; align-items: center">
+        <span id="saveBadge" style="font-size:0.72rem;color:var(--green);font-weight:600;opacity:0;transition:opacity 0.3s;">✓ Salvo</span>
+        <button class="btn-new" id="btnNew" onclick="novoEmail()" title="Começar um novo e-mail do zero">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M12 5v14M5 12h14" />
+          </svg>
+          <span class="btn-label">Novo</span>
+        </button>
+        <button class="btn-new" id="btnDownload" onclick="downloadHTML()" title="Baixar arquivo .html">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+          </svg>
+          <span class="btn-label">Baixar</span>
+        </button>
+        <button class="btn-gmail" id="btnGmail" onclick="copyForGmail()" title="Copiar renderizado para colar no Gmail">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <rect x="2" y="4" width="20" height="16" rx="2"/>
+            <path d="M2 7l10 7 10-7"/>
+          </svg>
+          <span class="btn-label">Copiar p/ Gmail</span>
+        </button>
+        <button class="btn-copy" id="btnCopy" onclick="copyHTML()" title="Copiar código HTML para o ESP">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <rect x="9" y="9" width="13" height="13" rx="2" />
+            <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" />
+          </svg>
+          <span class="btn-label">Copiar HTML</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- TOASTS -->
+    <div class="toast-zone" id="toastZone" aria-live="polite"></div>
+
+    <!-- MODAL CONFIRM -->
+    <div class="modal-overlay" id="confirmModal" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+      <div class="modal-box">
+        <p class="modal-title" id="confirmTitle">Começar um novo e-mail?</p>
+        <p class="modal-desc">O e-mail atual será apagado e todos os campos voltam ao padrão.</p>
+        <div class="modal-actions">
+          <button class="modal-btn modal-cancel" onclick="closeConfirm()">Cancelar</button>
+          <button class="modal-btn modal-ok" onclick="confirmNovoEmail()">Sim, começar novo</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="workspace">
+      <div class="sidebar">
+        <div>
+          <div class="section-label"><span class="sec-num">01</span>Preview Text</div>
+          <div class="field">
+            <label>Subtítulo (fica oculto, aparece no Gmail junto ao título do e-mail)</label>
+            <input
+              type="text"
+              id="previewText"
+              placeholder="Ex: Fique por dentro das novidades"
+              oninput="updatePreview()"
+            />
+          </div>
+        </div>
+
+        <div class="divider-line"></div>
+
+        <div>
+          <div class="section-label"><span class="sec-num">02</span>Logo</div>
+          <div class="optional-block enabled" id="logoBlock">
+            <label class="toggle-row">
+              <input
+                type="checkbox"
+                id="logoEnabled"
+                checked
+                onchange="
+                  toggleOpt('logoEnabled', 'logoFields', 'logoBlock');
+                  updatePreview();
+                "
+              />
+              <span>Incluir logo no topo</span>
+            </label>
+            <div
+              id="logoFields"
+              style="display: flex; flex-direction: column; gap: 8px"
+            >
+              <div class="two-col">
+                <div class="field">
+                  <label>URL da logo</label
+                  ><input
+                    type="url"
+                    id="logoUrl"
+                    placeholder="https://sua-empresa.com/logo.png"
+                    oninput="updatePreview()"
+                  />
+                </div>
+                <div class="field">
+                  <label>Link da logo (opcional)</label
+                  ><input
+                    type="url"
+                    id="logoLink"
+                    placeholder="https://sua-empresa.com"
+                    oninput="updatePreview()"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="divider-line"></div>
+
+        <div>
+          <div class="section-label"><span class="sec-num">03</span>Banner</div>
+          <div class="two-col">
+            <div class="field">
+              <label>URL do banner</label
+              ><input
+                type="url"
+                id="bannerUrl"
+                placeholder="https://..."
+                oninput="updatePreview()"
+              />
+            </div>
+            <div class="field">
+              <label>Link do banner (opcional)</label
+              ><input
+                type="url"
+                id="bannerLink"
+                placeholder="https://..."
+                oninput="updatePreview()"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="divider-line"></div>
+
+        <div>
+          <div class="section-label"><span class="sec-num">04</span>Título</div>
+          <div class="optional-block enabled" id="titleBlock">
+            <label class="toggle-row">
+              <input
+                type="checkbox"
+                id="titleEnabled"
+                checked
+                onchange="
+                  toggleOpt('titleEnabled', 'titleFields', 'titleBlock');
+                  updatePreview();
+                "
+              />
+              <span>Incluir titulo</span>
+            </label>
+            <div
+              id="titleFields"
+              style="display: flex; flex-direction: column; gap: 8px"
+            >
+              <div class="two-col">
+                <div class="field">
+                  <label>Texto do titulo</label>
+                  <input
+                    type="text"
+                    id="titleText"
+                    placeholder="Seu titulo aqui"
+                    value="Seu titulo aqui"
+                    oninput="updatePreview()"
+                  />
+                </div>
+                <div class="field">
+                  <label>Cor</label>
+                  <div class="color-row">
+                    <input
+                      type="text"
+                      id="titleColorHex"
+                      value="#242424"
+                      oninput="
+                        syncHex('titleColorHex', 'titleColor');
+                        updatePreview();
+                      "
+                    />
+                    <input
+                      type="color"
+                      id="titleColor"
+                      value="#242424"
+                      oninput="
+                        syncPicker('titleColor', 'titleColorHex');
+                        updatePreview();
+                      "
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="divider-line"></div>
+
+        <div>
+          <div class="section-label"><span class="sec-num">05</span>Blocos de texto</div>
+          <div
+            id="blocksContainer"
+            style="display: flex; flex-direction: column; gap: 10px"
+          ></div>
+          <button class="btn-add-block" onclick="addBlock()">
+            <svg
+              width="12"
+              height="12"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+            >
+              <line x1="12" y1="5" x2="12" y2="19" />
+              <line x1="5" y1="12" x2="19" y2="12" />
+            </svg>
+            Adicionar bloco de texto
+          </button>
+        </div>
+
+        <div class="divider-line"></div>
+
+        <div>
+          <div class="section-label">
+            <span class="sec-num">06</span>Botão CTA
+            <span
+              style="
+                color: var(--muted);
+                font-size: 0.58rem;
+                text-transform: none;
+                letter-spacing: 0;
+                font-weight: 400;
+              "
+              >(opcional)</span
+            >
+          </div>
+          <div class="optional-block" id="btnBlock">
+            <label class="toggle-row">
+              <input
+                type="checkbox"
+                id="btnEnabled"
+                onchange="
+                  toggleOpt('btnEnabled', 'btnFields', 'btnBlock');
+                  updatePreview();
+                "
+              />
+              <span>Incluir botão de acao</span>
+            </label>
+            <div
+              id="btnFields"
+              style="display: none; flex-direction: column; gap: 8px"
+            >
+              <div class="two-col">
+                <div class="field">
+                  <label>Texto</label
+                  ><input
+                    type="text"
+                    id="btnText"
+                    placeholder="Saiba mais"
+                    oninput="updatePreview()"
+                  />
+                </div>
+                <div class="field">
+                  <label
+                    >Link
+                    <span
+                      style="
+                        color: var(--muted);
+                        font-weight: 400;
+                        font-size: 0.65rem;
+                      "
+                      >(opcional)</span
+                    ></label
+                  ><input
+                    type="url"
+                    id="btnLink"
+                    placeholder="https://..."
+                    oninput="updatePreview()"
+                  />
+                </div>
+              </div>
+              <div class="three-col">
+                <div class="field">
+                  <label>Fundo</label>
+                  <div class="color-row">
+                    <input
+                      type="text"
+                      id="btnBgHex"
+                      value="#2563eb"
+                      oninput="
+                        syncHex('btnBgHex', 'btnBgColor');
+                        updatePreview();
+                      "
+                    /><input
+                      type="color"
+                      id="btnBgColor"
+                      value="#2563eb"
+                      oninput="
+                        syncPicker('btnBgColor', 'btnBgHex');
+                        updatePreview();
+                      "
+                    />
+                  </div>
+                </div>
+                <div class="field">
+                  <label>Texto</label>
+                  <div class="color-row">
+                    <input
+                      type="text"
+                      id="btnTxtHex"
+                      value="#242424"
+                      oninput="
+                        syncHex('btnTxtHex', 'btnTxtColor');
+                        updatePreview();
+                      "
+                    /><input
+                      type="color"
+                      id="btnTxtColor"
+                      value="#242424"
+                      oninput="
+                        syncPicker('btnTxtColor', 'btnTxtHex');
+                        updatePreview();
+                      "
+                    />
+                  </div>
+                </div>
+                <div class="field">
+                  <label style="display:flex;align-items:center;gap:6px;">
+                    <input type="checkbox" id="btnBorderOn" checked onchange="updatePreview()" class="mini-check">Borda
+                  </label>
+                  <div class="color-row">
+                    <input
+                      type="text"
+                      id="btnBorderHex"
+                      value="#000000"
+                      oninput="
+                        syncHex('btnBorderHex', 'btnBorderColor');
+                        updatePreview();
+                      "
+                    /><input
+                      type="color"
+                      id="btnBorderColor"
+                      value="#000000"
+                      oninput="
+                        syncPicker('btnBorderColor', 'btnBorderHex');
+                        updatePreview();
+                      "
+                    />
+                  </div>
+                </div>
+              </div>
+              <label class="toggle-row"
+                ><input
+                  type="checkbox"
+                  id="btnNewTab"
+                  checked
+                  onchange="updatePreview()"
+                /><span>Abrir em nova aba</span></label
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="divider-line"></div>
+
+        <div>
+          <div class="section-label"><span class="sec-num">07</span>Cores</div>
+          <div class="two-col">
+            <div class="field">
+              <label>Fundo externo</label>
+              <div class="color-row">
+                <input
+                  type="text"
+                  id="bgHex"
+                  value="#f0f0f0"
+                  oninput="
+                    syncHex('bgHex', 'bgColor');
+                    updatePreview();
+                  "
+                /><input
+                  type="color"
+                  id="bgColor"
+                  value="#f0f0f0"
+                  oninput="
+                    syncPicker('bgColor', 'bgHex');
+                    updatePreview();
+                  "
+                />
+              </div>
+            </div>
+            <div class="field">
+              <label>Card logo/rodapé</label>
+              <div class="color-row">
+                <input
+                  type="text"
+                  id="cardVerdeHex"
+                  value="#1e293b"
+                  oninput="
+                    syncHex('cardVerdeHex', 'cardVerdeColor');
+                    updatePreview();
+                  "
+                /><input
+                  type="color"
+                  id="cardVerdeColor"
+                  value="#1e293b"
+                  oninput="
+                    syncPicker('cardVerdeColor', 'cardVerdeHex');
+                    updatePreview();
+                  "
+                />
+              </div>
+            </div>
+            <div class="field">
+              <label>Card conteudo bg</label>
+              <div class="color-row">
+                <input
+                  type="text"
+                  id="cardBgHex"
+                  value="#ffffff"
+                  oninput="
+                    syncHex('cardBgHex', 'cardBgColor');
+                    updatePreview();
+                  "
+                /><input
+                  type="color"
+                  id="cardBgColor"
+                  value="#ffffff"
+                  oninput="
+                    syncPicker('cardBgColor', 'cardBgHex');
+                    updatePreview();
+                  "
+                />
+              </div>
+            </div>
+            <div class="field">
+              <label>Card conteudo borda</label>
+              <div class="color-row">
+                <input
+                  type="text"
+                  id="cardBorderHex"
+                  value="#e1e1e6"
+                  oninput="
+                    syncHex('cardBorderHex', 'cardBorderColor');
+                    updatePreview();
+                  "
+                /><input
+                  type="color"
+                  id="cardBorderColor"
+                  value="#e1e1e6"
+                  oninput="
+                    syncPicker('cardBorderColor', 'cardBorderHex');
+                    updatePreview();
+                  "
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="divider-line"></div>
+
+        <div>
+          <div class="section-label"><span class="sec-num">08</span>Rodapé</div>
+          <div class="optional-block enabled" id="footerBlock">
+            <label class="toggle-row">
+              <input
+                type="checkbox"
+                id="footerEnabled"
+                checked
+                onchange="
+                  toggleOpt('footerEnabled', 'footerFields', 'footerBlock');
+                  updatePreview();
+                "
+              />
+              <span>Incluir rodapé</span>
+            </label>
+            <div id="footerFields" style="display: flex; flex-direction: column; gap: 10px">
+
+              <div class="two-col">
+                <div class="field">
+                  <label>Texto legal</label>
+                  <textarea id="footerLegal" style="min-height: 80px" oninput="autoResize(this); updatePreview();">Este e-mail foi enviado para voce porque voce se cadastrou em nossa lista.
+© 2025 Sua Empresa. Todos os direitos reservados.</textarea>
+                </div>
+                <div class="field">
+                  <label>Cor do texto legal</label>
+                  <div class="color-row">
+                    <input type="text" id="footerLegalColorHex" value="#dadada" oninput="syncHex('footerLegalColorHex','footerLegalColor'); updatePreview()">
+                    <input type="color" id="footerLegalColor" value="#dadada" oninput="syncPicker('footerLegalColor','footerLegalColorHex'); updatePreview()">
+                  </div>
+                </div>
+              </div>
+
+              <div class="two-col">
+                <div class="field">
+                  <label>Chamada redes sociais</label>
+                  <input type="text" id="footerSocialText" value="Siga nossas redes sociais!" oninput="updatePreview()" />
+                </div>
+                <div class="field">
+                  <label>Cor da chamada</label>
+                  <div class="color-row">
+                    <input type="text" id="footerSocialColorHex" value="#ffffff" oninput="syncHex('footerSocialColorHex','footerSocialColor'); updatePreview()">
+                    <input type="color" id="footerSocialColor" value="#ffffff" oninput="syncPicker('footerSocialColor','footerSocialColorHex'); updatePreview()">
+                  </div>
+                </div>
+              </div>
+
+              <div class="section-label titulo-social" style="margin-bottom: 2px">Redes Sociais</div>
+              <div class="two-col">
+                <div class="field">
+                  <label>Estilo dos ícones</label>
+                  <select id="socialIconStyle" class="social-style-select" onchange="toggleIconColor(); updatePreview()">
+                    <option value="color">Coloridos (originais)</option>
+                    <option value="mono">Monocromáticos</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label>Tamanho</label>
+                  <select id="socialIconSize" class="social-style-select" onchange="updatePreview()">
+                    <option value="md">Médio</option>
+                    <option value="sm">Pequeno</option>
+                  </select>
+                </div>
+              </div>
+              <div class="field" id="iconColorField" style="display:none;">
+                <label>Cor dos ícones</label>
+                <div class="color-row">
+                  <input type="text" id="socialIconColorHex" value="#ffffff" oninput="syncHex('socialIconColorHex','socialIconColor'); updatePreview()">
+                  <input type="color" id="socialIconColor" value="#ffffff" oninput="syncPicker('socialIconColor','socialIconColorHex'); updatePreview()">
+                </div>
+              </div>
+              <div class="social-grid">
+                <div class="social-row">
+                  <label class="social-check"><input type="checkbox" id="instaOn" onchange="updatePreview()"/><span>Instagram</span></label>
+                  <input type="url" class="social-url" id="instaUrl" placeholder="https://instagram.com/suaempresa" oninput="updatePreview()" />
+                </div>
+                <div class="social-row">
+                  <label class="social-check"><input type="checkbox" id="teleOn" onchange="updatePreview()"/><span>Telegram</span></label>
+                  <input type="url" class="social-url" id="teleUrl" placeholder="https://t.me/suaempresa" oninput="updatePreview()" />
+                </div>
+                <div class="social-row">
+                  <label class="social-check"><input type="checkbox" id="ytOn" onchange="updatePreview()"/><span>YouTube</span></label>
+                  <input type="url" class="social-url" id="ytUrl" placeholder="https://youtube.com/@suaempresa" oninput="updatePreview()" />
+                </div>
+                <div class="social-row">
+                  <label class="social-check"><input type="checkbox" id="waOn" onchange="updatePreview()"/><span>WhatsApp</span></label>
+                  <input type="url" class="social-url" id="waUrl" placeholder="https://wa.me/5581999990000" oninput="updatePreview()" />
+                </div>
+              </div>
+
+              <div class="two-col">
+                <div class="field">
+                  <label>Texto de descadastro</label>
+                  <input type="text" id="footerUnsub" value="Para cancelar o recebimento destes e-mails," oninput="updatePreview()" />
+                </div>
+                <div class="field">
+                  <label>Cor do descadastro</label>
+                  <div class="color-row">
+                    <input type="text" id="footerUnsubColorHex" value="#999999" oninput="syncHex('footerUnsubColorHex','footerUnsubColor'); updatePreview()">
+                    <input type="color" id="footerUnsubColor" value="#999999" oninput="syncPicker('footerUnsubColor','footerUnsubColorHex'); updatePreview()">
+                  </div>
+                </div>
+              </div>
+
+              <div class="field">
+                <label>Link de desinscrever <span style="color: var(--muted); font-weight: 400; font-size: 0.65rem;">(use o link do seu ESP)</span></label>
+                <input type="url" id="footerUnsubUrl" placeholder="https://... ou {{unsubscribe_url}}" oninput="updatePreview()" />
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /sidebar -->
+
+      <div class="preview-area">
+        <div class="preview-topbar">
+          <div class="view-toggle">
+            <button
+              class="view-btn active"
+              id="btnDesktop"
+              onclick="setView('desktop')"
+            >
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <rect x="2" y="3" width="20" height="14" rx="2" />
+                <line x1="8" y1="21" x2="16" y2="21" />
+                <line x1="12" y1="17" x2="12" y2="21" />
+              </svg>
+              Desktop
+            </button>
+            <button class="view-btn" id="btnMobile" onclick="setView('mobile')">
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <rect x="5" y="2" width="14" height="20" rx="2" />
+                <line x1="12" y1="18" x2="12.01" y2="18" />
+              </svg>
+              Mobile
+            </button>
+          </div>
+        </div>
+        <div class="preview-scroll-area">
+          <div class="preview-frame-wrap" id="previewWrap">
+            <iframe
+              id="previewFrame"
+              title="Preview do e-mail"
+              scrolling="no"
+            ></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /workspace -->
+
+    <div id="globalColorPopup">
+      <input
+        type="color"
+        id="globalColorPicker"
+        value="#004409"
+        oninput="onGlobalColorInput()"
+      />
+      <input
+        type="text"
+        class="color-popup-hex"
+        id="globalColorHex"
+        value="#004409"
+        oninput="onGlobalHexInput()"
+      />
+      <div class="popup-btns">
+        <button class="btn-apply-color" onclick="applyGlobalColor()">
+          Aplicar
+        </button>
+        <button class="btn-reset-color" onclick="resetColor()">↺ Padrao</button>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
