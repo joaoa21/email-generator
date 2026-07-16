@@ -517,3 +517,25 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   .toast { white-space: normal; max-width: 90vw; }
 }
 
+
+/* ── CRÉDITO ── */
+.sidebar-credit {
+  margin-top: 8px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  color: var(--ink-faint);
+  text-align: center;
+}
+
+.sidebar-credit a {
+  font-family: "Instrument Sans", sans-serif;
+  font-weight: 700;
+  font-size: 0.88rem;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.sidebar-credit a:hover { text-decoration: underline; }
+
+

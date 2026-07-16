@@ -674,7 +674,6 @@ a:focus-visible, button:focus-visible {
 
 .footer-line {
   color: rgba(244, 241, 234, 0.55);
-  margin-right: auto;
 }
 
 .footer-links {
@@ -1302,3 +1301,27 @@ a:focus-visible, button:focus-visible {
   .hero-inner::before { display: none; }
 
 }
+
+/* ── CRÉDITO ── */
+.footer-credit {
+  margin-left: auto;
+  font-size: 0.8rem;
+  color: rgba(244, 241, 234, 0.6);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-credit:hover { color: var(--paper); }
+
+.footer-credit strong {
+  margin-left: 7px;
+  font-family: "Instrument Sans", sans-serif;
+  font-weight: 700;
+  font-size: 1.02rem;
+  letter-spacing: -0.02em;
+  color: var(--paper);
+}
+
+.footer-credit:hover { border-color: var(--paper); }
+
+
