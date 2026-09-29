@@ -538,4 +538,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 .sidebar-credit a:hover { text-decoration: underline; }
 
+/* ponto final translúcido da marca (joaoa.com.br) */
+.sidebar-credit a span { opacity: 0.35; }
+
 

@@ -1324,4 +1324,7 @@ a:focus-visible, button:focus-visible {
 
 .footer-credit:hover { border-color: var(--paper); }
 
+/* ponto final translúcido da marca (joaoa.com.br) */
+.footer-credit strong span { opacity: 0.35; }
+
 
