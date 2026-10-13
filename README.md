@@ -11,41 +11,65 @@ Criei para escalar a produção de campanhas de CRM: em vez de montar cada email
 ## O que faz
 
 **Gerador de email**
+- **Oito modelos** de layout (Cartões, Gradiente, Minimalista, Cupom, Newsletter, Vitrine, Convite e Carta pessoal): troque a estrutura do email sem perder textos, links e imagens. Cada modelo traz suas cores e combinações prontas.
+- Editor em etapas (Modelos, Topo, Texto, Botão, Cores, Redes, Rodapé), um painel por vez, no estilo do Canva.
 - Monta o email por blocos: logo, banner, título, textos, botões, redes sociais e rodapé legal com descadastro.
 - Editor de texto com negrito, links, cores e tamanhos, e **variáveis** de personalização.
 - Pré-cabeçalho (o texto que aparece ao lado do assunto no Gmail).
-- Cores, fundos e estilo dos ícones configuráveis.
+- Combinações de cores prontas e ajuste fino de cada cor.
 - **Prévia ao vivo** em desktop e celular, e HTML pronto para copiar.
+- **Avisos antes de enviar:** aponta o que falta (link de descadastro, texto alternativo, botão sem link, URLs inválidas) e leva ao campo com um clique.
+- Blocos de texto podem ser reordenados e duplicados; "Novo" e "Remover" têm **Desfazer**.
 
 **Gerador de link de WhatsApp**
-- Número com máscara, mensagem com formatação do WhatsApp (negrito, itálico, riscado), modelos prontos e contador de caracteres.
-- Copia o link `wa.me` ou abre direto no WhatsApp.
+- Número com máscara e validação (DDD, nono dígito), outros países, mensagem com formatação do WhatsApp e modelos prontos.
+- **Prévia da conversa** com a formatação já aplicada.
+- **Link curto no próprio domínio** (`emailgenerator.com.br/w/código`) com **contagem de cliques**.
+- **QR Code** em PNG, apontando para o link curto quando ele existe.
 
 ## Decisões técnicas
 
-- **HTML de email à prova de Outlook:** layout em tabelas, estilos inline e **botões em VML** dentro de comentários condicionais (`<!--[if mso]>`), para o Outlook clássico, que usa o motor do Word, mostrar o botão arredondado.
-- **Colar sem sujeira:** o texto colado de outros lugares é limpo (atributos e estilos removidos) antes de entrar no email.
-- **Prévia isolada:** o email é renderizado num `<iframe>`, sem herdar o CSS da página.
-- **Sem dependências e sem build:** HTML, CSS e JavaScript puros; abre rápido e é fácil de manter.
+- **HTML de email à prova de Outlook:** layout em tabelas, estilos inline e **botões em VML** dentro de comentários condicionais (`<!--[if mso]>`), com largura calculada pelo texto, para o Outlook clássico (motor do Word) mostrar o botão arredondado.
+- **Segurança:** a prévia roda num `<iframe sandbox>` sem permissão de script; todo valor é escapado, URLs só passam com `https:`, `mailto:`, `tel:` ou variáveis de ESP, e o texto rico é limpo por uma lista de tags permitidas. A página não tem scripts nem handlers inline, o que permite uma **Content-Security-Policy** rígida (`netlify.toml`).
+- **Encurtador que não vira arma de phishing:** a função recebe só número e mensagem e monta o destino `wa.me` ela mesma, então um link curto nunca leva para fora do WhatsApp. O código é derivado do conteúdo (SHA-256), então o mesmo link gera sempre o mesmo código. Há limite de requisições por IP.
+- **Prévia fluida:** depois da primeira carga, só o `<body>` do iframe é trocado (com debounce), sem recarregar a página nem baixar as imagens de novo.
+- **Acessibilidade:** campos com rótulo, botões de ícone com `aria-label`, estados com `aria-pressed`/`aria-invalid`, menu navegável pelo teclado e respeito a `prefers-reduced-motion`.
+- **Listas repetíveis:** matérias e produtos usam o mesmo componente (adicionar, reordenar, duplicar, excluir com Desfazer), pronto para outros tipos de item.
+- **Modelos plugáveis:** cada modelo é um arquivo em `pages/gerador/templates/` que monta o layout com peças prontas (botão com VML, ícones, blocos de texto, rodapé), já escapadas e validadas.
+- **Front sem dependências:** HTML, CSS e JavaScript puros. O backend é só o encurtador (Netlify Functions + Netlify Blobs).
 
 ## Stack
 
-HTML · CSS · JavaScript · HTML de email (tabelas, CSS inline, VML) · Lenis
+HTML · CSS · JavaScript · HTML de email (tabelas, CSS inline, VML) · Netlify Functions · Netlify Blobs · Lenis
 
 ## Rodar localmente
 
-É um site estático. Sirva a pasta com qualquer servidor local, por exemplo:
+Com o encurtador (precisa da [Netlify CLI](https://docs.netlify.com/cli/get-started/)):
+
+```bash
+npm install
+npx netlify dev
+```
+
+Só o front (o encurtador fica indisponível):
 
 ```bash
 npx http-server .
 ```
+
+Testes: `npm test`.
 
 ## Estrutura
 
 ```
 index.html, style.css, script.js   página inicial
 pages/gerador/                     gerador de email HTML
+pages/gerador/templates/           modelos de email (um arquivo por modelo)
 pages/whatsapp/                    gerador de link de WhatsApp
+assets/                            favicon e analytics
+netlify/functions/                 encurtador: /api/shorten, /w/:código, /api/links/:código
+netlify/lib/                       regras do encurtador (testadas em tests/)
+scripts/build.mjs                  copia os arquivos públicos para dist/
 ```
 
 ---

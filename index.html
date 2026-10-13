@@ -10,9 +10,11 @@
 <meta property="og:title" content="Email Generator — Ferramentas de marketing">
 <meta property="og:description" content="E-mails HTML profissionais e links de WhatsApp em minutos. Grátis, sem cadastro.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://joaoa21.github.io/email-generator/">
+<meta property="og:url" content="https://emailgenerator.com.br/">
+<meta property="og:image" content="https://joaoa.com.br/assets/img/og-email-generator.jpg">
+<meta name="color-scheme" content="light">
 
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23191713'/%3E%3Ctext x='16' y='23' font-family='Georgia' font-size='20' font-style='italic' fill='%23f4f1ea' text-anchor='middle'%3Ee%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,12 +22,8 @@
 
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-6XZ57LGL1Q"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-6XZ57LGL1Q');
-</script>
+<script src="assets/analytics.js"></script>
+<script src="https://analytics-hub-production-9abd.up.railway.app/t.js" data-key="pk_-Bw0enH3m8DaFeRWu7YP8heo80o1-hBN" defer></script>
 
 <link rel="stylesheet" href="style.css">
 </head>
@@ -360,34 +358,7 @@
   </div>
 </footer>
 
-<script src="https://unpkg.com/lenis@1.3.13/dist/lenis.min.js"></script>
-<script>
-  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    var lenis = new Lenis({
-      duration: 1.2,
-      smoothWheel: true,
-      smoothTouch: false,
-      lerp: 0.08
-    });
-
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
-
-    /* âncoras do menu passam pelo Lenis */
-    document.querySelectorAll('a[href^="#"]').forEach(function (a) {
-      a.addEventListener("click", function (e) {
-        var target = document.querySelector(a.getAttribute("href"));
-        if (target) {
-          e.preventDefault();
-          lenis.scrollTo(target, { offset: -70 });
-        }
-      });
-    });
-  }
-</script>
-<script src="script.js"></script>
+<script src="https://unpkg.com/lenis@1.3.13/dist/lenis.min.js" defer></script>
+<script src="script.js" defer></script>
 </body>
 </html>

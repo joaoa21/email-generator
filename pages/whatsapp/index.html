@@ -3,183 +3,189 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Gerador de Link WhatsApp</title>
+    <meta name="color-scheme" content="light" />
+    <title>Gerador de Link de WhatsApp · Email Generator</title>
+    <meta name="description" content="Crie links de WhatsApp com mensagem pronta, link curto, contagem de cliques e QR Code. Grátis, sem cadastro." />
+    <meta property="og:title" content="Gerador de Link de WhatsApp · Email Generator" />
+    <meta property="og:description" content="Links de WhatsApp com mensagem pronta, link curto e QR Code. Grátis, sem cadastro." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://emailgenerator.com.br/pages/whatsapp/" />
+    <meta property="og:image" content="https://joaoa.com.br/assets/img/og-email-generator.jpg" />
+    <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml" />
 
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Fraunces:ital,wght@1,500&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
 
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-6XZ57LGL1Q"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-6XZ57LGL1Q');
-    </script>
+    <script src="../../assets/analytics.js"></script>
+    <script src="https://analytics-hub-production-9abd.up.railway.app/t.js" data-key="pk_-Bw0enH3m8DaFeRWu7YP8heo80o1-hBN" defer></script>
 
     <link rel="stylesheet" href="style.css" />
   </head>
 
   <body>
-    <div class="header">
+    <header class="header">
       <div class="header-left">
         <a href="../../" class="header-brand" title="Voltar para o início">
-          <span class="brand-mark">e.</span>
+          <span class="brand-mark" aria-hidden="true">e.</span>
           <span class="brand-text">Email Generator</span>
         </a>
         <nav class="tool-switch" aria-label="Trocar de ferramenta">
-          <a href="../gerador/index.html" class="tool-tab">E-mail</a>
-          <a href="../whatsapp/index.html" class="tool-tab active" aria-current="page">WhatsApp</a>
+          <a href="../gerador/" class="tool-tab">E-mail</a>
+          <a href="../whatsapp/" class="tool-tab active" aria-current="page">WhatsApp</a>
         </nav>
       </div>
-      <div style="display: flex; gap: 8px; align-items: center">
-        <button class="btn-copy" id="btnCopy" onclick="copyLink()" disabled title="Copiar o link gerado">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <rect x="9" y="9" width="13" height="13" rx="2" />
-            <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" />
-          </svg>
-          <span class="btn-label">Copiar Link</span>
-        </button>
-      </div>
-    </div>
+      <button type="button" class="btn-copy" id="btnCopy" data-action="copy" disabled title="Copiar o link gerado">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" /><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" /></svg>
+        <span class="btn-label">Copiar link</span>
+      </button>
+    </header>
 
-    <!-- TOASTS -->
     <div class="toast-zone" id="toastZone" aria-live="polite"></div>
 
-    <div class="workspace">
-      <div class="sidebar">
-
-        <div>
-          <div class="section-label">Número do WhatsApp</div>
+    <main class="workspace">
+      <form class="sidebar" id="form" autocomplete="off" aria-label="Dados do link">
+        <section>
+          <h2 class="section-label">Número do WhatsApp</h2>
           <div class="field">
-            <label>Número com DDD (somente números)</label>
-            <div class="phone-row">
-              <div class="phone-prefix">+55</div>
-              <input
-                type="tel"
-                id="phoneNumber"
-                placeholder="81 99999-0000"
-                oninput="formatPhone(this); updateLink()"
-                maxlength="15"
-              />
+            <label for="phoneNumber">País e número com DDD</label>
+            <div class="phone-row" id="phoneRow">
+              <select id="country" class="phone-prefix" aria-label="País">
+                <option value="55" selected>🇧🇷 +55</option>
+                <option value="351">🇵🇹 +351</option>
+                <option value="1">🇺🇸 +1</option>
+                <option value="54">🇦🇷 +54</option>
+                <option value="598">🇺🇾 +598</option>
+                <option value="595">🇵🇾 +595</option>
+                <option value="56">🇨🇱 +56</option>
+                <option value="57">🇨🇴 +57</option>
+                <option value="52">🇲🇽 +52</option>
+                <option value="34">🇪🇸 +34</option>
+                <option value="44">🇬🇧 +44</option>
+                <option value="other">Outro</option>
+              </select>
+              <input type="text" id="ddi" class="ddi-input" inputmode="numeric" maxlength="4" placeholder="DDI" aria-label="Código do país (DDI)" hidden />
+              <input type="tel" id="phoneNumber" inputmode="tel" placeholder="81 99999-0000" maxlength="16" aria-describedby="phoneHint" />
             </div>
-            <span class="field-hint">Inclua o DDD. Ex: 81 99999-0000</span>
+            <span class="field-hint" id="phoneHint" aria-live="polite">Inclua o DDD. Ex: 81 99999-0000</span>
           </div>
-        </div>
+        </section>
 
         <div class="divider-line"></div>
 
-        <div>
-          <div class="section-label">Mensagem pré-definida <span class="optional-label">(opcional)</span></div>
+        <section>
+          <h2 class="section-label">Mensagem pronta <span class="optional-label">(opcional)</span></h2>
           <div class="field">
-            <label>Texto que aparece ao abrir o WhatsApp</label>
-            <div class="msg-toolbar">
-              <button class="tb-btn" onclick="formatMsg('bold')" title="Negrito"><b>B</b></button>
-              <button class="tb-btn" onclick="formatMsg('italic')" title="Itálico"><i>I</i></button>
-              <button class="tb-btn" onclick="formatMsg('strike')" title="Tachado"><s>S</s></button>
-              <button class="tb-btn" onclick="formatMsg('mono')" title="Código">{ }</button>
+            <label for="msgText">Texto que já aparece digitado ao abrir a conversa</label>
+            <div class="msg-toolbar" role="toolbar" aria-label="Formatação do WhatsApp">
+              <button type="button" class="tb-btn" data-fmt="*" aria-label="Negrito" title="Negrito: *texto*"><b>B</b></button>
+              <button type="button" class="tb-btn" data-fmt="_" aria-label="Itálico" title="Itálico: _texto_"><i>I</i></button>
+              <button type="button" class="tb-btn" data-fmt="~" aria-label="Tachado" title="Tachado: ~texto~"><s>S</s></button>
+              <button type="button" class="tb-btn" data-fmt="`" aria-label="Código" title="Código: `texto`">{ }</button>
               <div class="tb-sep"></div>
               <span class="char-count" id="charCount">0 / 1000</span>
             </div>
-            <textarea
-              id="msgText"
-              placeholder="Ex: Olá! 👋 Vim pelo site e gostaria de saber mais..."
-              oninput="updateCharCount(); updateLink()"
-              maxlength="1000"
-              rows="5"
-            ></textarea>
+            <textarea id="msgText" placeholder="Ex: Olá! 👋 Vim pelo site e gostaria de saber mais..." maxlength="1000" rows="5"></textarea>
           </div>
-        </div>
+        </section>
 
         <div class="divider-line"></div>
 
-        <div>
-          <div class="section-label">Templates rápidos</div>
+        <section>
+          <h2 class="section-label">Modelos rápidos</h2>
           <div class="templates-grid">
-            <button class="template-btn" onclick="useTemplate('Olá! 👋 Vim pelo site e gostaria de mais informações.')">
-              Informações gerais
-            </button>
-            <button class="template-btn" onclick="useTemplate('Olá! Gostaria de fazer um orçamento. 💬')">
-              Orçamento
-            </button>
-            <button class="template-btn" onclick="useTemplate('Oi! Vi sua oferta e tenho interesse. Pode me ajudar? 😊')">
-              Interesse em oferta
-            </button>
-            <button class="template-btn" onclick="useTemplate('Olá! Preciso de suporte com meu pedido. 🛒')">
-              Suporte / Pedido
-            </button>
+            <button type="button" class="template-btn" data-template="Olá! 👋 Vim pelo site e gostaria de mais informações.">Informações gerais</button>
+            <button type="button" class="template-btn" data-template="Olá! Gostaria de fazer um orçamento. 💬">Orçamento</button>
+            <button type="button" class="template-btn" data-template="Oi! Vi sua oferta e tenho interesse. Pode me ajudar? 😊">Interesse em oferta</button>
+            <button type="button" class="template-btn" data-template="Olá! Preciso de suporte com meu pedido. 🛒">Suporte / pedido</button>
           </div>
-        </div>
+        </section>
 
         <div class="sidebar-credit mono">feito por <a href="https://joaoa.com.br" target="_blank" rel="noopener">João Alberto<span>.</span></a></div>
-      </div>
-      <!-- /sidebar -->
+      </form>
 
-      <div class="result-area">
+      <section class="result-area" aria-label="Link gerado">
         <div class="result-inner">
-
-          <!-- Estado vazio -->
           <div class="empty-state" id="emptyState">
-            <div class="empty-icon">
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
-              </svg>
+            <div class="empty-icon" aria-hidden="true">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" /></svg>
             </div>
             <p class="empty-title">Preencha o número</p>
-            <p class="empty-sub">O link será gerado automaticamente</p>
+            <p class="empty-sub">O link é gerado automaticamente</p>
           </div>
 
-          <!-- Resultado -->
-          <div class="result-card" id="resultCard" style="display:none;">
+          <div class="result-card" id="resultCard" hidden>
+            <div class="result-status"><span class="status-dot" aria-hidden="true"></span>Link gerado</div>
 
-            <div class="result-header">
-              <div class="result-status">
-                <div class="status-dot"></div>
-                Link gerado!
+            <!-- prévia de como a mensagem chega -->
+            <div class="chat" aria-label="Prévia da mensagem">
+              <div class="chat-head">
+                <span class="chat-avatar" aria-hidden="true"></span>
+                <span class="chat-number" id="chatNumber"></span>
+              </div>
+              <div class="chat-body">
+                <div class="bubble" id="bubble"></div>
               </div>
             </div>
 
-            <div class="link-box">
-              <span class="link-text" id="linkDisplay"></span>
-              <button class="link-copy-btn" onclick="copyLink()" title="Copiar">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                  <rect x="9" y="9" width="13" height="13" rx="2"/>
-                  <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
-                </svg>
+            <div class="link-group">
+              <div class="link-label">
+                <span>Link completo</span>
+                <span class="link-len" id="linkLen"></span>
+              </div>
+              <div class="link-box">
+                <code class="link-text" id="linkDisplay"></code>
+              </div>
+            </div>
+
+            <div class="link-group short-group">
+              <div class="link-label">
+                <span>Link curto <span class="optional-label">com contagem de cliques</span></span>
+              </div>
+              <button type="button" class="btn-shorten" id="btnShorten" data-action="shorten">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71" /><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71" /></svg>
+                Encurtar link
               </button>
+              <div class="short-result" id="shortResult" hidden>
+                <div class="link-box link-box-short">
+                  <code class="link-text" id="shortDisplay"></code>
+                </div>
+                <div class="short-meta">
+                  <span id="clicks">0 cliques</span>
+                  <button type="button" class="link-btn" data-action="refresh-clicks">Atualizar</button>
+                </div>
+              </div>
             </div>
 
             <div class="result-actions">
-              <button class="btn-whatsapp" onclick="openWhatsApp()">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-                </svg>
-                Abrir no WhatsApp
-              </button>
-              <button class="btn-copy-full" onclick="copyLink()">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                  <rect x="9" y="9" width="13" height="13" rx="2"/>
-                  <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
-                </svg>
-                Copiar Link
+              <a class="btn-whatsapp" id="btnOpen" href="#" target="_blank" rel="noopener noreferrer">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" /></svg>
+                Testar no WhatsApp
+              </a>
+              <button type="button" class="btn-copy-full" data-action="copy">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" /><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" /></svg>
+                <span id="copyLabel">Copiar link</span>
               </button>
             </div>
 
-            <div class="result-tip">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
-              </svg>
-              Cole este link em qualquer lugar — site, bio do Instagram, cartão de visita digital.
+            <div class="qr">
+              <canvas id="qrCanvas" width="168" height="168" role="img" aria-label="QR Code do link"></canvas>
+              <div class="qr-side">
+                <p class="qr-title">QR Code</p>
+                <p class="qr-text" id="qrText">Para cartões, cardápios e material impresso.</p>
+                <button type="button" class="link-btn" id="btnQr" data-action="download-qr">Baixar PNG</button>
+              </div>
             </div>
-
           </div>
         </div>
-      </div>
-    </div>
-    <!-- /workspace -->
+      </section>
+    </main>
 
-    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js" integrity="sha384-8FWZA6BGMXhsfO+BLtrJK0We6gg5o1JyO8xQm6peWDEUs17ACA5ziE/NIAkl9z2k" crossorigin="anonymous" defer></script>
+    <script src="script.js" defer></script>
   </body>
 </html>

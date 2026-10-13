@@ -23,6 +23,18 @@
   --border: var(--line-strong);
   --border2: var(--line);
   --muted: var(--ink-faint);
+  --wa-text: #128c4b;
+  --chat-bg: #efe7dd;
+  --bubble: #d9fdd3;
+  --bubble-ink: #111b21;
+
+}
+
+
+[hidden] { display: none !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -40,10 +52,10 @@ body {
 
 ::selection { background: var(--wa); color: var(--paper); }
 
-button { font-family: inherit; }
+button, select { font-family: inherit; }
 
-a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
-  outline: 2px solid var(--wa);
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible {
+  outline: 2px solid var(--wa-text);
   outline-offset: 2px;
 }
 
@@ -111,7 +123,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   text-decoration: none;
   padding: 5px 14px;
   border-radius: 999px;
-  transition: all 0.2s;
+  transition: color 0.2s, background-color 0.2s;
 }
 
 .tool-tab:hover { color: var(--ink); }
@@ -129,7 +141,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   font-weight: 600;
   font-size: 0.78rem;
   cursor: pointer;
-  transition: all 0.18s;
+  transition: color 0.18s, background-color 0.18s, border-color 0.18s;
   white-space: nowrap;
 }
 
@@ -222,6 +234,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 
 .field-hint { font-size: 0.68rem; color: var(--ink-faint); }
+.field-hint.error { color: var(--stamp); font-weight: 500; }
 
 .phone-row {
   display: flex;
@@ -237,6 +250,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   box-shadow: 0 0 0 3px var(--wa-dim);
 }
 
+.phone-row.invalid { border-color: var(--stamp); }
+
 .phone-prefix {
   background: var(--paper-2);
   color: var(--ink-soft);
@@ -247,6 +262,24 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   display: flex;
   align-items: center;
   font-family: "IBM Plex Mono", monospace;
+  border-top: none;
+  border-bottom: none;
+  border-left: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  padding-right: 26px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%234a463e' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 9px center;
+}
+
+.phone-prefix:focus-visible { outline-offset: -2px; }
+
+.ddi-input {
+  width: 64px;
+  flex: 0 0 64px !important;
+  border-right: 1px solid var(--line) !important;
 }
 
 .phone-row input {
@@ -299,7 +332,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   font-size: 0.72rem;
   font-weight: 700;
   padding: 4px 8px;
-  transition: all 0.15s;
+  transition: color 0.15s, background-color 0.15s;
 }
 
 .tb-btn:hover { background: var(--white); color: var(--ink); }
@@ -333,7 +366,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   font-weight: 500;
   padding: 11px 12px;
   text-align: left;
-  transition: all 0.18s;
+  transition: color 0.18s, background-color 0.18s, border-color 0.18s;
   line-height: 1.4;
 }
 
@@ -377,6 +410,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 .result-card {
   background: var(--white);
+  color: var(--ink);
   border: 1px solid var(--ink);
   border-radius: 16px;
   padding: 28px;
@@ -385,8 +419,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   gap: 20px;
   box-shadow: 0 14px 40px rgba(25, 23, 19, 0.12);
 }
-
-.result-header { display: flex; align-items: center; justify-content: space-between; }
 
 .result-status {
   display: flex;
@@ -397,7 +429,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   font-weight: 500;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--wa);
+  color: var(--wa-text);
 }
 
 .status-dot {
@@ -425,31 +457,159 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 .link-text {
   flex: 1;
-  font-size: 0.76rem;
+  font-size: 0.74rem;
+  line-height: 1.5;
   color: var(--ink-soft);
   font-family: "IBM Plex Mono", monospace;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  word-break: break-all;
+  max-height: 6.2em;
+  overflow-y: auto;
+  user-select: all;
 }
 
-.link-copy-btn {
-  background: transparent;
-  border: none;
-  color: var(--ink-faint);
+.link-box-short .link-text { font-size: 0.9rem; font-weight: 500; color: var(--ink); }
+
+.link-group { display: flex; flex-direction: column; gap: 6px; }
+
+.link-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+.link-len { font-family: "IBM Plex Mono", monospace; font-weight: 400; color: var(--ink-faint); font-size: 0.66rem; }
+
+.btn-shorten {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--wa-dim);
+  border: 1px dashed var(--wa);
+  border-radius: 10px;
+  color: var(--wa-text);
   cursor: pointer;
-  padding: 3px;
-  border-radius: 4px;
-  transition: color 0.18s;
-  flex-shrink: 0;
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 11px;
+  transition: background-color 0.18s;
 }
 
-.link-copy-btn:hover { color: var(--wa); }
+.btn-shorten:hover:not(:disabled) { background: rgba(18, 140, 75, 0.16); }
+.btn-shorten:disabled { cursor: progress; opacity: 0.6; }
+.btn-shorten.loading svg { animation: spin 0.9s linear infinite; }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.short-result { display: flex; flex-direction: column; gap: 6px; }
+
+.short-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.7rem;
+  color: var(--ink-faint);
+}
+
+.link-btn {
+  background: none;
+  border: none;
+  color: var(--wa-text);
+  cursor: pointer;
+  font-size: 0.74rem;
+  font-weight: 600;
+  padding: 0;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* prévia da conversa */
+.chat {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+
+.chat-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--paper-2);
+  padding: 9px 12px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  font-family: "IBM Plex Mono", monospace;
+}
+
+.chat-avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--line-strong);
+}
+
+.chat-body {
+  background: var(--chat-bg);
+  padding: 16px 12px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.bubble {
+  background: var(--bubble);
+  color: var(--bubble-ink);
+  border-radius: 8px 0 8px 8px;
+  padding: 7px 10px 6px;
+  max-width: 85%;
+  font-size: 0.86rem;
+  line-height: 1.45;
+  word-wrap: break-word;
+  box-shadow: 0 1px 0.5px rgba(0, 0, 0, 0.13);
+}
+
+.bubble code { font-family: "IBM Plex Mono", monospace; font-size: 0.8rem; }
+
+.bubble-time {
+  float: right;
+  margin: 6px 0 -4px 10px;
+  font-size: 0.64rem;
+  opacity: 0.6;
+}
+
+.bubble-empty { font-style: italic; opacity: 0.7; font-size: 0.8rem; }
+
+/* QR */
+.qr {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+
+.qr canvas {
+  width: 120px;
+  height: 120px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  flex-shrink: 0;
+  image-rendering: pixelated;
+}
+
+.qr-side { display: flex; flex-direction: column; gap: 6px; align-items: flex-start; }
+.qr-title { font-family: "IBM Plex Mono", monospace; font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; }
+.qr-text { font-size: 0.76rem; color: var(--ink-faint); line-height: 1.5; }
 
 .result-actions { display: flex; gap: 10px; }
 
 .btn-whatsapp {
   flex: 1;
+  text-decoration: none;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -462,10 +622,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   font-weight: 700;
   font-size: 0.88rem;
   cursor: pointer;
-  transition: all 0.18s;
+  transition: color 0.18s, background-color 0.18s, border-color 0.18s;
 }
 
-.btn-whatsapp:hover { background: var(--ink); border-color: var(--ink); }
+.btn-whatsapp:hover { background: #0d6b39; border-color: #0d6b39; }
 
 .btn-copy-full {
   display: flex;
@@ -480,24 +640,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   font-weight: 600;
   font-size: 0.85rem;
   cursor: pointer;
-  transition: all 0.18s;
+  transition: color 0.18s, background-color 0.18s, border-color 0.18s;
   white-space: nowrap;
 }
 
 .btn-copy-full:hover { background: var(--ink); color: var(--paper); }
 
-.result-tip {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  font-size: 0.76rem;
-  color: var(--ink-faint);
-  line-height: 1.55;
-  padding-top: 14px;
-  border-top: 1px solid var(--line);
-}
-
-.result-tip svg { flex-shrink: 0; margin-top: 1px; }
 
 /* ── RESPONSIVE ── */
 @media (max-width: 780px) {
@@ -513,6 +661,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   .sidebar { border-right: none; border-bottom: 1px solid var(--ink); overflow: visible; }
 
   .result-area { min-height: 320px; padding: 24px 16px; }
+  .result-card { padding: 20px; }
+  .result-actions { flex-direction: column; }
 
   .toast { white-space: normal; max-width: 90vw; }
 }
@@ -542,3 +692,24 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .sidebar-credit a span { opacity: 0.35; }
 
 
+
+/* ── CABEÇALHO MAIS ALTO E BOTÕES MAIORES ── */
+.header { padding: 14px 28px; min-height: 72px; gap: 20px; }
+.header-left { gap: 24px; }
+.header-actions { gap: 10px; }
+.brand-mark { width: 36px; height: 36px; font-size: 1.3rem; }
+.brand-text { font-size: 1.2rem; }
+.tool-switch { padding: 4px; }
+.tool-tab { font-size: 0.84rem; padding: 8px 20px; }
+.btn-new, .btn-gmail, .btn-copy { font-size: 0.86rem; padding: 11px 20px; gap: 8px; }
+.btn-new svg, .btn-gmail svg, .btn-copy svg { width: 15px; height: 15px; }
+.save-badge { font-size: 0.8rem; }
+
+@media (max-width: 1180px) {
+  .btn-new, .btn-gmail, .btn-copy { padding: 11px 14px; }
+}
+
+@media (max-width: 920px) {
+  .header { padding: 12px 16px; min-height: 0; }
+  .header-left { gap: 14px; }
+}

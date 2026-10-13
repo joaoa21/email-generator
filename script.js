@@ -1,4 +1,25 @@
 (function () {
+  /* rolagem suave (Lenis), só para quem não pediu menos movimento */
+  if (window.Lenis && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    var lenis = new Lenis({ duration: 1.2, smoothWheel: true, lerp: 0.08 });
+    var raf = function (time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    };
+    requestAnimationFrame(raf);
+
+    /* âncoras do menu passam pelo Lenis */
+    document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+      a.addEventListener("click", function (e) {
+        var target = document.querySelector(a.getAttribute("href"));
+        if (target) {
+          e.preventDefault();
+          lenis.scrollTo(target, { offset: -70 });
+        }
+      });
+    });
+  }
+
   /* nav: sombra ao rolar */
   var nav = document.querySelector(".nav");
   window.addEventListener("scroll", function () {
@@ -55,12 +76,18 @@
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   if (mock && win && !reduced && window.matchMedia("(pointer: fine)").matches) {
+    /* no máximo um cálculo por quadro, mesmo com o mouse disparando dezenas de eventos */
+    var tiltFrame = 0;
     mock.addEventListener("mousemove", function (e) {
-      var r = mock.getBoundingClientRect();
-      var x = (e.clientX - r.left) / r.width - 0.5;
-      var y = (e.clientY - r.top) / r.height - 0.5;
-      win.style.transform =
-        "rotateY(" + x * 4 + "deg) rotateX(" + -y * 4 + "deg) translate(-3px,-3px)";
+      if (tiltFrame) return;
+      tiltFrame = requestAnimationFrame(function () {
+        tiltFrame = 0;
+        var r = mock.getBoundingClientRect();
+        var x = (e.clientX - r.left) / r.width - 0.5;
+        var y = (e.clientY - r.top) / r.height - 0.5;
+        win.style.transform =
+          "rotateY(" + x * 4 + "deg) rotateX(" + -y * 4 + "deg) translate(-3px,-3px)";
+      });
     });
     mock.addEventListener("mouseleave", function () {
       win.style.transform = "";

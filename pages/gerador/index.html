@@ -1,685 +1,848 @@
 <!doctype html>
 <html lang="pt-BR">
-  
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Email Generator</title>
+    <meta name="color-scheme" content="light" />
+    <title>Gerador de E-mail HTML · Email Generator</title>
+    <meta name="description" content="Monte e-mails HTML que funcionam no Gmail e no Outlook: logo, banner, textos, botão e rodapé, com prévia ao vivo. Grátis, sem cadastro." />
+    <meta property="og:title" content="Gerador de E-mail HTML · Email Generator" />
+    <meta property="og:description" content="E-mails HTML prontos para Gmail e Outlook, com prévia ao vivo. Grátis, sem cadastro." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://emailgenerator.com.br/pages/gerador/" />
+    <meta property="og:image" content="https://joaoa.com.br/assets/img/og-email-generator.jpg" />
+    <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml" />
 
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Fraunces:ital,wght@1,500&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
 
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-6XZ57LGL1Q"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-6XZ57LGL1Q');
-    </script>
+    <script src="../../assets/analytics.js"></script>
+    <script src="https://analytics-hub-production-9abd.up.railway.app/t.js" data-key="pk_-Bw0enH3m8DaFeRWu7YP8heo80o1-hBN" defer></script>
 
     <link rel="stylesheet" href="style.css" />
   </head>
 
   <body>
-    <div class="header">
+    <header class="header">
       <div class="header-left">
         <a href="../../" class="header-brand" title="Voltar para o início">
-          <span class="brand-mark">e.</span>
+          <span class="brand-mark" aria-hidden="true">e.</span>
           <span class="brand-text">Email Generator</span>
         </a>
         <nav class="tool-switch" aria-label="Trocar de ferramenta">
-          <a href="../gerador/index.html" class="tool-tab active" aria-current="page">E-mail</a>
-          <a href="../whatsapp/index.html" class="tool-tab">WhatsApp</a>
+          <a href="../gerador/" class="tool-tab active" aria-current="page">E-mail</a>
+          <a href="../whatsapp/" class="tool-tab">WhatsApp</a>
         </nav>
       </div>
-      <div style="display: flex; gap: 8px; align-items: center">
-        <span id="saveBadge" style="font-size:0.72rem;color:var(--green);font-weight:600;opacity:0;transition:opacity 0.3s;">✓ Salvo</span>
-        <button class="btn-new" id="btnNew" onclick="novoEmail()" title="Começar um novo e-mail do zero">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <path d="M12 5v14M5 12h14" />
-          </svg>
+      <div class="header-actions">
+        <span id="saveBadge" class="save-badge" role="status">✓ Salvo</span>
+        <button type="button" class="btn-new" data-action="new" title="Começar um novo e-mail do zero">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
           <span class="btn-label">Novo</span>
         </button>
-        <button class="btn-new" id="btnDownload" onclick="downloadHTML()" title="Baixar arquivo .html">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
-          </svg>
+        <button type="button" class="btn-new" data-action="download" title="Baixar arquivo .html">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" /></svg>
           <span class="btn-label">Baixar</span>
         </button>
-        <button class="btn-gmail" id="btnGmail" onclick="copyForGmail()" title="Copiar renderizado para colar no Gmail">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <rect x="2" y="4" width="20" height="16" rx="2"/>
-            <path d="M2 7l10 7 10-7"/>
-          </svg>
+        <button type="button" class="btn-gmail" data-action="gmail" title="Copiar o e-mail renderizado para colar no Gmail">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="M2 7l10 7 10-7" /></svg>
           <span class="btn-label">Copiar p/ Gmail</span>
         </button>
-        <button class="btn-copy" id="btnCopy" onclick="copyHTML()" title="Copiar código HTML para o ESP">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <rect x="9" y="9" width="13" height="13" rx="2" />
-            <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" />
-          </svg>
+        <button type="button" class="btn-copy" data-action="copy" title="Copiar o código HTML para o seu ESP">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" /><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" /></svg>
           <span class="btn-label">Copiar HTML</span>
         </button>
       </div>
-    </div>
+    </header>
 
-    <!-- TOASTS -->
     <div class="toast-zone" id="toastZone" aria-live="polite"></div>
 
-    <!-- MODAL CONFIRM -->
-    <div class="modal-overlay" id="confirmModal" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
-      <div class="modal-box">
-        <p class="modal-title" id="confirmTitle">Começar um novo e-mail?</p>
-        <p class="modal-desc">O e-mail atual será apagado e todos os campos voltam ao padrão.</p>
-        <div class="modal-actions">
-          <button class="modal-btn modal-cancel" onclick="closeConfirm()">Cancelar</button>
-          <button class="modal-btn modal-ok" onclick="confirmNovoEmail()">Sim, começar novo</button>
-        </div>
-      </div>
-    </div>
+    <main class="workspace" id="workspace">
+      <!-- MENU LATERAL: um ícone por etapa; abre um painel por vez -->
+      <nav class="rail" id="rail" role="tablist" aria-label="Etapas do e-mail" aria-orientation="vertical">
+        <button type="button" class="rail-btn" role="tab" id="tab-modelos" data-panel="modelos" aria-controls="panel-modelos">
+          <span class="rail-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3" /><path d="M3 9h18M9 21V9" /></svg></span>
+          <span class="rail-label">Modelos</span>
+        </button>
+        <button type="button" class="rail-btn" role="tab" id="tab-topo" data-panel="topo" aria-controls="panel-topo">
+          <span class="rail-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3" /><circle cx="9" cy="9" r="2" /><path d="M21 15l-4.5-4.5L6 21" /></svg></span>
+          <span class="rail-label">Topo</span>
+        </button>
+        <button type="button" class="rail-btn" role="tab" id="tab-texto" data-panel="texto" aria-controls="panel-texto">
+          <span class="rail-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6V4h14v2M12 4v16M9 20h6" /></svg></span>
+          <span class="rail-label">Texto</span>
+        </button>
+        <button type="button" class="rail-btn" role="tab" id="tab-cupom" data-panel="cupom" aria-controls="panel-cupom" data-templates="coupon">
+          <span class="rail-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9V6.5A1.5 1.5 0 014.5 5h15A1.5 1.5 0 0121 6.5V9a3 3 0 000 6v2.5a1.5 1.5 0 01-1.5 1.5h-15A1.5 1.5 0 013 17.5V15a3 3 0 000-6z" /><path d="M14 5v2.5M14 10.75v2.5M14 16.5V19" /></svg></span>
+          <span class="rail-label">Cupom</span>
+        </button>
+        <button type="button" class="rail-btn" role="tab" id="tab-materias" data-panel="materias" aria-controls="panel-materias" data-templates="newsletter">
+          <span class="rail-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h13a1 1 0 011 1v13a2 2 0 002 2H6a2 2 0 01-2-2z" /><path d="M18 9h2a1 1 0 011 1v9a2 2 0 01-2 2M8 9h6M8 13h6M8 17h4" /></svg></span>
+          <span class="rail-label">Matérias</span>
+        </button>
+        <button type="button" class="rail-btn" role="tab" id="tab-produtos" data-panel="produtos" aria-controls="panel-produtos" data-templates="vitrine">
+          <span class="rail-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1.2 11.1a2 2 0 01-2 1.9H8.2a2 2 0 01-2-1.9z" /><path d="M9 8V6.5a3 3 0 016 0V8" /></svg></span>
+          <span class="rail-label">Produtos</span>
+        </button>
+        <button type="button" class="rail-btn" role="tab" id="tab-evento" data-panel="evento" aria-controls="panel-evento" data-templates="invite">
+          <span class="rail-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" /><path d="M3 10h18M8 3v4M16 3v4M8 14h3v3H8z" /></svg></span>
+          <span class="rail-label">Evento</span>
+        </button>
+        <button type="button" class="rail-btn" role="tab" id="tab-remetente" data-panel="remetente" aria-controls="panel-remetente" data-templates="letter">
+          <span class="rail-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4" /><path d="M4 21a8 8 0 0116 0" /></svg></span>
+          <span class="rail-label">Remetente</span>
+        </button>
+        <button type="button" class="rail-btn" role="tab" id="tab-botao" data-panel="botao" aria-controls="panel-botao">
+          <span class="rail-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="7" width="20" height="10" rx="5" /><path d="M8 12h8" /></svg></span>
+          <span class="rail-label">Botão</span>
+        </button>
+        <button type="button" class="rail-btn" role="tab" id="tab-cores" data-panel="cores" aria-controls="panel-cores">
+          <span class="rail-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22a10 10 0 110-20c5.5 0 10 4 10 9a5 5 0 01-5 5h-1.8a1.7 1.7 0 00-1.2 2.9A1.7 1.7 0 0112 22z" /><circle cx="7.5" cy="11.5" r="1.2" /><circle cx="10.5" cy="7" r="1.2" /><circle cx="15.5" cy="7.5" r="1.2" /></svg></span>
+          <span class="rail-label">Cores</span>
+        </button>
+        <button type="button" class="rail-btn" role="tab" id="tab-redes" data-panel="redes" aria-controls="panel-redes">
+          <span class="rail-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3" /><circle cx="6" cy="12" r="3" /><circle cx="18" cy="19" r="3" /><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4" /></svg></span>
+          <span class="rail-label">Redes</span>
+        </button>
+        <button type="button" class="rail-btn" role="tab" id="tab-rodape" data-panel="rodape" aria-controls="panel-rodape">
+          <span class="rail-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3" /><path d="M3 15h18M7 18.5h6" /></svg></span>
+          <span class="rail-label">Rodapé</span>
+        </button>
+      </nav>
 
-    <div class="workspace">
-      <div class="sidebar">
-        <div>
-          <div class="section-label"><span class="sec-num">01</span>Preview Text</div>
-          <div class="field">
-            <label>Subtítulo (fica oculto, aparece no Gmail junto ao título do e-mail)</label>
-            <input
-              type="text"
-              id="previewText"
-              placeholder="Ex: Fique por dentro das novidades"
-              oninput="updatePreview()"
-            />
+      <form class="panels" id="sidebar" autocomplete="off" aria-label="Configurações do e-mail">
+        <!-- MODELOS -->
+        <section class="panel" id="panel-modelos" role="tabpanel" aria-labelledby="tab-modelos" hidden>
+          <div class="panel-head">
+            <h2 class="panel-title">Modelos</h2>
+            <p class="panel-desc">Escolha a estrutura do e-mail. Seus textos, links e imagens continuam no lugar.</p>
           </div>
-        </div>
+          <div class="tpl-grid" id="tplGrid"></div>
+        </section>
 
-        <div class="divider-line"></div>
+        <!-- TOPO -->
+        <section class="panel" id="panel-topo" role="tabpanel" aria-labelledby="tab-topo" hidden>
+          <div class="panel-head">
+            <h2 class="panel-title">Topo</h2>
+            <p class="panel-desc">O que aparece na caixa de entrada e no início do e-mail.</p>
+          </div>
 
-        <div>
-          <div class="section-label"><span class="sec-num">02</span>Logo</div>
-          <div class="optional-block enabled" id="logoBlock">
+          <div class="group">
+            <div class="field">
+              <label for="previewText">Preview text</label>
+              <input type="text" id="previewText" maxlength="150" placeholder="Ex: Fique por dentro das novidades" aria-describedby="previewHelp previewCount" />
+              <span class="field-hint" id="previewHelp">Aparece ao lado do assunto na caixa de entrada e fica oculto no e-mail.</span>
+              <span class="field-hint" id="previewCount">0 caracteres · o ideal é entre 40 e 90</span>
+            </div>
+          </div>
+
+          <div class="group optional-block" id="logoBlock">
             <label class="toggle-row">
-              <input
-                type="checkbox"
-                id="logoEnabled"
-                checked
-                onchange="
-                  toggleOpt('logoEnabled', 'logoFields', 'logoBlock');
-                  updatePreview();
-                "
-              />
-              <span>Incluir logo no topo</span>
+              <input type="checkbox" id="logoEnabled" data-toggles="logoFields" />
+              <span>Logo</span>
             </label>
-            <div
-              id="logoFields"
-              style="display: flex; flex-direction: column; gap: 8px"
-            >
-              <div class="two-col">
-                <div class="field">
-                  <label>URL da logo</label
-                  ><input
-                    type="url"
-                    id="logoUrl"
-                    placeholder="https://sua-empresa.com/logo.png"
-                    oninput="updatePreview()"
-                  />
-                </div>
-                <div class="field">
-                  <label>Link da logo (opcional)</label
-                  ><input
-                    type="url"
-                    id="logoLink"
-                    placeholder="https://sua-empresa.com"
-                    oninput="updatePreview()"
-                  />
-                </div>
+            <div id="logoFields" class="opt-fields">
+              <div class="field">
+                <label for="logoUrl">URL da imagem</label>
+                <input type="url" id="logoUrl" placeholder="https://sua-empresa.com/logo.png" />
+              </div>
+              <div class="field">
+                <label for="logoLink">Link ao clicar <span class="optional-label">opcional</span></label>
+                <input type="url" id="logoLink" placeholder="https://sua-empresa.com" />
+              </div>
+              <div class="field">
+                <label for="logoAlt">Texto alternativo</label>
+                <input type="text" id="logoAlt" placeholder="Ex: Sua Empresa" />
+                <span class="field-hint">Aparece quando o programa de e-mail bloqueia imagens.</span>
               </div>
             </div>
           </div>
-        </div>
 
-        <div class="divider-line"></div>
-
-        <div>
-          <div class="section-label"><span class="sec-num">03</span>Banner</div>
-          <div class="two-col">
-            <div class="field">
-              <label>URL do banner</label
-              ><input
-                type="url"
-                id="bannerUrl"
-                placeholder="https://..."
-                oninput="updatePreview()"
-              />
+          <div class="group" data-templates="gradient">
+            <h3 class="group-title">Links no topo <span class="optional-label">opcional</span></h3>
+            <p class="field-hint">Aparecem ao lado da logo, como um menu do site.</p>
+            <div class="link-pair">
+              <input type="text" id="nav1Text" placeholder="Texto" aria-label="Texto do primeiro link" />
+              <input type="url" id="nav1Url" placeholder="https://..." aria-label="Endereço do primeiro link" />
             </div>
-            <div class="field">
-              <label>Link do banner (opcional)</label
-              ><input
-                type="url"
-                id="bannerLink"
-                placeholder="https://..."
-                oninput="updatePreview()"
-              />
+            <div class="link-pair">
+              <input type="text" id="nav2Text" placeholder="Texto" aria-label="Texto do segundo link" />
+              <input type="url" id="nav2Url" placeholder="https://..." aria-label="Endereço do segundo link" />
             </div>
           </div>
-        </div>
 
-        <div class="divider-line"></div>
+          <div class="group">
+            <h3 class="group-title">Banner <span class="optional-label">opcional</span></h3>
+            <div class="field">
+              <label for="bannerUrl">URL da imagem</label>
+              <input type="url" id="bannerUrl" placeholder="https://..." />
+              <span class="field-hint">Use 1200 px de largura para ficar nítido em telas de alta resolução.</span>
+            </div>
+            <div class="field">
+              <label for="bannerLink">Link ao clicar <span class="optional-label">opcional</span></label>
+              <input type="url" id="bannerLink" placeholder="https://..." />
+            </div>
+            <div class="field">
+              <label for="bannerAlt">Texto alternativo</label>
+              <input type="text" id="bannerAlt" placeholder="Ex: Promoção de inverno com 30% de desconto" />
+            </div>
+          </div>
+        </section>
 
-        <div>
-          <div class="section-label"><span class="sec-num">04</span>Título</div>
-          <div class="optional-block enabled" id="titleBlock">
+        <!-- TEXTO -->
+        <section class="panel" id="panel-texto" role="tabpanel" aria-labelledby="tab-texto" hidden>
+          <div class="panel-head">
+            <h2 class="panel-title">Texto</h2>
+            <p class="panel-desc">Título e blocos de conteúdo do e-mail.</p>
+          </div>
+
+          <div class="group optional-block" id="titleBlock">
             <label class="toggle-row">
-              <input
-                type="checkbox"
-                id="titleEnabled"
-                checked
-                onchange="
-                  toggleOpt('titleEnabled', 'titleFields', 'titleBlock');
-                  updatePreview();
-                "
-              />
-              <span>Incluir titulo</span>
+              <input type="checkbox" id="titleEnabled" data-toggles="titleFields" />
+              <span>Título</span>
             </label>
-            <div
-              id="titleFields"
-              style="display: flex; flex-direction: column; gap: 8px"
-            >
-              <div class="two-col">
-                <div class="field">
-                  <label>Texto do titulo</label>
-                  <input
-                    type="text"
-                    id="titleText"
-                    placeholder="Seu titulo aqui"
-                    value="Seu titulo aqui"
-                    oninput="updatePreview()"
-                  />
-                </div>
-                <div class="field">
-                  <label>Cor</label>
-                  <div class="color-row">
-                    <input
-                      type="text"
-                      id="titleColorHex"
-                      value="#242424"
-                      oninput="
-                        syncHex('titleColorHex', 'titleColor');
-                        updatePreview();
-                      "
-                    />
-                    <input
-                      type="color"
-                      id="titleColor"
-                      value="#242424"
-                      oninput="
-                        syncPicker('titleColor', 'titleColorHex');
-                        updatePreview();
-                      "
-                    />
-                  </div>
+            <div id="titleFields" class="opt-fields">
+              <div class="field">
+                <label for="titleText">Texto do título</label>
+                <input type="text" id="titleText" placeholder="Seu título aqui" />
+              </div>
+              <div class="field">
+                <label for="titleColorHex">Cor do título</label>
+                <div class="color-row">
+                  <input type="color" id="titleColor" aria-label="Escolher cor do título" />
+                  <input type="text" id="titleColorHex" class="hex-input" maxlength="7" />
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div class="divider-line"></div>
-
-        <div>
-          <div class="section-label"><span class="sec-num">05</span>Blocos de texto</div>
-          <div
-            id="blocksContainer"
-            style="display: flex; flex-direction: column; gap: 10px"
-          ></div>
-          <button class="btn-add-block" onclick="addBlock()">
-            <svg
-              width="12"
-              height="12"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2.5"
-            >
-              <line x1="12" y1="5" x2="12" y2="19" />
-              <line x1="5" y1="12" x2="19" y2="12" />
-            </svg>
-            Adicionar bloco de texto
-          </button>
-        </div>
-
-        <div class="divider-line"></div>
-
-        <div>
-          <div class="section-label">
-            <span class="sec-num">06</span>Botão CTA
-            <span
-              style="
-                color: var(--muted);
-                font-size: 0.58rem;
-                text-transform: none;
-                letter-spacing: 0;
-                font-weight: 400;
-              "
-              >(opcional)</span
-            >
+          <div class="group">
+            <h3 class="group-title">Blocos de texto</h3>
+            <div id="blocksContainer"></div>
+            <button type="button" class="btn-add-block" data-action="add-block">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
+              Adicionar bloco de texto
+            </button>
+            <p class="field-hint">Variáveis como <code>{{nome}}</code> são trocadas pelo seu ESP no envio. Ajuste para a sintaxe dele, se for diferente.</p>
           </div>
-          <div class="optional-block" id="btnBlock">
+
+          <div class="group optional-block" id="signatureBlock" data-templates="minimal">
             <label class="toggle-row">
-              <input
-                type="checkbox"
-                id="btnEnabled"
-                onchange="
-                  toggleOpt('btnEnabled', 'btnFields', 'btnBlock');
-                  updatePreview();
-                "
-              />
-              <span>Incluir botão de acao</span>
+              <input type="checkbox" id="signatureEnabled" data-toggles="signatureFields" />
+              <span>Assinatura <span class="optional-label">opcional</span></span>
             </label>
-            <div
-              id="btnFields"
-              style="display: none; flex-direction: column; gap: 8px"
-            >
-              <div class="two-col">
-                <div class="field">
-                  <label>Texto</label
-                  ><input
-                    type="text"
-                    id="btnText"
-                    placeholder="Saiba mais"
-                    oninput="updatePreview()"
-                  />
-                </div>
-                <div class="field">
-                  <label
-                    >Link
-                    <span
-                      style="
-                        color: var(--muted);
-                        font-weight: 400;
-                        font-size: 0.65rem;
-                      "
-                      >(opcional)</span
-                    ></label
-                  ><input
-                    type="url"
-                    id="btnLink"
-                    placeholder="https://..."
-                    oninput="updatePreview()"
-                  />
-                </div>
-              </div>
-              <div class="three-col">
-                <div class="field">
-                  <label>Fundo</label>
-                  <div class="color-row">
-                    <input
-                      type="text"
-                      id="btnBgHex"
-                      value="#2563eb"
-                      oninput="
-                        syncHex('btnBgHex', 'btnBgColor');
-                        updatePreview();
-                      "
-                    /><input
-                      type="color"
-                      id="btnBgColor"
-                      value="#2563eb"
-                      oninput="
-                        syncPicker('btnBgColor', 'btnBgHex');
-                        updatePreview();
-                      "
-                    />
-                  </div>
-                </div>
-                <div class="field">
-                  <label>Texto</label>
-                  <div class="color-row">
-                    <input
-                      type="text"
-                      id="btnTxtHex"
-                      value="#242424"
-                      oninput="
-                        syncHex('btnTxtHex', 'btnTxtColor');
-                        updatePreview();
-                      "
-                    /><input
-                      type="color"
-                      id="btnTxtColor"
-                      value="#242424"
-                      oninput="
-                        syncPicker('btnTxtColor', 'btnTxtHex');
-                        updatePreview();
-                      "
-                    />
-                  </div>
-                </div>
-                <div class="field">
-                  <label style="display:flex;align-items:center;gap:6px;">
-                    <input type="checkbox" id="btnBorderOn" checked onchange="updatePreview()" class="mini-check">Borda
-                  </label>
-                  <div class="color-row">
-                    <input
-                      type="text"
-                      id="btnBorderHex"
-                      value="#000000"
-                      oninput="
-                        syncHex('btnBorderHex', 'btnBorderColor');
-                        updatePreview();
-                      "
-                    /><input
-                      type="color"
-                      id="btnBorderColor"
-                      value="#000000"
-                      oninput="
-                        syncPicker('btnBorderColor', 'btnBorderHex');
-                        updatePreview();
-                      "
-                    />
-                  </div>
-                </div>
-              </div>
-              <label class="toggle-row"
-                ><input
-                  type="checkbox"
-                  id="btnNewTab"
-                  checked
-                  onchange="updatePreview()"
-                /><span>Abrir em nova aba</span></label
-              >
-            </div>
-          </div>
-        </div>
-
-        <div class="divider-line"></div>
-
-        <div>
-          <div class="section-label"><span class="sec-num">07</span>Cores</div>
-          <div class="two-col">
-            <div class="field">
-              <label>Fundo externo</label>
-              <div class="color-row">
-                <input
-                  type="text"
-                  id="bgHex"
-                  value="#f0f0f0"
-                  oninput="
-                    syncHex('bgHex', 'bgColor');
-                    updatePreview();
-                  "
-                /><input
-                  type="color"
-                  id="bgColor"
-                  value="#f0f0f0"
-                  oninput="
-                    syncPicker('bgColor', 'bgHex');
-                    updatePreview();
-                  "
-                />
-              </div>
-            </div>
-            <div class="field">
-              <label>Card logo/rodapé</label>
-              <div class="color-row">
-                <input
-                  type="text"
-                  id="cardVerdeHex"
-                  value="#1e293b"
-                  oninput="
-                    syncHex('cardVerdeHex', 'cardVerdeColor');
-                    updatePreview();
-                  "
-                /><input
-                  type="color"
-                  id="cardVerdeColor"
-                  value="#1e293b"
-                  oninput="
-                    syncPicker('cardVerdeColor', 'cardVerdeHex');
-                    updatePreview();
-                  "
-                />
-              </div>
-            </div>
-            <div class="field">
-              <label>Card conteudo bg</label>
-              <div class="color-row">
-                <input
-                  type="text"
-                  id="cardBgHex"
-                  value="#ffffff"
-                  oninput="
-                    syncHex('cardBgHex', 'cardBgColor');
-                    updatePreview();
-                  "
-                /><input
-                  type="color"
-                  id="cardBgColor"
-                  value="#ffffff"
-                  oninput="
-                    syncPicker('cardBgColor', 'cardBgHex');
-                    updatePreview();
-                  "
-                />
-              </div>
-            </div>
-            <div class="field">
-              <label>Card conteudo borda</label>
-              <div class="color-row">
-                <input
-                  type="text"
-                  id="cardBorderHex"
-                  value="#e1e1e6"
-                  oninput="
-                    syncHex('cardBorderHex', 'cardBorderColor');
-                    updatePreview();
-                  "
-                /><input
-                  type="color"
-                  id="cardBorderColor"
-                  value="#e1e1e6"
-                  oninput="
-                    syncPicker('cardBorderColor', 'cardBorderHex');
-                    updatePreview();
-                  "
-                />
+            <div id="signatureFields" class="opt-fields">
+              <div class="field">
+                <label for="signatureText">Texto da assinatura</label>
+                <textarea id="signatureText" rows="2" data-autoresize></textarea>
+                <span class="field-hint">Aparece depois do botão, como no fim de uma carta.</span>
               </div>
             </div>
           </div>
-        </div>
 
-        <div class="divider-line"></div>
-
-        <div>
-          <div class="section-label"><span class="sec-num">08</span>Rodapé</div>
-          <div class="optional-block enabled" id="footerBlock">
+          <div class="group optional-block" id="warningBlock" data-templates="gradient">
             <label class="toggle-row">
-              <input
-                type="checkbox"
-                id="footerEnabled"
-                checked
-                onchange="
-                  toggleOpt('footerEnabled', 'footerFields', 'footerBlock');
-                  updatePreview();
-                "
-              />
+              <input type="checkbox" id="warningEnabled" data-toggles="warningFields" />
+              <span>Faixa de aviso <span class="optional-label">opcional</span></span>
+            </label>
+            <div id="warningFields" class="opt-fields">
+              <div class="field">
+                <label for="warningText">Texto da faixa</label>
+                <input type="text" id="warningText" placeholder="Ex: Oferta válida até 30/11. Consulte o regulamento." />
+                <span class="field-hint">Uma linha em destaque logo abaixo do conteúdo, para avisos legais ou condições.</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- CUPOM (só no modelo Cupom) -->
+        <section class="panel" id="panel-cupom" role="tabpanel" aria-labelledby="tab-cupom" hidden>
+          <div class="panel-head">
+            <h2 class="panel-title">Cupom</h2>
+            <p class="panel-desc">A oferta, o código e as condições.</p>
+          </div>
+
+          <div class="group">
+            <div class="field">
+              <label for="couponEyebrow">Chamada <span class="optional-label">opcional</span></label>
+              <input type="text" id="couponEyebrow" maxlength="40" placeholder="Ex: Presente para você" />
+            </div>
+            <div class="field">
+              <label for="couponValue">Oferta em destaque</label>
+              <input type="text" id="couponValue" maxlength="24" placeholder="Ex: 20% OFF, R$ 50, Frete grátis" />
+              <span class="field-hint">Aparece em letras grandes. Textos curtos funcionam melhor.</span>
+            </div>
+          </div>
+
+          <div class="group">
+            <h3 class="group-title">Código</h3>
+            <div class="field">
+              <label for="couponCode">Código do cupom</label>
+              <input type="text" id="couponCode" class="mono-input" maxlength="30" placeholder="Ex: BEMVINDO20" autocapitalize="characters" spellcheck="false" />
+            </div>
+            <div class="field">
+              <label for="couponExpiry">Validade <span class="optional-label">opcional</span></label>
+              <input type="text" id="couponExpiry" maxlength="60" placeholder="Ex: Válido até 30/11" />
+            </div>
+          </div>
+
+          <div class="group">
+            <div class="field">
+              <label for="couponRules">Regras <span class="optional-label">opcional</span></label>
+              <textarea id="couponRules" rows="2" data-autoresize placeholder="Ex: Válido para compras acima de R$ 100. Não cumulativo."></textarea>
+              <span class="field-hint">Texto pequeno abaixo do botão.</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- MATÉRIAS (só no modelo Newsletter) -->
+        <section class="panel" id="panel-materias" role="tabpanel" aria-labelledby="tab-materias" hidden>
+          <div class="panel-head">
+            <h2 class="panel-title">Matérias</h2>
+            <p class="panel-desc">As chamadas da edição: cada uma com imagem, título, resumo e link.</p>
+          </div>
+
+          <div class="group">
+            <h3 class="group-title">Cabeçalho da edição</h3>
+            <div class="link-pair">
+              <input type="text" id="newsEdition" maxlength="30" placeholder="Edição #12" aria-label="Número da edição" />
+              <input type="text" id="newsDate" maxlength="40" placeholder="Outubro de 2026" aria-label="Data da edição" />
+            </div>
+            <div class="seg-field">
+              <span class="seg-label" id="newsLayoutLabel">Imagens</span>
+              <select id="newsLayout" class="social-style-select" data-segmented aria-labelledby="newsLayoutLabel">
+                <option value="stack">Em cima</option>
+                <option value="side">Ao lado</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="group">
+            <h3 class="group-title">Lista</h3>
+            <div id="articlesContainer" class="item-list"></div>
+            <button type="button" class="btn-add-block" data-action="add-article">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
+              Adicionar matéria
+            </button>
+          </div>
+        </section>
+
+        <!-- PRODUTOS (só no modelo Vitrine) -->
+        <section class="panel" id="panel-produtos" role="tabpanel" aria-labelledby="tab-produtos" hidden>
+          <div class="panel-head">
+            <h2 class="panel-title">Produtos</h2>
+            <p class="panel-desc">A grade da vitrine: foto, nome, preço e link de cada produto.</p>
+          </div>
+
+          <div class="group">
+            <div class="field">
+              <label for="vitrineHeading">Título da grade <span class="optional-label">opcional</span></label>
+              <input type="text" id="vitrineHeading" maxlength="60" placeholder="Ex: Mais vendidos da semana" />
+            </div>
+            <div class="seg-field">
+              <span class="seg-label" id="vitrineColsLabel">Colunas</span>
+              <select id="vitrineCols" class="social-style-select" data-segmented aria-labelledby="vitrineColsLabel">
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="group">
+            <h3 class="group-title">Lista</h3>
+            <div id="productsContainer" class="item-list"></div>
+            <button type="button" class="btn-add-block" data-action="add-product">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
+              Adicionar produto
+            </button>
+          </div>
+        </section>
+
+        <!-- EVENTO (só no modelo Convite) -->
+        <section class="panel" id="panel-evento" role="tabpanel" aria-labelledby="tab-evento" hidden>
+          <div class="panel-head">
+            <h2 class="panel-title">Evento</h2>
+            <p class="panel-desc">Quando e onde. O dia da semana e o mês aparecem sozinhos no convite.</p>
+          </div>
+
+          <div class="group">
+            <div class="field">
+              <label for="eventEyebrow">Chamada <span class="optional-label">opcional</span></label>
+              <input type="text" id="eventEyebrow" maxlength="40" placeholder="Ex: Você está convidado" />
+              <span class="field-hint">O nome do evento é o título, na etapa Texto.</span>
+            </div>
+          </div>
+
+          <div class="group">
+            <h3 class="group-title">Quando</h3>
+            <div class="field">
+              <label for="eventDate">Data</label>
+              <input type="date" id="eventDate" />
+            </div>
+            <span class="pair-label">Horário <span class="optional-label">início e fim</span></span>
+            <div class="link-pair link-pair-even">
+              <input type="time" id="eventStart" aria-label="Horário de início" />
+              <input type="time" id="eventEnd" aria-label="Horário de término" />
+            </div>
+            <label class="toggle-row toggle-sm">
+              <input type="checkbox" id="eventCalendar" /><span>Link “Adicionar ao Google Agenda”</span>
+            </label>
+          </div>
+
+          <div class="group">
+            <h3 class="group-title">Onde</h3>
+            <div class="field">
+              <label for="eventWhere">Local</label>
+              <input type="text" id="eventWhere" maxlength="80" placeholder="Ex: Espaço Cultural Centro, ou Online" />
+            </div>
+            <div class="field">
+              <label for="eventAddress">Endereço <span class="optional-label">opcional</span></label>
+              <input type="text" id="eventAddress" maxlength="120" placeholder="Ex: Rua da Paz, 120 · São Paulo, SP" />
+            </div>
+            <div class="field">
+              <label for="eventMapUrl">Link do mapa ou da transmissão <span class="optional-label">opcional</span></label>
+              <input type="url" id="eventMapUrl" placeholder="https://maps.google.com/..." />
+            </div>
+          </div>
+        </section>
+
+        <!-- REMETENTE (só no modelo Carta pessoal) -->
+        <section class="panel" id="panel-remetente" role="tabpanel" aria-labelledby="tab-remetente" hidden>
+          <div class="panel-head">
+            <h2 class="panel-title">Remetente</h2>
+            <p class="panel-desc">Quem assina a carta. Um nome e uma foto deixam o e-mail com cara de conversa.</p>
+          </div>
+
+          <div class="group">
+            <div class="field">
+              <label for="letterClosing">Despedida</label>
+              <input type="text" id="letterClosing" maxlength="40" placeholder="Ex: Um abraço," />
+            </div>
+            <div class="field">
+              <label for="letterName">Nome</label>
+              <input type="text" id="letterName" maxlength="60" placeholder="Ex: Ana Souza" />
+            </div>
+            <div class="link-pair link-pair-even">
+              <input type="text" id="letterRole" maxlength="60" placeholder="Cargo" aria-label="Cargo de quem assina" />
+              <input type="text" id="letterCompany" maxlength="60" placeholder="Empresa" aria-label="Empresa de quem assina" />
+            </div>
+            <div class="field">
+              <label for="letterPhoto">Foto <span class="optional-label">opcional</span></label>
+              <input type="url" id="letterPhoto" placeholder="https://.../foto.jpg" />
+              <span class="field-hint">Uma foto quadrada do rosto. Aparece redonda, ao lado do nome.</span>
+            </div>
+          </div>
+
+          <div class="group">
+            <div class="field">
+              <label for="letterPs">P.S. <span class="optional-label">opcional</span></label>
+              <textarea id="letterPs" rows="2" data-autoresize placeholder="Ex: Responda este e-mail se tiver qualquer dúvida."></textarea>
+              <span class="field-hint">Uma linha depois da assinatura, que costuma ser das mais lidas.</span>
+            </div>
+            <div class="seg-field">
+              <span class="seg-label" id="letterCtaLabel">Chamada para ação</span>
+              <select id="letterCta" class="social-style-select" data-segmented aria-labelledby="letterCtaLabel">
+                <option value="link">Link no texto</option>
+                <option value="button">Botão</option>
+              </select>
+            </div>
+          </div>
+        </section>
+
+        <!-- BOTÃO -->
+        <section class="panel" id="panel-botao" role="tabpanel" aria-labelledby="tab-botao" hidden>
+          <div class="panel-head">
+            <h2 class="panel-title">Botão</h2>
+            <p class="panel-desc">A chamada para ação, no fim do conteúdo.</p>
+          </div>
+
+          <div class="group optional-block" id="btnBlock">
+            <label class="toggle-row">
+              <input type="checkbox" id="btnEnabled" data-toggles="btnFields" />
+              <span>Incluir botão</span>
+            </label>
+            <div id="btnFields" class="opt-fields">
+              <div class="field">
+                <label for="btnText">Texto</label>
+                <input type="text" id="btnText" placeholder="Saiba mais" maxlength="40" />
+              </div>
+              <div class="field">
+                <label for="btnLink">Link</label>
+                <input type="url" id="btnLink" placeholder="https://..." />
+              </div>
+              <label class="toggle-row toggle-sm">
+                <input type="checkbox" id="btnUppercase" /><span>Texto em maiúsculas</span>
+              </label>
+              <label class="toggle-row toggle-sm">
+                <input type="checkbox" id="btnArrow" /><span>Seta ao lado do texto</span>
+              </label>
+              <label class="toggle-row toggle-sm">
+                <input type="checkbox" id="btnNewTab" /><span>Abrir em nova aba</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="group">
+            <h3 class="group-title">Aparência</h3>
+            <div class="color-list">
+              <div class="color-field">
+                <label for="btnBgHex">Fundo</label>
+                <div class="color-row">
+                  <input type="color" id="btnBgColor" aria-label="Escolher cor de fundo do botão" />
+                  <input type="text" id="btnBgHex" class="hex-input" maxlength="7" />
+                </div>
+              </div>
+              <div class="color-field">
+                <label for="btnTxtHex">Texto</label>
+                <div class="color-row">
+                  <input type="color" id="btnTxtColor" aria-label="Escolher cor do texto do botão" />
+                  <input type="text" id="btnTxtHex" class="hex-input" maxlength="7" />
+                </div>
+              </div>
+              <div class="color-field">
+                <label class="inline-check" for="btnBorderOn">
+                  <input type="checkbox" id="btnBorderOn" class="mini-check" />Borda
+                </label>
+                <div class="color-row">
+                  <input type="color" id="btnBorderColor" aria-label="Escolher cor da borda do botão" />
+                  <input type="text" id="btnBorderHex" class="hex-input" maxlength="7" aria-label="Cor da borda do botão (hex)" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- CORES -->
+        <section class="panel" id="panel-cores" role="tabpanel" aria-labelledby="tab-cores" hidden>
+          <div class="panel-head">
+            <h2 class="panel-title">Cores</h2>
+            <p class="panel-desc">Comece por uma combinação pronta e ajuste o que quiser.</p>
+          </div>
+
+          <div class="group">
+            <h3 class="group-title">Combinações</h3>
+            <div class="palette-grid" id="paletteGrid"></div>
+          </div>
+
+          <div class="group">
+            <h3 class="group-title">Ajuste fino</h3>
+            <div class="color-list">
+              <div class="color-field" data-templates="invite">
+                <label for="inviteAccentHex">Cor de destaque</label>
+                <div class="color-row">
+                  <input type="color" id="inviteAccentColor" aria-label="Escolher cor de destaque do convite" />
+                  <input type="text" id="inviteAccentHex" class="hex-input" maxlength="7" />
+                </div>
+              </div>
+              <div class="color-field" data-templates="vitrine">
+                <label for="vitrineAccentHex">Cor dos preços e botões</label>
+                <div class="color-row">
+                  <input type="color" id="vitrineAccentColor" aria-label="Escolher cor dos preços e botões" />
+                  <input type="text" id="vitrineAccentHex" class="hex-input" maxlength="7" />
+                </div>
+              </div>
+              <div class="color-field" data-templates="newsletter">
+                <label for="newsAccentHex">Cor de destaque</label>
+                <div class="color-row">
+                  <input type="color" id="newsAccentColor" aria-label="Escolher cor de destaque da newsletter" />
+                  <input type="text" id="newsAccentHex" class="hex-input" maxlength="7" />
+                </div>
+              </div>
+              <div class="color-field" data-templates="coupon">
+                <label for="couponAccentHex">Cor de destaque</label>
+                <div class="color-row">
+                  <input type="color" id="couponAccentColor" aria-label="Escolher cor de destaque do cupom" />
+                  <input type="text" id="couponAccentHex" class="hex-input" maxlength="7" />
+                </div>
+              </div>
+              <div class="color-field" data-templates="coupon">
+                <label for="couponBoxHex">Fundo do código</label>
+                <div class="color-row">
+                  <input type="color" id="couponBoxColor" aria-label="Escolher cor de fundo da caixa do código" />
+                  <input type="text" id="couponBoxHex" class="hex-input" maxlength="7" />
+                </div>
+              </div>
+              <div class="color-field" data-templates="cards">
+                <label for="cardAccentHex">Logo e rodapé</label>
+                <div class="color-row">
+                  <input type="color" id="cardAccentColor" aria-label="Escolher cor dos cards de logo e rodapé" />
+                  <input type="text" id="cardAccentHex" class="hex-input" maxlength="7" />
+                </div>
+              </div>
+              <div class="color-field" data-templates="cards coupon newsletter vitrine invite">
+                <label for="cardBgHex">Fundo do conteúdo</label>
+                <div class="color-row">
+                  <input type="color" id="cardBgColor" aria-label="Escolher cor de fundo do conteúdo" />
+                  <input type="text" id="cardBgHex" class="hex-input" maxlength="7" />
+                </div>
+              </div>
+              <div class="color-field" data-templates="cards">
+                <label for="cardBorderHex">Borda do conteúdo</label>
+                <div class="color-row">
+                  <input type="color" id="cardBorderColor" aria-label="Escolher cor da borda do conteúdo" />
+                  <input type="text" id="cardBorderHex" class="hex-input" maxlength="7" />
+                </div>
+              </div>
+            </div>
+            <div class="color-list" data-templates="minimal newsletter">
+              <div class="color-field">
+                <label for="lineHex">Linhas divisórias</label>
+                <div class="color-row">
+                  <input type="color" id="lineColor" aria-label="Escolher cor das linhas divisórias" />
+                  <input type="text" id="lineHex" class="hex-input" maxlength="7" />
+                </div>
+              </div>
+            </div>
+            <div class="color-list" data-templates="gradient">
+              <div class="color-field">
+                <label for="gradBaseHex">Fundo</label>
+                <div class="color-row">
+                  <input type="color" id="gradBaseColor" aria-label="Escolher cor de fundo" />
+                  <input type="text" id="gradBaseHex" class="hex-input" maxlength="7" />
+                </div>
+              </div>
+              <div class="color-field">
+                <label for="gradGlowHex">Brilho do gradiente</label>
+                <div class="color-row">
+                  <input type="color" id="gradGlowColor" aria-label="Escolher cor do brilho" />
+                  <input type="text" id="gradGlowHex" class="hex-input" maxlength="7" />
+                </div>
+              </div>
+              <div class="color-field">
+                <label for="gradBorderHex">Borda do topo</label>
+                <div class="color-row">
+                  <input type="color" id="gradBorderColor" aria-label="Escolher cor da borda do topo" />
+                  <input type="text" id="gradBorderHex" class="hex-input" maxlength="7" />
+                </div>
+              </div>
+              <div class="color-field">
+                <label for="footerBgHex">Fundo do rodapé</label>
+                <div class="color-row">
+                  <input type="color" id="footerBgColor" aria-label="Escolher cor de fundo do rodapé" />
+                  <input type="text" id="footerBgHex" class="hex-input" maxlength="7" />
+                </div>
+              </div>
+            </div>
+            <div class="color-list">
+              <div class="color-field">
+                <label for="bgHex">Fundo externo</label>
+                <div class="color-row">
+                  <input type="color" id="bgColor" aria-label="Escolher cor do fundo externo" />
+                  <input type="text" id="bgHex" class="hex-input" maxlength="7" />
+                </div>
+              </div>
+              <div class="color-field">
+                <label for="textHex">Texto do conteúdo</label>
+                <div class="color-row">
+                  <input type="color" id="textColor" aria-label="Escolher cor do texto do conteúdo" />
+                  <input type="text" id="textHex" class="hex-input" maxlength="7" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- REDES -->
+        <section class="panel" id="panel-redes" role="tabpanel" aria-labelledby="tab-redes" hidden>
+          <div class="panel-head">
+            <h2 class="panel-title">Redes sociais</h2>
+            <p class="panel-desc">Ícones que aparecem no rodapé do e-mail.</p>
+          </div>
+
+          <p class="notice" id="redesNotice" hidden>O rodapé está desligado, então os ícones não aparecem. <button type="button" class="link-btn" data-action="enable-footer">Ligar rodapé</button></p>
+
+          <div class="group">
+            <div class="social-grid">
+              <div class="social-row">
+                <label class="social-check"><input type="checkbox" id="instaOn" /><span>Instagram</span></label>
+                <input type="url" class="social-url" id="instaUrl" placeholder="https://instagram.com/suaempresa" aria-label="Link do Instagram" />
+              </div>
+              <div class="social-row">
+                <label class="social-check"><input type="checkbox" id="teleOn" /><span>Telegram</span></label>
+                <input type="url" class="social-url" id="teleUrl" placeholder="https://t.me/suaempresa" aria-label="Link do Telegram" />
+              </div>
+              <div class="social-row">
+                <label class="social-check"><input type="checkbox" id="ytOn" /><span>YouTube</span></label>
+                <input type="url" class="social-url" id="ytUrl" placeholder="https://youtube.com/@suaempresa" aria-label="Link do YouTube" />
+              </div>
+              <div class="social-row">
+                <label class="social-check"><input type="checkbox" id="waOn" /><span>WhatsApp</span></label>
+                <input type="url" class="social-url" id="waUrl" placeholder="https://wa.me/5581999990000" aria-label="Link do WhatsApp" />
+              </div>
+            </div>
+          </div>
+
+          <div class="group">
+            <h3 class="group-title">Chamada</h3>
+            <div class="field">
+              <label for="footerSocialText">Texto acima dos ícones</label>
+              <input type="text" id="footerSocialText" />
+            </div>
+            <div class="color-field">
+              <label for="footerSocialColorHex">Cor da chamada</label>
+              <div class="color-row">
+                <input type="color" id="footerSocialColor" aria-label="Escolher cor da chamada" />
+                <input type="text" id="footerSocialColorHex" class="hex-input" maxlength="7" />
+              </div>
+            </div>
+          </div>
+
+          <div class="group">
+            <h3 class="group-title">Ícones</h3>
+            <div class="seg-field">
+              <span class="seg-label" id="iconStyleLabel">Estilo</span>
+              <select id="socialIconStyle" class="social-style-select" data-segmented aria-labelledby="iconStyleLabel">
+                <option value="color">Coloridos</option>
+                <option value="mono">Monocromáticos</option>
+              </select>
+            </div>
+            <div class="seg-field">
+              <span class="seg-label" id="iconSizeLabel">Tamanho</span>
+              <select id="socialIconSize" class="social-style-select" data-segmented aria-labelledby="iconSizeLabel">
+                <option value="md">Médio</option>
+                <option value="sm">Pequeno</option>
+              </select>
+            </div>
+            <div class="color-field" id="iconColorField" hidden>
+              <label for="socialIconColorHex">Cor dos ícones</label>
+              <div class="color-row">
+                <input type="color" id="socialIconColor" aria-label="Escolher cor dos ícones" />
+                <input type="text" id="socialIconColorHex" class="hex-input" maxlength="7" />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- RODAPÉ -->
+        <section class="panel" id="panel-rodape" role="tabpanel" aria-labelledby="tab-rodape" hidden>
+          <div class="panel-head">
+            <h2 class="panel-title">Rodapé</h2>
+            <p class="panel-desc">Texto legal e link de descadastro do fim do e-mail.</p>
+          </div>
+
+          <div class="group optional-block" id="footerBlock">
+            <label class="toggle-row">
+              <input type="checkbox" id="footerEnabled" data-toggles="footerFields" />
               <span>Incluir rodapé</span>
             </label>
-            <div id="footerFields" style="display: flex; flex-direction: column; gap: 10px">
-
-              <div class="two-col">
-                <div class="field">
-                  <label>Texto legal</label>
-                  <textarea id="footerLegal" style="min-height: 80px" oninput="autoResize(this); updatePreview();">Este e-mail foi enviado para voce porque voce se cadastrou em nossa lista.
-© 2025 Sua Empresa. Todos os direitos reservados.</textarea>
-                </div>
-                <div class="field">
-                  <label>Cor do texto legal</label>
-                  <div class="color-row">
-                    <input type="text" id="footerLegalColorHex" value="#dadada" oninput="syncHex('footerLegalColorHex','footerLegalColor'); updatePreview()">
-                    <input type="color" id="footerLegalColor" value="#dadada" oninput="syncPicker('footerLegalColor','footerLegalColorHex'); updatePreview()">
-                  </div>
-                </div>
-              </div>
-
-              <div class="two-col">
-                <div class="field">
-                  <label>Chamada redes sociais</label>
-                  <input type="text" id="footerSocialText" value="Siga nossas redes sociais!" oninput="updatePreview()" />
-                </div>
-                <div class="field">
-                  <label>Cor da chamada</label>
-                  <div class="color-row">
-                    <input type="text" id="footerSocialColorHex" value="#ffffff" oninput="syncHex('footerSocialColorHex','footerSocialColor'); updatePreview()">
-                    <input type="color" id="footerSocialColor" value="#ffffff" oninput="syncPicker('footerSocialColor','footerSocialColorHex'); updatePreview()">
-                  </div>
-                </div>
-              </div>
-
-              <div class="section-label titulo-social" style="margin-bottom: 2px">Redes Sociais</div>
-              <div class="two-col">
-                <div class="field">
-                  <label>Estilo dos ícones</label>
-                  <select id="socialIconStyle" class="social-style-select" onchange="toggleIconColor(); updatePreview()">
-                    <option value="color">Coloridos (originais)</option>
-                    <option value="mono">Monocromáticos</option>
-                  </select>
-                </div>
-                <div class="field">
-                  <label>Tamanho</label>
-                  <select id="socialIconSize" class="social-style-select" onchange="updatePreview()">
-                    <option value="md">Médio</option>
-                    <option value="sm">Pequeno</option>
-                  </select>
-                </div>
-              </div>
-              <div class="field" id="iconColorField" style="display:none;">
-                <label>Cor dos ícones</label>
-                <div class="color-row">
-                  <input type="text" id="socialIconColorHex" value="#ffffff" oninput="syncHex('socialIconColorHex','socialIconColor'); updatePreview()">
-                  <input type="color" id="socialIconColor" value="#ffffff" oninput="syncPicker('socialIconColor','socialIconColorHex'); updatePreview()">
-                </div>
-              </div>
-              <div class="social-grid">
-                <div class="social-row">
-                  <label class="social-check"><input type="checkbox" id="instaOn" onchange="updatePreview()"/><span>Instagram</span></label>
-                  <input type="url" class="social-url" id="instaUrl" placeholder="https://instagram.com/suaempresa" oninput="updatePreview()" />
-                </div>
-                <div class="social-row">
-                  <label class="social-check"><input type="checkbox" id="teleOn" onchange="updatePreview()"/><span>Telegram</span></label>
-                  <input type="url" class="social-url" id="teleUrl" placeholder="https://t.me/suaempresa" oninput="updatePreview()" />
-                </div>
-                <div class="social-row">
-                  <label class="social-check"><input type="checkbox" id="ytOn" onchange="updatePreview()"/><span>YouTube</span></label>
-                  <input type="url" class="social-url" id="ytUrl" placeholder="https://youtube.com/@suaempresa" oninput="updatePreview()" />
-                </div>
-                <div class="social-row">
-                  <label class="social-check"><input type="checkbox" id="waOn" onchange="updatePreview()"/><span>WhatsApp</span></label>
-                  <input type="url" class="social-url" id="waUrl" placeholder="https://wa.me/5581999990000" oninput="updatePreview()" />
-                </div>
-              </div>
-
-              <div class="two-col">
-                <div class="field">
-                  <label>Texto de descadastro</label>
-                  <input type="text" id="footerUnsub" value="Para cancelar o recebimento destes e-mails," oninput="updatePreview()" />
-                </div>
-                <div class="field">
-                  <label>Cor do descadastro</label>
-                  <div class="color-row">
-                    <input type="text" id="footerUnsubColorHex" value="#999999" oninput="syncHex('footerUnsubColorHex','footerUnsubColor'); updatePreview()">
-                    <input type="color" id="footerUnsubColor" value="#999999" oninput="syncPicker('footerUnsubColor','footerUnsubColorHex'); updatePreview()">
-                  </div>
-                </div>
-              </div>
-
+            <div id="footerFields" class="opt-fields">
               <div class="field">
-                <label>Link de desinscrever <span style="color: var(--muted); font-weight: 400; font-size: 0.65rem;">(use o link do seu ESP)</span></label>
-                <input type="url" id="footerUnsubUrl" placeholder="https://... ou {{unsubscribe_url}}" oninput="updatePreview()" />
+                <label for="footerLegal">Texto legal</label>
+                <textarea id="footerLegal" rows="3" data-autoresize></textarea>
               </div>
-
+              <div class="color-field">
+                <label for="footerLegalColorHex">Cor do texto legal</label>
+                <div class="color-row">
+                  <input type="color" id="footerLegalColor" aria-label="Escolher cor do texto legal" />
+                  <input type="text" id="footerLegalColorHex" class="hex-input" maxlength="7" />
+                </div>
+              </div>
+              <div class="field" data-templates="gradient">
+                <label for="footerLogoUrl">Logo do rodapé <span class="optional-label">opcional</span></label>
+                <input type="url" id="footerLogoUrl" placeholder="https://.../logo-escura.png" />
+                <span class="field-hint">Uma versão da logo que funcione sobre o fundo claro do rodapé.</span>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="sidebar-credit mono">feito por <a href="https://joaoa.com.br" target="_blank" rel="noopener">João Alberto<span>.</span></a></div>
-      </div>
-      <!-- /sidebar -->
 
-      <div class="preview-area">
+          <div class="group optional-block" id="unsubBlock">
+            <label class="toggle-row">
+              <input type="checkbox" id="unsubEnabled" data-toggles="unsubFields" />
+              <span>Link de descadastro <span class="optional-label">opcional</span></span>
+            </label>
+            <div id="unsubFields" class="opt-fields">
+            <div class="field">
+              <label for="footerUnsubUrl">Link de descadastro</label>
+              <input type="text" id="footerUnsubUrl" inputmode="url" placeholder="https://... ou {{unsubscribe_url}}" />
+              <span class="field-hint">Use o link ou a variável que o seu ESP fornece.</span>
+            </div>
+            <div class="field">
+              <label for="footerUnsub">Texto antes do link</label>
+              <input type="text" id="footerUnsub" />
+            </div>
+            <div class="color-field">
+              <label for="footerUnsubColorHex">Cor do descadastro</label>
+              <div class="color-row">
+                <input type="color" id="footerUnsubColor" aria-label="Escolher cor do descadastro" />
+                <input type="text" id="footerUnsubColorHex" class="hex-input" maxlength="7" />
+              </div>
+            </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="sidebar-credit mono">feito por <a href="https://joaoa.com.br" target="_blank" rel="noopener">João Alberto<span>.</span></a></div>
+      </form>
+
+      <section class="preview-area" aria-label="Prévia do e-mail">
         <div class="preview-topbar">
-          <div class="view-toggle">
-            <button
-              class="view-btn active"
-              id="btnDesktop"
-              onclick="setView('desktop')"
-            >
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <rect x="2" y="3" width="20" height="14" rx="2" />
-                <line x1="8" y1="21" x2="16" y2="21" />
-                <line x1="12" y1="17" x2="12" y2="21" />
-              </svg>
+          <button type="button" class="panel-toggle" id="panelToggle" data-action="toggle-panel" aria-label="Recolher painel" title="Recolher painel">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 18l-6-6 6-6" /></svg>
+          </button>
+          <div class="view-toggle" role="group" aria-label="Largura da prévia">
+            <button type="button" class="view-btn active" data-view="desktop" aria-pressed="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2" /><path d="M8 21h8M12 17v4" /></svg>
               Desktop
             </button>
-            <button class="view-btn" id="btnMobile" onclick="setView('mobile')">
-              <svg
-                width="13"
-                height="13"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <rect x="5" y="2" width="14" height="20" rx="2" />
-                <line x1="12" y1="18" x2="12.01" y2="18" />
-              </svg>
+            <button type="button" class="view-btn" data-view="mobile" aria-pressed="false">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2" /><path d="M12 18h.01" /></svg>
               Mobile
             </button>
           </div>
+          <span class="topbar-spacer"></span>
         </div>
+
+        <details class="issues" id="issues" hidden>
+          <summary class="issues-title"><span id="issuesTitle">Antes de enviar</span></summary>
+          <ul id="issuesList"></ul>
+        </details>
+
         <div class="preview-scroll-area">
           <div class="preview-frame-wrap" id="previewWrap">
-            <iframe
-              id="previewFrame"
-              title="Preview do e-mail"
-              scrolling="no"
-            ></iframe>
+            <!-- sem allow-scripts: nada do e-mail roda como código na página -->
+            <iframe id="previewFrame" title="Prévia do e-mail" sandbox="allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
           </div>
         </div>
-      </div>
-    </div>
-    <!-- /workspace -->
+      </section>
+    </main>
 
-    <div id="globalColorPopup">
-      <input
-        type="color"
-        id="globalColorPicker"
-        value="#004409"
-        oninput="onGlobalColorInput()"
-      />
-      <input
-        type="text"
-        class="color-popup-hex"
-        id="globalColorHex"
-        value="#004409"
-        oninput="onGlobalHexInput()"
-      />
-      <div class="popup-btns">
-        <button class="btn-apply-color" onclick="applyGlobalColor()">
-          Aplicar
-        </button>
-        <button class="btn-reset-color" onclick="resetColor()">↺ Padrao</button>
+    <!-- painéis flutuantes do editor de texto -->
+    <div id="colorPopup" class="popover color-pop" role="dialog" aria-labelledby="colorTitle" hidden>
+      <p class="pop-title" id="colorTitle">Cor do texto</p>
+      <div class="swatches" id="swatches"></div>
+      <div class="pop-row">
+        <input type="color" id="popupColor" aria-label="Cor personalizada" />
+        <input type="text" class="pop-input pop-hex" id="popupColorHex" maxlength="7" aria-label="Cor em hexadecimal" />
+        <button type="button" class="pop-btn primary" data-action="color-apply">Aplicar</button>
+      </div>
+      <button type="button" class="pop-link" data-action="color-reset">Remover formatação do trecho</button>
+    </div>
+
+    <div id="linkPopup" class="popover link-pop" role="dialog" aria-labelledby="linkTitle" hidden>
+      <p class="pop-title" id="linkTitle">Inserir link</p>
+      <input type="text" id="linkInput" class="pop-input" inputmode="url" placeholder="https://... ou {{variavel}}" aria-label="Endereço do link" />
+      <div class="pop-row pop-end">
+        <button type="button" class="pop-btn" data-action="link-remove" id="linkRemove">Remover link</button>
+        <button type="button" class="pop-btn primary" data-action="link-apply">Aplicar</button>
       </div>
     </div>
 
-    <script src="script.js"></script>
+    <div id="menuPopup" class="popover menu-pop" role="menu" hidden></div>
+
+    <!-- modelos: cada arquivo registra um layout em window.EmailTemplates -->
+    <script src="templates/cards.js" defer></script>
+    <script src="templates/gradient.js" defer></script>
+    <script src="templates/minimal.js" defer></script>
+    <script src="templates/coupon.js" defer></script>
+    <script src="templates/newsletter.js" defer></script>
+    <script src="templates/vitrine.js" defer></script>
+    <script src="templates/invite.js" defer></script>
+    <script src="templates/letter.js" defer></script>
+    <script src="script.js" defer></script>
   </body>
 </html>
