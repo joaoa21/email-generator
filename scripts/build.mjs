@@ -4,7 +4,7 @@
 import { copyFileSync, mkdirSync, readdirSync, rmSync, statSync } from "node:fs";
 import { join } from "node:path";
 
-const PUBLIC = ["index.html", "style.css", "script.js", "pages", "assets"];
+const PUBLIC = ["index.html", "style.css", "script.js", "robots.txt", "sitemap.xml", "pages", "assets"];
 
 function copy(src, dest) {
   if (statSync(src).isDirectory()) {

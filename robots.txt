@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+# links curtos e API do encurtador não são páginas
+Disallow: /w/
+Disallow: /api/
+
+Sitemap: https://emailgenerator.com.br/sitemap.xml

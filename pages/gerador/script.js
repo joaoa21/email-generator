@@ -1998,11 +1998,37 @@
   });
 
   /* ── INIT ── */
+  var params = new URLSearchParams(location.search);
+
+  // ?preview=<modelo>: só o e-mail de exemplo, sem editor (usado nas miniaturas da página inicial)
+  var previewId = params.get("preview");
+  if (previewId && TEMPLATES.some(function (t) { return t.id === previewId; })) {
+    document.open();
+    document.write(buildEmail(withPreset(clone(DEFAULTS), getTemplate(previewId))));
+    document.close();
+    return;
+  }
+
   buildSegments();
   applyState(load() || clone(DEFAULTS));
   var savedPanel = null;
   try {
     savedPanel = localStorage.getItem(PANEL_KEY);
   } catch (e) {}
+
+  // ?modelo=<modelo>: abre o editor já com esse modelo (links da página inicial)
+  var modelId = params.get("modelo");
+  if (modelId && modelId !== currentTemplate && TEMPLATES.some(function (t) { return t.id === modelId; })) {
+    var before = read();
+    applyState(withPreset(before, getTemplate(modelId)));
+    toast("Modelo “" + getTemplate(modelId).name + "” aplicado", {
+      action: "Desfazer",
+      onAction: function () {
+        applyState(before);
+      },
+    });
+    savedPanel = "modelos";
+  }
+  if (modelId) history.replaceState(null, "", location.pathname);
   openPanel(savedPanel || "texto");
 })();

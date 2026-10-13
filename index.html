@@ -4,17 +4,83 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Email Generator — Ferramentas de marketing que funcionam de verdade</title>
-<meta name="description" content="Gerador de e-mail HTML e links de WhatsApp com mensagem pronta. Grátis, sem cadastro, direto no navegador. Feito por quem trabalha com marketing todo dia.">
 
-<meta property="og:title" content="Email Generator — Ferramentas de marketing">
-<meta property="og:description" content="E-mails HTML profissionais e links de WhatsApp em minutos. Grátis, sem cadastro.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://emailgenerator.com.br/">
-<meta property="og:image" content="https://joaoa.com.br/assets/img/og-email-generator.jpg">
+<!-- SEO -->
+<title>Gerador de E-mail HTML e Link de WhatsApp | Email Generator</title>
+<meta name="description" content="Monte e-mails HTML que funcionam no Gmail e no Outlook com 8 modelos prontos. Crie links de WhatsApp com mensagem, link curto, contagem de cliques e QR Code.">
+<link rel="canonical" href="https://emailgenerator.com.br/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="author" content="João Alberto">
+<meta name="theme-color" content="#f4f1ea">
 <meta name="color-scheme" content="light">
 
+<!-- Compartilhamento (WhatsApp, LinkedIn, Facebook, X) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Email Generator">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:url" content="https://emailgenerator.com.br/">
+<meta property="og:title" content="Pare de montar e-mail do zero">
+<meta property="og:description" content="8 modelos de e-mail HTML prontos para Gmail, Outlook e o seu ESP. E links de WhatsApp com mensagem, link curto e QR Code.">
+<meta property="og:image" content="https://emailgenerator.com.br/assets/og.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Email Generator: e-mail HTML com fundo escuro e link curto de WhatsApp">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Pare de montar e-mail do zero">
+<meta name="twitter:description" content="8 modelos de e-mail HTML prontos para Gmail, Outlook e o seu ESP. E links de WhatsApp com mensagem, link curto e QR Code.">
+<meta name="twitter:image" content="https://emailgenerator.com.br/assets/og.jpg">
+<meta name="twitter:image:alt" content="Email Generator: e-mail HTML com fundo escuro e link curto de WhatsApp">
+
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+
+<!-- dados estruturados para o Google (não é código executável) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://emailgenerator.com.br/#site",
+      "url": "https://emailgenerator.com.br/",
+      "name": "Email Generator",
+      "inLanguage": "pt-BR"
+    },
+    {
+      "@type": "WebApplication",
+      "name": "Gerador de E-mail HTML",
+      "url": "https://emailgenerator.com.br/pages/gerador/",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "inLanguage": "pt-BR",
+      "description": "Editor visual de e-mail HTML compatível com Gmail e Outlook, com 8 modelos prontos, prévia em desktop e celular e verificação antes do envio.",
+      "featureList": ["8 modelos de e-mail", "Compatível com Outlook (botões em VML)", "Prévia em desktop e celular", "Copiar para o Gmail ou exportar HTML", "Verificação antes de enviar"],
+      "author": { "@type": "Person", "name": "João Alberto", "url": "https://joaoa.com.br" }
+    },
+    {
+      "@type": "WebApplication",
+      "name": "Gerador de Link de WhatsApp",
+      "url": "https://emailgenerator.com.br/pages/whatsapp/",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "inLanguage": "pt-BR",
+      "description": "Crie links de WhatsApp com mensagem pronta, link curto no próprio domínio com contagem de cliques e QR Code.",
+      "featureList": ["Mensagem pronta com formatação", "Link curto com contagem de cliques", "QR Code em PNG", "Validação de DDD e celular"],
+      "author": { "@type": "Person", "name": "João Alberto", "url": "https://joaoa.com.br" }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "O e-mail funciona no Outlook?", "acceptedAnswer": { "@type": "Answer", "text": "Sim. O HTML usa tabelas e estilos inline, e os botões têm uma versão em VML só para o Outlook clássico, que usa o motor do Word e costuma quebrar e-mails de outros geradores." } },
+        { "@type": "Question", "name": "Posso usar o HTML no meu ESP?", "acceptedAnswer": { "@type": "Answer", "text": "Sim. Copie o código e cole em Mailchimp, RD Station, Brevo, Salesforce ou qualquer ferramenta que aceite HTML. Variáveis como {{nome}} e o link de descadastro do seu ESP são mantidos." } },
+        { "@type": "Question", "name": "Dá para enviar pelo Gmail sem ESP?", "acceptedAnswer": { "@type": "Answer", "text": "Dá. O botão Copiar para Gmail copia o e-mail já renderizado: é só colar no corpo de uma mensagem nova, com imagens, cores e botão." } },
+        { "@type": "Question", "name": "Como funciona o link curto do WhatsApp?", "acceptedAnswer": { "@type": "Answer", "text": "O link fica no próprio domínio (emailgenerator.com.br/w/código), conta os cliques e só redireciona para o WhatsApp, nunca para outro site. Ele também vira QR Code." } },
+        { "@type": "Question", "name": "Onde ficam os meus dados?", "acceptedAnswer": { "@type": "Answer", "text": "O e-mail que você monta fica salvo no seu próprio navegador. O único dado guardado no servidor é o número e a mensagem de um link curto de WhatsApp, quando você pede para encurtar." } }
+      ]
+    }
+  ]
+}
+</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -38,13 +104,14 @@
     </a>
 
     <nav class="nav-links" aria-label="Navegação principal">
-      <a href="#ferramentas">Ferramentas</a>
-      <a href="#detalhes">Detalhes</a>
-      <a href="#como-usar">Como usar</a>
+      <a href="#solucao">Ferramentas</a>
+      <a href="#diferenciais">Diferenciais</a>
+      <a href="#modelos">Modelos</a>
+      <a href="#perguntas">Perguntas</a>
     </nav>
 
-    <a href="pages/gerador/index.html" class="nav-cta">
-      Abrir ferramentas
+    <a href="pages/gerador/" class="nav-cta">
+      Criar e-mail
       <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.4"/></svg>
     </a>
 
@@ -54,42 +121,40 @@
   </div>
 
   <div class="nav-mobile" id="navMobile">
-    <a href="#ferramentas">Ferramentas</a>
-    <a href="#detalhes">Detalhes</a>
-    <a href="#como-usar">Como usar</a>
-    <a href="pages/gerador/index.html" class="nav-mobile-cta">Abrir ferramentas →</a>
+    <a href="#solucao">Ferramentas</a>
+    <a href="#diferenciais">Diferenciais</a>
+    <a href="#modelos">Modelos</a>
+    <a href="#perguntas">Perguntas</a>
+    <a href="pages/gerador/" class="nav-mobile-cta">Criar e-mail →</a>
   </div>
 </header>
 
 <main>
 
-<!-- HERO -->
+<!-- HERO: problema + promessa -->
 <section class="hero">
   <div class="hero-inner">
 
-    <p class="hero-kicker mono">
-      <span class="kicker-dot" aria-hidden="true"></span>
-      Ferramentas gratuitas · feitas no Brasil
-    </p>
+    <p class="hero-kicker mono">Para times de marketing e CRM</p>
 
     <h1 class="hero-title">
-      Comunicação de marketing,<br>
-      <em>sem a parte chata.</em>
+      Pare de montar <span class="nowrap">e-mail</span><br>
+      <em>do zero.</em>
     </h1>
 
     <div class="hero-row">
       <p class="hero-lead">
-        Monte e-mails HTML que funcionam no Gmail e no Outlook. Gere links de WhatsApp com a mensagem já escrita. Tudo no navegador, sem cadastro, sem marca d'água — e sem pagar nada.
+        Escolha um dos 8 modelos, preencha por etapas e copie o HTML pronto para o Gmail, o Outlook ou o seu ESP. E crie links de WhatsApp com mensagem, link curto e QR Code.
       </p>
     </div>
 
     <div class="hero-actions">
-      <a href="pages/gerador/index.html" class="btn btn-ink">
-        Gerador de E-mail
+      <a href="pages/gerador/" class="btn btn-ink">
+        Criar e-mail
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 12L12 2M12 2H5M12 2V9" stroke="currentColor" stroke-width="1.5"/></svg>
       </a>
-      <a href="pages/whatsapp/index.html" class="btn btn-line btn-wa">
-        Gerador de WhatsApp
+      <a href="pages/whatsapp/" class="btn btn-line btn-wa">
+        Criar link de WhatsApp
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 12L12 2M12 2H5M12 2V9" stroke="currentColor" stroke-width="1.5"/></svg>
       </a>
     </div>
@@ -99,28 +164,28 @@
       <div class="mock-window">
         <div class="mock-bar">
           <span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span>
-          <span class="mock-url mono">emailgenerator · ferramenta 01</span>
+          <span class="mock-url mono">emailgenerator.com.br · gerador de e-mail</span>
           <span class="mock-badge mono">✓ salvo</span>
         </div>
         <div class="mock-body">
           <div class="mock-side">
             <div class="mock-group">
-              <span class="mock-label mono"><i>02</i> Logo</span>
-              <div class="mock-input"><span class="mock-switch on"></span>Incluir logo no topo</div>
+              <span class="mock-label mono">Modelo</span>
+              <div class="mock-input mock-input-text">Cartões · 1 de 8</div>
             </div>
             <div class="mock-group">
-              <span class="mock-label mono"><i>04</i> Título</span>
+              <span class="mock-label mono">Título</span>
               <div class="mock-input mock-input-text">Promoção de inverno ☕</div>
             </div>
             <div class="mock-group">
-              <span class="mock-label mono"><i>05</i> Blocos de texto</span>
+              <span class="mock-label mono">Texto</span>
               <div class="mock-editor">
-                <div class="mock-toolbar"><b>B</b><i>I</i><u>U</u><span>• Lista</span><span>Link</span></div>
+                <div class="mock-toolbar"><b>B</b><i>I</i><u>U</u><span>Cor</span><span>Link</span></div>
                 <div class="mock-lines"><span></span><span></span><span class="short"></span></div>
               </div>
             </div>
             <div class="mock-group">
-              <span class="mock-label mono"><i>07</i> Cores</span>
+              <span class="mock-label mono">Cores</span>
               <div class="mock-colors">
                 <span style="background:#1d3fd6"></span>
                 <span style="background:#191713"></span>
@@ -143,7 +208,7 @@
                 <span></span><span></span><span></span>
               </div>
             </div>
-            <div class="mock-chip mono">✓ copiado para o Gmail</div>
+            <div class="mock-chip mono">✓ HTML copiado</div>
           </div>
         </div>
       </div>
@@ -154,8 +219,9 @@
       <span class="compat-chip">Gmail</span>
       <span class="compat-chip">Outlook</span>
       <span class="compat-chip">Apple Mail</span>
-      <span class="compat-chip">wa.me</span>
-      <span class="compat-chip">qualquer ESP</span>
+      <span class="compat-chip">Mailchimp</span>
+      <span class="compat-chip">RD Station</span>
+      <span class="compat-chip">WhatsApp</span>
     </div>
 
   </div>
@@ -164,29 +230,52 @@
 <!-- MARQUEE -->
 <div class="marquee" aria-hidden="true">
   <div class="marquee-track">
-    <span>E-mail HTML compatível com Outlook</span><span class="marquee-sep">✳</span>
+    <span>8 modelos prontos</span><span class="marquee-sep">✳</span>
+    <span>Botões que funcionam no Outlook</span><span class="marquee-sep">✳</span>
     <span>Cole direto no Gmail</span><span class="marquee-sep">✳</span>
-    <span>Link de WhatsApp com mensagem pronta</span><span class="marquee-sep">✳</span>
-    <span>Auto-save no navegador</span><span class="marquee-sep">✳</span>
-    <span>Sem cadastro</span><span class="marquee-sep">✳</span>
-    <span>E-mail HTML compatível com Outlook</span><span class="marquee-sep">✳</span>
+    <span>Link curto com contagem de cliques</span><span class="marquee-sep">✳</span>
+    <span>QR Code em PNG</span><span class="marquee-sep">✳</span>
+    <span>8 modelos prontos</span><span class="marquee-sep">✳</span>
+    <span>Botões que funcionam no Outlook</span><span class="marquee-sep">✳</span>
     <span>Cole direto no Gmail</span><span class="marquee-sep">✳</span>
-    <span>Link de WhatsApp com mensagem pronta</span><span class="marquee-sep">✳</span>
-    <span>Auto-save no navegador</span><span class="marquee-sep">✳</span>
-    <span>Sem cadastro</span><span class="marquee-sep">✳</span>
+    <span>Link curto com contagem de cliques</span><span class="marquee-sep">✳</span>
+    <span>QR Code em PNG</span><span class="marquee-sep">✳</span>
   </div>
 </div>
 
-<!-- FERRAMENTAS -->
-<section class="section" id="ferramentas">
+<!-- 01 · PROBLEMA -->
+<section class="section" id="problema">
   <div class="section-head reveal">
     <span class="section-num mono">01</span>
-    <h2 class="section-title">As ferramentas</h2>
+    <h2 class="section-title">O problema</h2>
+  </div>
+
+  <div class="pains">
+    <div class="pain reveal">
+      <h3>E-mail HTML ainda é feito como em 1999</h3>
+      <p>Tabelas, estilos inline e código específico do Outlook. Um detalhe fora do lugar e o layout desmonta na caixa de entrada do cliente.</p>
+    </div>
+    <div class="pain reveal">
+      <h3>Toda campanha começa do zero</h3>
+      <p>Copiar o e-mail da semana passada, trocar texto, conferir link por link. Horas que deviam ir para a estratégia.</p>
+    </div>
+    <div class="pain reveal">
+      <h3>Link de WhatsApp sem contexto</h3>
+      <p>O cliente abre a conversa sem saber o que escrever, e você não sabe quantas pessoas clicaram nem de onde vieram.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 02 · SOLUÇÃO -->
+<section class="section" id="solucao">
+  <div class="section-head reveal">
+    <span class="section-num mono">02</span>
+    <h2 class="section-title">A solução</h2>
   </div>
 
   <div class="tools-v2">
 
-    <a href="pages/gerador/index.html" class="tcard reveal">
+    <a href="pages/gerador/" class="tcard reveal">
       <div class="tcard-visual">
         <div class="tv-email">
           <div class="tv-email-top">sua logo</div>
@@ -197,146 +286,213 @@
             <span class="tv-btn">SAIBA MAIS</span>
           </div>
         </div>
-        <span class="tcard-tag mono">ferramenta A</span>
+        <span class="tcard-tag mono">ferramenta 1</span>
       </div>
       <div class="tcard-info">
         <h3 class="tcard-name">Gerador de E-mail <em>HTML</em></h3>
-        <p class="tcard-desc">Editor visual com preview ao vivo. HTML validado que renderiza certo até no Outlook — copie o código ou cole direto no Gmail.</p>
-        <span class="tcard-cta">Abrir ferramenta <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2 12L12 2M12 2H5M12 2V9" stroke="currentColor" stroke-width="1.5"/></svg></span>
+        <p class="tcard-desc">Escolha um modelo, preencha por etapas e veja o resultado ao vivo no desktop e no celular. Copie o HTML para o seu ESP, cole direto no Gmail ou baixe o arquivo.</p>
+        <span class="tcard-cta">Criar e-mail <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 12L12 2M12 2H5M12 2V9" stroke="currentColor" stroke-width="1.5"/></svg></span>
       </div>
     </a>
 
-    <a href="pages/whatsapp/index.html" class="tcard tcard-wa reveal">
+    <a href="pages/whatsapp/" class="tcard tcard-wa reveal">
       <div class="tcard-visual">
         <div class="tv-chat">
           <div class="tv-bubble tv-bubble-in">Olá! 👋 Vim pelo site e quero um orçamento</div>
           <div class="tv-bubble tv-bubble-out">Oi! Claro, me conta o que você precisa :)</div>
-          <div class="tv-linkpill mono">wa.me/5581···</div>
+          <div class="tv-linkpill mono">emailgenerator.com.br/w/k3x9a2b</div>
         </div>
-        <span class="tcard-tag mono">ferramenta B</span>
+        <span class="tcard-tag mono">ferramenta 2</span>
       </div>
       <div class="tcard-info">
         <h3 class="tcard-name">Gerador de link <em>WhatsApp</em></h3>
-        <p class="tcard-desc">Link com a mensagem já escrita, formatação nativa e encurtador embutido. Cole na bio, no site, no cartão digital.</p>
-        <span class="tcard-cta">Abrir ferramenta <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2 12L12 2M12 2H5M12 2V9" stroke="currentColor" stroke-width="1.5"/></svg></span>
+        <p class="tcard-desc">Link com a mensagem já escrita e prévia da conversa. Encurte no próprio domínio, acompanhe os cliques e baixe o QR Code para material impresso.</p>
+        <span class="tcard-cta">Criar link <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 12L12 2M12 2H5M12 2V9" stroke="currentColor" stroke-width="1.5"/></svg></span>
       </div>
     </a>
 
   </div>
 </section>
 
-<!-- DETALHES / SPEC SHEET -->
-<section class="section" id="detalhes">
+<!-- 03 · DIFERENCIAIS -->
+<section class="section" id="diferenciais">
   <div class="section-head reveal">
-    <span class="section-num mono">02</span>
-    <h2 class="section-title">O que tem dentro</h2>
+    <span class="section-num mono">03</span>
+    <h2 class="section-title">O que outros geradores não fazem</h2>
   </div>
 
   <div class="specs">
     <div class="spec reveal">
-      <span class="spec-num mono">2.1</span>
+      <span class="spec-num mono">3.1</span>
       <div class="spec-content">
-        <h3>Preview que não mente</h3>
-        <p>O que você vê é o que chega na caixa de entrada. Alterne entre desktop e mobile e confira antes de copiar uma linha de código.</p>
+        <h3>Funciona em qualquer caixa de entrada</h3>
+        <p>Gmail, Outlook, Apple Mail e celular. Layout em tabelas e botões em VML seguram o e-mail até no Outlook de desktop, onde a maioria dos geradores quebra.</p>
       </div>
     </div>
     <div class="spec reveal">
-      <span class="spec-num mono">2.2</span>
+      <span class="spec-num mono">3.2</span>
       <div class="spec-content">
-        <h3>Outlook incluso</h3>
-        <p>Botões em VML, tabelas aninhadas, estilos inline. O e-mail renderiza no Outlook — que é onde a maioria dos geradores quebra.</p>
+        <h3>Revisão antes de enviar</h3>
+        <p>A ferramenta aponta o que falta: link de descadastro, texto alternativo nas imagens, botão sem destino, endereço inválido. Um clique leva ao campo.</p>
       </div>
     </div>
     <div class="spec reveal">
-      <span class="spec-num mono">2.3</span>
+      <span class="spec-num mono">3.3</span>
       <div class="spec-content">
-        <h3>Colar no Gmail</h3>
-        <p>Não usa ESP? Um clique copia o e-mail renderizado. Cole no corpo da mensagem do Gmail e envie — formatado, com imagens e botão.</p>
+        <h3>Gmail, ESP ou arquivo</h3>
+        <p>Copie o HTML para Mailchimp, RD Station ou Brevo, cole o e-mail pronto no Gmail ou baixe o .html. Variáveis como {{nome}} são mantidas.</p>
       </div>
     </div>
     <div class="spec reveal">
-      <span class="spec-num mono">2.4</span>
+      <span class="spec-num mono">3.4</span>
       <div class="spec-content">
-        <h3>Auto-save local</h3>
-        <p>Fechou sem querer? Atualizou a página? O trabalho continua lá. Tudo fica salvo no seu navegador até você começar um novo.</p>
+        <h3>Link curto que mede</h3>
+        <p>Links de WhatsApp no seu próprio domínio, com contagem de cliques. Eles só levam ao WhatsApp, então não servem para golpe.</p>
       </div>
     </div>
     <div class="spec reveal">
-      <span class="spec-num mono">2.5</span>
+      <span class="spec-num mono">3.5</span>
       <div class="spec-content">
-        <h3>Editor de verdade</h3>
-        <p>Negrito, itálico, listas, links, cor e tamanho por seleção. Cole texto de qualquer lugar — ele entra limpo, sem formatação quebrada.</p>
+        <h3>Salva sozinho, desfaz quando precisa</h3>
+        <p>O trabalho fica guardado no navegador enquanto você edita. Trocou de modelo, de cor ou excluiu um bloco sem querer? Desfazer.</p>
       </div>
     </div>
     <div class="spec reveal">
-      <span class="spec-num mono">2.6</span>
+      <span class="spec-num mono">3.6</span>
       <div class="spec-content">
-        <h3>Mensagem formatada</h3>
-        <p>No gerador de WhatsApp, escreva com *negrito*, _itálico_ e ~tachado~ — a formatação nativa que aparece na conversa do cliente.</p>
+        <h3>Seguro por padrão</h3>
+        <p>Todo texto colado é limpo e todo link é validado. Nada do que você digita vira código executável no e-mail ou na página.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- COMO USAR -->
+<!-- 04 · MODELOS -->
+<section class="section" id="modelos">
+  <div class="section-head reveal">
+    <span class="section-num mono">04</span>
+    <h2 class="section-title">8 modelos para cada tipo de envio</h2>
+  </div>
+
+  <div class="tpl-gallery">
+    <a class="tpl-card reveal" href="pages/gerador/?modelo=cards">
+      <span class="tpl-shot"><img src="assets/modelos/cards.jpg" alt="Prévia do modelo Cartões" width="640" height="800" loading="lazy" decoding="async"></span>
+      <strong>Cartões</strong>
+      <span>Comunicados e novidades</span>
+    </a>
+    <a class="tpl-card reveal" href="pages/gerador/?modelo=gradient">
+      <span class="tpl-shot"><img src="assets/modelos/gradient.jpg" alt="Prévia do modelo Gradiente" width="640" height="800" loading="lazy" decoding="async"></span>
+      <strong>Gradiente</strong>
+      <span>Promoções com fundo escuro</span>
+    </a>
+    <a class="tpl-card reveal" href="pages/gerador/?modelo=minimal">
+      <span class="tpl-shot"><img src="assets/modelos/minimal.jpg" alt="Prévia do modelo Minimalista" width="640" height="800" loading="lazy" decoding="async"></span>
+      <strong>Minimalista</strong>
+      <span>Boas-vindas e confirmações</span>
+    </a>
+    <a class="tpl-card reveal" href="pages/gerador/?modelo=coupon">
+      <span class="tpl-shot"><img src="assets/modelos/coupon.jpg" alt="Prévia do modelo Cupom" width="640" height="800" loading="lazy" decoding="async"></span>
+      <strong>Cupom</strong>
+      <span>Ofertas com código de desconto</span>
+    </a>
+    <a class="tpl-card reveal" href="pages/gerador/?modelo=newsletter">
+      <span class="tpl-shot"><img src="assets/modelos/newsletter.jpg" alt="Prévia do modelo Newsletter" width="640" height="800" loading="lazy" decoding="async"></span>
+      <strong>Newsletter</strong>
+      <span>Edições com lista de matérias</span>
+    </a>
+    <a class="tpl-card reveal" href="pages/gerador/?modelo=vitrine">
+      <span class="tpl-shot"><img src="assets/modelos/vitrine.jpg" alt="Prévia do modelo Vitrine" width="640" height="800" loading="lazy" decoding="async"></span>
+      <strong>Vitrine</strong>
+      <span>Produtos com foto e preço</span>
+    </a>
+    <a class="tpl-card reveal" href="pages/gerador/?modelo=invite">
+      <span class="tpl-shot"><img src="assets/modelos/invite.jpg" alt="Prévia do modelo Convite" width="640" height="800" loading="lazy" decoding="async"></span>
+      <strong>Convite</strong>
+      <span>Eventos com link para a agenda</span>
+    </a>
+    <a class="tpl-card reveal" href="pages/gerador/?modelo=letter">
+      <span class="tpl-shot"><img src="assets/modelos/letter.jpg" alt="Prévia do modelo Carta pessoal" width="640" height="800" loading="lazy" decoding="async"></span>
+      <strong>Carta pessoal</strong>
+      <span>Mensagem com cara de conversa</span>
+    </a>
+  </div>
+  <p class="tpl-note mono">clique em um modelo para abrir o editor com ele</p>
+</section>
+
+<!-- 05 · COMO FUNCIONA -->
 <section class="section" id="como-usar">
   <div class="section-head reveal">
-    <span class="section-num mono">03</span>
-    <h2 class="section-title">Como usar</h2>
+    <span class="section-num mono">05</span>
+    <h2 class="section-title">Como funciona</h2>
   </div>
 
   <div class="steps">
     <div class="step reveal">
       <div class="step-num">1</div>
       <div class="step-text">
-        <h3>Preencha</h3>
-        <p>Logo, banner, título, texto. Os campos são autoexplicativos e o exemplo já vem montado.</p>
+        <h3>Escolha o modelo</h3>
+        <p>Comece por um dos 8 layouts. As cores e o conteúdo de exemplo já vêm prontos.</p>
       </div>
     </div>
     <div class="step reveal">
       <div class="step-num">2</div>
       <div class="step-text">
-        <h3>Ajuste</h3>
-        <p>Cores, botão, rodapé, redes sociais. Cada mudança aparece no preview na hora.</p>
+        <h3>Preencha por etapas</h3>
+        <p>Topo, texto, botão, cores e rodapé, um painel de cada vez. A prévia muda na hora.</p>
       </div>
     </div>
     <div class="step reveal">
       <div class="step-num">3</div>
       <div class="step-text">
-        <h3>Copie</h3>
-        <p>HTML para o seu ESP ou conteúdo pronto para o Gmail. Um clique, sem exportar arquivo.</p>
+        <h3>Revise e envie</h3>
+        <p>Resolva os avisos, copie o HTML ou cole no Gmail. Pronto para disparar.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- POR QUE GRÁTIS -->
-<section class="section section-manifesto" id="gratis">
-  <div class="manifesto reveal">
-    <span class="section-num mono manifesto-num">04</span>
-    <blockquote class="manifesto-quote">
-      Essas ferramentas nasceram de uma irritação real: <em>perder tempo com tarefa repetitiva.</em> Montar e-mail do zero toda semana, mandar link de WhatsApp sem mensagem, refazer o que já estava pronto. Então automatizamos — e deixamos aberto para quem tiver a mesma irritação.
-    </blockquote>
-    <div class="manifesto-facts mono">
-      <span>sem cadastro</span>
-      <span>sem limite</span>
-      <span>sem marca d'água</span>
-      <span>sem pegadinha</span>
-    </div>
+<!-- 06 · PERGUNTAS -->
+<section class="section" id="perguntas">
+  <div class="section-head reveal">
+    <span class="section-num mono">06</span>
+    <h2 class="section-title">Perguntas frequentes</h2>
+  </div>
+
+  <div class="faq">
+    <details class="reveal">
+      <summary>O e-mail funciona no Outlook?</summary>
+      <p>Sim. O HTML usa tabelas e estilos inline, e os botões têm uma versão em VML só para o Outlook clássico, que usa o motor do Word e costuma quebrar e-mails de outros geradores.</p>
+    </details>
+    <details class="reveal">
+      <summary>Posso usar o HTML no meu ESP?</summary>
+      <p>Sim. Copie o código e cole em Mailchimp, RD Station, Brevo, Salesforce ou qualquer ferramenta que aceite HTML. Variáveis como {{nome}} e o link de descadastro do seu ESP são mantidos.</p>
+    </details>
+    <details class="reveal">
+      <summary>Dá para enviar pelo Gmail sem ESP?</summary>
+      <p>Dá. O botão “Copiar p/ Gmail” copia o e-mail já renderizado: é só colar no corpo de uma mensagem nova, com imagens, cores e botão.</p>
+    </details>
+    <details class="reveal">
+      <summary>Como funciona o link curto do WhatsApp?</summary>
+      <p>O link fica no próprio domínio (emailgenerator.com.br/w/código), conta os cliques e só redireciona para o WhatsApp, nunca para outro site. Ele também vira QR Code.</p>
+    </details>
+    <details class="reveal">
+      <summary>Onde ficam os meus dados?</summary>
+      <p>O e-mail que você monta fica salvo no seu próprio navegador. O único dado guardado no servidor é o número e a mensagem de um link curto de WhatsApp, quando você pede para encurtar.</p>
+    </details>
   </div>
 </section>
 
 <!-- CTA FINAL -->
 <section class="section section-final">
   <div class="final reveal">
-    <h2 class="final-title">Escolha uma e <em>comece.</em></h2>
+    <h2 class="final-title">Seu próximo e-mail, <em>pronto hoje.</em></h2>
     <div class="final-actions">
-      <a href="pages/gerador/index.html" class="btn btn-ink btn-lg">
-        Gerador de E-mail
+      <a href="pages/gerador/" class="btn btn-ink btn-lg">
+        Criar e-mail
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 12L12 2M12 2H5M12 2V9" stroke="currentColor" stroke-width="1.5"/></svg>
       </a>
-      <a href="pages/whatsapp/index.html" class="btn btn-line btn-wa btn-lg">
-        Gerador de WhatsApp
+      <a href="pages/whatsapp/" class="btn btn-line btn-wa btn-lg">
+        Criar link de WhatsApp
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 12L12 2M12 2H5M12 2V9" stroke="currentColor" stroke-width="1.5"/></svg>
       </a>
     </div>

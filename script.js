@@ -20,6 +20,36 @@
     });
   }
 
+  /* FAQ: abre e fecha com animação de altura (o <details> nativo pula direto) */
+  var calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  document.querySelectorAll(".faq details").forEach(function (d) {
+    var summary = d.querySelector("summary");
+    var body = d.querySelector("p");
+    // o ícone acompanha o clique, não o fim da animação
+    d.addEventListener("toggle", function () {
+      if (!d._anim) d.classList.toggle("is-open", d.open);
+    });
+    summary.addEventListener("click", function (e) {
+      if (calm || !d.animate) return;
+      e.preventDefault();
+      if (d._anim) d._anim.cancel();
+      var closing = d.classList.contains("is-open");
+      d.classList.toggle("is-open", !closing);
+      var border = d.offsetHeight - d.clientHeight;
+      var start = d.offsetHeight;
+      if (!closing) d.open = true;
+      var end = closing ? summary.offsetHeight + border : d.offsetHeight;
+      d.style.overflow = "hidden";
+      d._anim = d.animate({ height: [start + "px", end + "px"] }, { duration: 280, easing: "cubic-bezier(.2,.7,.2,1)" });
+      body.animate({ opacity: closing ? [1, 0] : [0, 1], transform: closing ? ["none", "translateY(-4px)"] : ["translateY(-4px)", "none"] }, { duration: 220, easing: "ease-out" });
+      d._anim.onfinish = function () {
+        d._anim = null;
+        d.style.overflow = "";
+        if (closing) d.open = false;
+      };
+    });
+  });
+
   /* nav: sombra ao rolar */
   var nav = document.querySelector(".nav");
   window.addEventListener("scroll", function () {
