@@ -1,7 +1,9 @@
 (function () {
+  var lenis = null;
+
   /* rolagem suave (Lenis), só para quem não pediu menos movimento */
   if (window.Lenis && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    var lenis = new Lenis({ duration: 1.2, smoothWheel: true, lerp: 0.08 });
+    lenis = new Lenis({ duration: 1.2, smoothWheel: true, lerp: 0.08 });
     var raf = function (time) {
       lenis.raf(time);
       requestAnimationFrame(raf);
@@ -19,6 +21,22 @@
       });
     });
   }
+
+  /* logo: volta ao topo sem recarregar e sem "#" no endereço
+     (o href "./" continua funcionando sem JavaScript) */
+  document.querySelectorAll("[data-scroll-top]").forEach(function (a) {
+    a.addEventListener("click", function (e) {
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return; // nova aba/janela segue normal
+      e.preventDefault();
+      if (lenis) lenis.scrollTo(0);
+      else window.scrollTo({ top: 0, behavior: "smooth" });
+      if (location.hash) history.replaceState(null, "", location.pathname + location.search);
+      var mobile = document.getElementById("navMobile");
+      var burger = document.getElementById("navBurger");
+      if (mobile) mobile.classList.remove("open");
+      if (burger) burger.setAttribute("aria-expanded", "false");
+    });
+  });
 
   /* FAQ: abre e fecha com animação de altura (o <details> nativo pula direto) */
   var calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
