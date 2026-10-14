@@ -1,0 +1,52 @@
+/* Aviso de cookies (assets/consent.js): papel, tinta e cobalto, como o resto do site. */
+.cookie-aviso {
+  position: fixed;
+  left: 50%;
+  bottom: 16px;
+  transform: translateX(-50%);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  width: min(760px, calc(100% - 24px));
+  padding: 14px 16px 14px 20px;
+  background: #f4f1ea;
+  color: #191713;
+  border: 1px solid #191713;
+  box-shadow: 4px 4px 0 #191713;
+  font-family: "Archivo", -apple-system, sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+.cookie-aviso[hidden] { display: none; }
+.cookie-aviso p { margin: 0; flex: 1; }
+.cookie-aviso-acoes { display: flex; gap: 8px; flex: none; }
+.cookie-aviso-btn {
+  padding: 8px 14px;
+  border: 1px solid #191713;
+  background: transparent;
+  color: #191713;
+  font: 600 0.8125rem/1 "Archivo", -apple-system, sans-serif;
+  cursor: pointer;
+}
+.cookie-aviso-btn:hover, .cookie-aviso-btn:focus-visible { background: #ece8de; outline: none; }
+.cookie-aviso-btn--aceitar { background: #1d3fd6; border-color: #1d3fd6; color: #fff; }
+.cookie-aviso-btn--aceitar:hover, .cookie-aviso-btn--aceitar:focus-visible { background: #1733b0; }
+
+@media (max-width: 600px) {
+  .cookie-aviso { flex-direction: column; align-items: stretch; gap: 12px; bottom: 12px; }
+  .cookie-aviso-acoes .cookie-aviso-btn { flex: 1; padding: 10px; }
+}
+
+/* Link "Preferências de cookies" no rodapé da página inicial. */
+.footer-cookies {
+  border: 0;
+  background: none;
+  color: inherit;
+  opacity: 0.7;
+  font-size: 0.75rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.footer-cookies:hover, .footer-cookies:focus-visible { opacity: 1; outline: none; }
