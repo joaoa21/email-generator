@@ -197,9 +197,10 @@
 }
 </script>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" href="/assets/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/fraunces-italic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/fonts.css">
 
 <script src="https://analytics-hub-production-9abd.up.railway.app/t.js" data-key="pk_-Bw0enH3m8DaFeRWu7YP8heo80o1-hBN" defer></script>
 <!-- Aviso de cookies: Google Analytics e contagem precisa do Trackik só com "Aceitar" -->
@@ -543,21 +544,21 @@
 
   <div class="steps">
     <div class="step reveal">
-      <div class="step-num">1</div>
+      <div class="step-num" aria-hidden="true">1</div>
       <div class="step-text">
         <h3>Escolha o modelo</h3>
         <p>Comece por um dos 8 layouts. As cores e o conteúdo de exemplo já vêm prontos.</p>
       </div>
     </div>
     <div class="step reveal">
-      <div class="step-num">2</div>
+      <div class="step-num" aria-hidden="true">2</div>
       <div class="step-text">
         <h3>Preencha por etapas</h3>
         <p>Topo, texto, botão, cores e rodapé, um painel de cada vez. A prévia muda na hora.</p>
       </div>
     </div>
     <div class="step reveal">
-      <div class="step-num">3</div>
+      <div class="step-num" aria-hidden="true">3</div>
       <div class="step-text">
         <h3>Revise e envie</h3>
         <p>Resolva os avisos, copie o HTML ou cole no Gmail. Pronto para disparar.</p>
