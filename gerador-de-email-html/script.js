@@ -2004,7 +2004,8 @@
   var previewId = params.get("preview");
   if (previewId && TEMPLATES.some(function (t) { return t.id === previewId; })) {
     document.open();
-    document.write(buildEmail(withPreset(clone(DEFAULTS), getTemplate(previewId))));
+    // noindex: é só uma amostra, não uma página para aparecer no Google
+    document.write(buildEmail(withPreset(clone(DEFAULTS), getTemplate(previewId))).replace("<head>", '<head><meta name="robots" content="noindex" />'));
     document.close();
     return;
   }

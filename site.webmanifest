@@ -1,0 +1,14 @@
+{
+  "name": "Email Generator",
+  "short_name": "Email Generator",
+  "description": "Gerador de e-mail HTML com 8 modelos e gerador de link de WhatsApp com link curto e QR Code.",
+  "lang": "pt-BR",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#f4f1ea",
+  "theme_color": "#f4f1ea",
+  "icons": [
+    { "src": "/assets/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/assets/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

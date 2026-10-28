@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Botão de E-mail no Outlook com VML | Email Generator</title>
+<meta name="description" content="Por que botões de e-mail quebram no Outlook e como resolver com VML e comentários condicionais. Código pronto para copiar, os erros mais comuns e como testar.">
+<link rel="canonical" href="https://emailgenerator.com.br/guias/botao-email-outlook-vml/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="author" content="João Alberto">
+<meta name="theme-color" content="#f4f1ea">
+<meta name="color-scheme" content="light">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Email Generator">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:url" content="https://emailgenerator.com.br/guias/botao-email-outlook-vml/">
+<meta property="og:title" content="Botão de E-mail no Outlook com VML | Email Generator">
+<meta property="og:description" content="Por que botões de e-mail quebram no Outlook e como resolver com VML e comentários condicionais. Código pronto para copiar, os erros mais comuns e como testar.">
+<meta property="og:image" content="https://emailgenerator.com.br/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Email Generator: e-mail HTML com fundo escuro e link curto de WhatsApp">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Botão de E-mail no Outlook com VML | Email Generator">
+<meta name="twitter:description" content="Por que botões de e-mail quebram no Outlook e como resolver com VML e comentários condicionais. Código pronto para copiar, os erros mais comuns e como testar.">
+<meta name="twitter:image" content="https://emailgenerator.com.br/assets/og.jpg">
+
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "Article",
+   "headline": "Botão de e-mail no Outlook: como fazer com VML",
+   "description": "Por que botões de e-mail quebram no Outlook e como resolver com VML e comentários condicionais. Código pronto para copiar, os erros mais comuns e como testar.",
+   "inLanguage": "pt-BR",
+   "image": "https://emailgenerator.com.br/assets/og.jpg",
+   "datePublished": "2026-10-27",
+   "dateModified": "2026-10-27",
+   "author": {
+    "@type": "Person",
+    "name": "João Alberto",
+    "url": "https://joaoa.com.br",
+    "sameAs": [
+     "https://www.linkedin.com/in/joaoa210/",
+     "https://github.com/joaoa21"
+    ]
+   },
+   "publisher": {
+    "@type": "Person",
+    "name": "João Alberto",
+    "url": "https://joaoa.com.br",
+    "sameAs": [
+     "https://www.linkedin.com/in/joaoa210/",
+     "https://github.com/joaoa21"
+    ]
+   },
+   "mainEntityOfPage": "https://emailgenerator.com.br/guias/botao-email-outlook-vml/",
+   "isPartOf": {
+    "@type": "WebSite",
+    "name": "Email Generator",
+    "url": "https://emailgenerator.com.br/"
+   }
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Início",
+     "item": "https://emailgenerator.com.br/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "Guias",
+     "item": "https://emailgenerator.com.br/guias/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "name": "Botão de e-mail no Outlook: como fazer com VML",
+     "item": "https://emailgenerator.com.br/guias/botao-email-outlook-vml/"
+    }
+   ]
+  }
+ ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wght@500;600;700&display=swap" rel="stylesheet">
+
+<script src="https://analytics-hub-production-9abd.up.railway.app/t.js" data-key="pk_-Bw0enH3m8DaFeRWu7YP8heo80o1-hBN" defer></script>
+<!-- Aviso de cookies: Google Analytics e contagem precisa do Trackik só com "Aceitar" -->
+<link rel="stylesheet" href="/assets/consent.css">
+<script src="/assets/consent.js" defer></script>
+
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo" aria-label="Email Generator — início">
+      <span class="nav-logo-mark">e.</span>
+      <span class="nav-logo-text">Email Generator</span>
+    </a>
+
+    <nav class="nav-links" aria-label="Navegação principal">
+      <a href="/gerador-de-email-html/">Gerador de e-mail</a>
+      <a href="/gerador-link-whatsapp/">Link de WhatsApp</a>
+      <a href="/#modelos">Modelos</a>
+      <a href="/guias/">Guias</a>
+    </nav>
+
+    <a href="/gerador-de-email-html/" class="nav-cta">
+      Criar e-mail
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.4"/></svg>
+    </a>
+
+    <button class="nav-burger" id="navBurger" aria-label="Abrir menu" aria-expanded="false">
+      <span></span><span></span>
+    </button>
+  </div>
+
+  <div class="nav-mobile" id="navMobile">
+    <a href="/gerador-de-email-html/">Gerador de e-mail</a>
+    <a href="/gerador-link-whatsapp/">Link de WhatsApp</a>
+    <a href="/#modelos">Modelos</a>
+    <a href="/guias/">Guias</a>
+    <a href="/gerador-de-email-html/" class="nav-mobile-cta">Criar e-mail →</a>
+  </div>
+</header>
+
+<main class="guide">
+  <article class="article">
+    <nav class="crumbs mono" aria-label="Você está em"><ol><li><a href="/">Início</a></li><li><a href="/guias/">Guias</a></li><li><span aria-current="page">Botão de e-mail no Outlook: como fazer com VML</span></li></ol></nav>
+    <h1 class="article-title">Botão de e-mail no Outlook: como fazer com VML</h1>
+    <p class="article-meta mono">por João Alberto · atualizado em 27 de outubro de 2026</p>
+
+<p class="lead">Você monta um botão bonito, arredondado, com espaço em volta do texto. No Outlook para Windows ele vira um link sublinhado ou um retângulo apertado. A causa é o motor de renderização, e a solução é desenhar o botão em VML.</p>
+
+<h2>Por que o botão quebra no Outlook</h2>
+<p>O Outlook clássico para Windows (as versões instaladas no computador, incluindo a do Microsoft 365) usa o <strong>Word</strong> para mostrar e-mails, e não um navegador. O Word ignora várias propriedades que um botão em HTML usa:</p>
+<ul>
+  <li><code>padding</code> em links: o espaço em volta do texto some;</li>
+  <li><code>border-radius</code>: os cantos ficam retos;</li>
+  <li><code>display:inline-block</code> e boa parte do posicionamento.</li>
+</ul>
+
+<h2>O que é VML</h2>
+<p>VML (Vector Markup Language) é um formato antigo de desenho da Microsoft que o motor do Word ainda entende. Com ele dá para desenhar um retângulo arredondado, preenchido e clicável: um botão de verdade dentro do Outlook.</p>
+<p>O truque é mostrar o VML só para o Outlook e o botão HTML para todos os outros programas. Isso é feito com <strong>comentários condicionais</strong>, que só o Outlook lê:</p>
+<ul>
+  <li><code>&lt;!--[if mso]&gt; ... &lt;![endif]--&gt;</code>: aparece só no Outlook;</li>
+  <li><code>&lt;!--[if !mso]&gt;&lt;!--&gt; ... &lt;!--&lt;![endif]--&gt;</code>: aparece em todos, menos no Outlook.</li>
+</ul>
+
+<h2>Código pronto</h2>
+<pre><code>&lt;div style="text-align:center;"&gt;
+  &lt;!--[if mso]&gt;
+  &lt;v:roundrect xmlns:v="urn:schemas-microsoft-com:vml"
+    xmlns:w="urn:schemas-microsoft-com:office:word"
+    href="https://seusite.com.br"
+    style="height:46px;v-text-anchor:middle;width:200px;"
+    arcsize="15%" stroked="f" fillcolor="#2563eb"&gt;
+    &lt;w:anchorlock/&gt;
+    &lt;center style="color:#ffffff;font-family:Arial,sans-serif;font-size:16px;font-weight:bold;"&gt;
+      Saiba mais
+    &lt;/center&gt;
+  &lt;/v:roundrect&gt;
+  &lt;![endif]--&gt;
+  &lt;!--[if !mso]&gt;&lt;!--&gt;
+  &lt;a href="https://seusite.com.br"
+    style="display:inline-block;background-color:#2563eb;color:#ffffff;
+    font-family:Arial,sans-serif;font-size:16px;font-weight:bold;
+    text-decoration:none;padding:12px 30px;border-radius:10px;"&gt;Saiba mais&lt;/a&gt;
+  &lt;!--&lt;![endif]--&gt;
+&lt;/div&gt;</code></pre>
+
+<h2>Os detalhes que mais dão errado</h2>
+<ul>
+  <li><strong>Largura fixa.</strong> O VML não cresce com o texto. Se o texto for longo, aumente o <code>width</code> ou ele quebra em duas linhas.</li>
+  <li><strong>Link nos dois lugares.</strong> O <code>href</code> precisa estar no <code>v:roundrect</code> e no <code>&lt;a&gt;</code>. Esquecer um deles deixa o botão morto em parte dos programas.</li>
+  <li><strong>Mesmas cores.</strong> <code>fillcolor</code> no VML e <code>background-color</code> no HTML devem ser iguais, ou o botão muda de cor de um programa para outro.</li>
+  <li><strong>Borda.</strong> Sem borda, use <code>stroked="f"</code>. Com borda, troque por <code>strokecolor="#1d4ed8"</code>.</li>
+  <li><strong>Cantos.</strong> <code>arcsize</code> é uma porcentagem da altura: 15% dá cantos levemente arredondados, 50% deixa o botão em formato de pílula.</li>
+  <li><strong>Centralização vertical.</strong> <code>v-text-anchor:middle</code> mantém o texto no meio da altura.</li>
+</ul>
+
+<h2>E o novo Outlook?</h2>
+<p>O novo Outlook para Windows, o Outlook na web e os aplicativos de celular usam motor de navegador e mostram o botão HTML normalmente. O VML continua necessário enquanto houver gente no Outlook clássico, o que ainda é comum em empresas.</p>
+
+<h2>Como testar</h2>
+<p>O jeito mais confiável é enviar para uma conta aberta no Outlook clássico para Windows. Ferramentas como Litmus e Email on Acid mostram o e-mail em dezenas de programas de uma vez.</p>
+<p>No <a href="/gerador-de-email-html/">gerador de e-mail HTML</a> esse botão sai pronto: a versão em VML é gerada com as cores escolhidas e a largura calculada pelo tamanho do texto.</p>
+
+
+<aside class="guide-cta">
+  <p class="guide-cta-title">Faça isso em poucos minutos</p>
+  <a href="/gerador-de-email-html/" class="btn btn-ink">Criar e-mail com botão pronto <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.4"/></svg></a>
+</aside>
+
+    <section class="related">
+      <h2>Outros guias</h2>
+      <ul><li><a href="/guias/como-criar-email-html/">Como criar um e-mail HTML sem programar</a></li><li><a href="/guias/link-whatsapp-com-mensagem/">Como criar um link de WhatsApp com mensagem</a></li></ul>
+    </section>
+  </article>
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="nav-logo-mark">e.</span>
+      <span>Email Generator</span>
+    </div>
+    <nav class="footer-links" aria-label="Links do rodapé">
+      <a href="/gerador-de-email-html/">Gerador de e-mail HTML</a>
+      <a href="/gerador-link-whatsapp/">Gerador de link de WhatsApp</a>
+      <a href="/guias/">Guias</a>
+    </nav>
+    <p class="footer-line mono">© <span id="year">2026</span></p>
+    <a href="https://joaoa.com.br" target="_blank" rel="noopener" class="footer-credit">feito por <strong>João Alberto<span>.</span></strong></a>
+  </div>
+</footer>
+
+<script src="/script.js" defer></script>
+</body>
+</html>

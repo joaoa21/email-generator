@@ -50,3 +50,4 @@
   cursor: pointer;
 }
 .footer-cookies:hover, .footer-cookies:focus-visible { opacity: 1; outline: none; }
+.sidebar-credit .footer-cookies { display: block; margin: 8px auto 0; }

@@ -1361,3 +1361,121 @@ a:focus-visible, button:focus-visible {
 .footer-credit strong span { opacity: 0.35; }
 
 
+
+/* ── GUIAS, 404 E BREADCRUMB ─────────────────────────────── */
+
+.guide { max-width: var(--max); margin: 0 auto; padding: clamp(36px, 6vw, 72px) var(--pad) clamp(56px, 8vw, 96px); }
+
+.article { max-width: 720px; }
+
+.article .crumbs ol { list-style: none; display: flex; flex-direction: row; flex-wrap: wrap; gap: 6px; margin: 0 0 28px; }
+.article .crumbs li { font-size: 0.72rem; line-height: 1.5; color: var(--ink-faint); }
+.crumbs li + li::before { content: "/"; margin-right: 6px; color: var(--line); }
+.article .crumbs a { color: var(--ink-soft); text-decoration: none; }
+.crumbs a:hover { color: var(--ink); text-decoration: underline; }
+.crumbs [aria-current] { color: var(--ink); }
+
+.article-title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.article-meta { margin-top: 14px; font-size: 0.75rem; color: var(--ink-faint); }
+
+.article .lead { margin-top: 24px; font-size: 1.15rem; line-height: 1.7; color: var(--ink-soft); }
+
+.article h2 {
+  margin: 44px 0 12px;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1.6rem;
+  line-height: 1.25;
+}
+
+.article p, .article li { font-size: 1rem; line-height: 1.75; color: var(--ink-soft); }
+.article p + p { margin-top: 14px; }
+.article strong { color: var(--ink); font-weight: 600; }
+.article ul, .article ol { margin: 12px 0 0 22px; display: flex; flex-direction: column; gap: 8px; }
+.article a { color: var(--cobalt); text-underline-offset: 3px; }
+
+.article :not(pre) > code {
+  font-family: var(--font-mono);
+  font-size: 0.86em;
+  background: var(--paper-2);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 1px 5px;
+  color: var(--ink);
+}
+
+.article pre {
+  margin: 16px 0;
+  padding: 18px 20px;
+  background: var(--ink);
+  color: #efebe2;
+  border-radius: 12px;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  line-height: 1.6;
+}
+
+.guide-cta {
+  margin-top: 48px;
+  padding: 28px;
+  border: 1px solid var(--ink);
+  border-radius: 16px;
+  box-shadow: 6px 6px 0 var(--ink);
+  background: var(--paper-2);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.guide-cta-title { font-family: var(--font-display); font-size: 1.3rem; }
+.article .guide-cta a { color: var(--paper); }
+
+.related { margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--line); }
+.related h2 { margin-top: 0; font-size: 1.2rem; }
+
+.guide-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(16px, 2.4vw, 28px);
+  margin-top: 36px;
+}
+
+.guide-list-home { margin-top: 0; }
+
+.guide-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 24px;
+  border: 1px solid var(--ink);
+  border-radius: 16px;
+  text-decoration: none;
+  color: var(--ink);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.2s;
+}
+
+.guide-card:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--ink); background: var(--paper-2); }
+.guide-card strong { font-family: var(--font-display); font-weight: 500; font-size: 1.25rem; line-height: 1.25; }
+.guide-card span { font-size: 0.9rem; color: var(--ink-soft); line-height: 1.55; }
+
+.not-found-code { color: var(--stamp); font-size: 0.9rem; margin-bottom: 12px; }
+.not-found-links { list-style: none; margin: 24px 0 0 !important; }
+.not-found-links a { font-family: var(--font-display); font-size: 1.2rem; }
+
+/* links do rodapé ficam numa linha própria no celular */
+@media (max-width: 780px) {
+  .guide-list { grid-template-columns: 1fr; }
+  .footer-links { flex-wrap: wrap; gap: 12px 20px; width: 100%; }
+}

@@ -5,7 +5,7 @@ const NOT_FOUND = `<!doctype html><html lang="pt-BR"><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1"><title>Link não encontrado</title>
 <body style="font-family:system-ui,sans-serif;background:#f4f1ea;color:#191713;display:grid;place-items:center;min-height:100vh;margin:0;text-align:center;padding:24px">
 <div><h1 style="font-weight:600">Link não encontrado</h1><p>Confira se o endereço foi copiado inteiro.</p>
-<p><a href="/pages/whatsapp/" style="color:#128c4b">Criar um link de WhatsApp</a></p></div></body></html>`;
+<p><a href="/gerador-link-whatsapp/" style="color:#128c4b">Criar um link de WhatsApp</a></p></div></body></html>`;
 
 export default async (req, context) => {
   const code = String(context.params.code || "").toLowerCase();
