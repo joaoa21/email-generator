@@ -7,14 +7,14 @@
   --paper-2: #ece8de;
   --ink: #191713;
   --ink-soft: #4a463e;
-  --ink-faint: #8a857a;
+  --ink-faint: #67635a;
   --line: #d8d3c6;
   --line-strong: #b8b2a2;
   --cobalt: #1d3fd6;
-  --stamp: #c8451f;
-  --wa: #128c4b;
+  --stamp: #b33d1b;
+  --wa: #0e7340;
   --wa-dim: rgba(18, 140, 75, 0.08);
-  --green: #128c4b;
+  --green: #0e7340;
   --red: #b3341a;
   --white: #ffffff;
 
@@ -23,7 +23,7 @@
   --border: var(--line-strong);
   --border2: var(--line);
   --muted: var(--ink-faint);
-  --wa-text: #128c4b;
+  --wa-text: #0e7340;
   --chat-bg: #efe7dd;
   --bubble: #d9fdd3;
   --bubble-ink: #111b21;
