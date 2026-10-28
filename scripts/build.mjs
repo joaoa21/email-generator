@@ -6,6 +6,7 @@ import { join } from "node:path";
 
 const PUBLIC = [
   "index.html", "404.html", "style.css", "script.js", "robots.txt", "sitemap.xml", "llms.txt",
+  "favicon.ico", "favicon.svg", "apple-touch-icon.png", "site.webmanifest",
   "gerador-de-email-html", "gerador-link-whatsapp", "guias", "assets",
 ];
 

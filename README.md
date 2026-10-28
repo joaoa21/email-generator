@@ -69,6 +69,8 @@ gerador-link-whatsapp/               gerador de link de WhatsApp
 guias/                               guias (e-mail HTML, botão VML no Outlook, link de WhatsApp)
 404.html, robots.txt, sitemap.xml    página de erro e arquivos para buscadores
 llms.txt                             descrição do site para buscadores com IA
+favicon.*, apple-touch-icon.png      ícones do site (Google, abas e celular)
+site.webmanifest                     nome e ícones para "adicionar à tela inicial"
 assets/                              imagens, favicon e aviso de cookies
 netlify/functions/                   encurtador: /api/shorten, /w/:código, /api/links/:código
 netlify/lib/                         regras do encurtador (testadas em tests/)
