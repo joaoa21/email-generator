@@ -1,0 +1,21 @@
+# Email Generator
+
+> Ferramentas online em português para quem faz marketing e CRM: um gerador de e-mail HTML com 8 modelos prontos, compatível com Gmail e Outlook, e um gerador de link de WhatsApp com mensagem pronta, link curto com contagem de cliques e QR Code. Funciona no navegador, sem instalar nada. Criado por João Alberto (https://joaoa.com.br).
+
+## Ferramentas
+
+- [Gerador de e-mail HTML](https://emailgenerator.com.br/gerador-de-email-html/): editor por etapas com 8 modelos (Cartões, Gradiente, Minimalista, Cupom, Newsletter, Vitrine, Convite e Carta pessoal), prévia em desktop e celular, revisão antes do envio (link de descadastro, texto alternativo, links inválidos) e exportação do HTML para qualquer ESP, colagem direta no Gmail ou download do arquivo. Os botões têm versão em VML para o Outlook clássico.
+- [Gerador de link de WhatsApp](https://emailgenerator.com.br/gerador-link-whatsapp/): monta links wa.me com mensagem codificada, valida DDD e celular, mostra prévia da conversa, encurta no próprio domínio (emailgenerator.com.br/w/código) com contagem de cliques e gera QR Code em PNG.
+
+## Guias
+
+- [Como criar um e-mail HTML sem programar](https://emailgenerator.com.br/guias/como-criar-email-html/): O que é um e-mail HTML, por que ele é montado com tabelas e como criar o seu online em minutos, com modelo pronto, prévia ao vivo e checklist antes do envio.
+- [Botão de e-mail no Outlook: como fazer com VML](https://emailgenerator.com.br/guias/botao-email-outlook-vml/): Por que botões de e-mail quebram no Outlook e como resolver com VML e comentários condicionais. Código pronto para copiar, os erros mais comuns e como testar.
+- [Como criar um link de WhatsApp com mensagem](https://emailgenerator.com.br/guias/link-whatsapp-com-mensagem/): Passo a passo para criar um link wa.me com mensagem pronta: como escrever o número, acentos e emojis, formatação, erros comuns, link curto e QR Code.
+
+## Fatos
+
+- Idioma: português do Brasil.
+- Preço: por enquanto, uso liberado sem custo.
+- Privacidade: o e-mail montado fica salvo só no navegador de quem usa; o servidor guarda apenas número e mensagem dos links curtos de WhatsApp.
+- Compatibilidade do e-mail: Gmail, Outlook (incluindo o clássico para Windows), Apple Mail, celular e ESPs como Mailchimp, RD Station e Brevo.

@@ -35,7 +35,7 @@ Criei para escalar a produção de campanhas de CRM: em vez de montar cada email
 - **Prévia fluida:** depois da primeira carga, só o `<body>` do iframe é trocado (com debounce), sem recarregar a página nem baixar as imagens de novo.
 - **Acessibilidade:** campos com rótulo, botões de ícone com `aria-label`, estados com `aria-pressed`/`aria-invalid`, menu navegável pelo teclado e respeito a `prefers-reduced-motion`.
 - **Listas repetíveis:** matérias e produtos usam o mesmo componente (adicionar, reordenar, duplicar, excluir com Desfazer), pronto para outros tipos de item.
-- **Modelos plugáveis:** cada modelo é um arquivo em `pages/gerador/templates/` que monta o layout com peças prontas (botão com VML, ícones, blocos de texto, rodapé), já escapadas e validadas.
+- **Modelos plugáveis:** cada modelo é um arquivo em `gerador-de-email-html/templates/` que monta o layout com peças prontas (botão com VML, ícones, blocos de texto, rodapé), já escapadas e validadas.
 - **Front sem dependências:** HTML, CSS e JavaScript puros. O backend é só o encurtador (Netlify Functions + Netlify Blobs).
 
 ## Stack
@@ -62,14 +62,17 @@ Testes: `npm test`.
 ## Estrutura
 
 ```
-index.html, style.css, script.js   página inicial
-pages/gerador/                     gerador de email HTML
-pages/gerador/templates/           modelos de email (um arquivo por modelo)
-pages/whatsapp/                    gerador de link de WhatsApp
-assets/                            favicon e analytics
-netlify/functions/                 encurtador: /api/shorten, /w/:código, /api/links/:código
-netlify/lib/                       regras do encurtador (testadas em tests/)
-scripts/build.mjs                  copia os arquivos públicos para dist/
+index.html, style.css, script.js     página inicial
+gerador-de-email-html/               gerador de email HTML
+gerador-de-email-html/templates/     modelos de email (um arquivo por modelo)
+gerador-link-whatsapp/               gerador de link de WhatsApp
+guias/                               guias (e-mail HTML, botão VML no Outlook, link de WhatsApp)
+404.html, robots.txt, sitemap.xml    página de erro e arquivos para buscadores
+llms.txt                             descrição do site para buscadores com IA
+assets/                              imagens, favicon e aviso de cookies
+netlify/functions/                   encurtador: /api/shorten, /w/:código, /api/links/:código
+netlify/lib/                         regras do encurtador (testadas em tests/)
+scripts/build.mjs                    copia os arquivos públicos para dist/
 ```
 
 ---

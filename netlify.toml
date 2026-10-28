@@ -2,6 +2,17 @@
   command = "npm run build"
   publish = "dist"
 
+# endereços antigos das ferramentas (links já compartilhados continuam funcionando)
+[[redirects]]
+  from = "/pages/gerador/*"
+  to = "/gerador-de-email-html/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/pages/whatsapp/*"
+  to = "/gerador-link-whatsapp/:splat"
+  status = 301
+
 [functions]
   directory = "netlify/functions"
   node_bundler = "esbuild"

@@ -93,16 +93,17 @@
     }
   }
 
-  // Link no rodapé (página inicial) para mudar de ideia a qualquer momento.
+  // Link para mudar de ideia a qualquer momento: no rodapé (páginas de conteúdo)
+  // ou no crédito do menu lateral (ferramentas, que não têm rodapé).
   function addFooterLink() {
-    const footer = document.querySelector(".footer-inner");
-    if (!footer) return;
+    const place = document.querySelector(".footer-inner, .sidebar-credit");
+    if (!place) return;
     const link = document.createElement("button");
     link.type = "button";
     link.className = "footer-cookies mono";
     link.textContent = "Preferências de cookies";
     link.addEventListener("click", showBanner);
-    footer.appendChild(link);
+    place.appendChild(link);
   }
 
   function start() {
