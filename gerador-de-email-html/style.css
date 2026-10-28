@@ -1166,7 +1166,16 @@ input[type="color"]::-moz-color-swatch { border: none; border-radius: 50%; }
   text-decoration: none;
 }
 
-.sidebar-credit a:hover { text-decoration: underline; }
+/* sublinhado: o link precisa se distinguir do texto ao redor além da cor */
+.sidebar-credit a {
+  display: inline-block;
+  min-height: 24px;
+  line-height: 24px;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+.sidebar-credit a:hover { text-decoration-thickness: 2px; }
 
 /* ponto final translúcido da marca (joaoa.com.br) */
 .sidebar-credit a span { opacity: 0.35; }
