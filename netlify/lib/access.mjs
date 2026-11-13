@@ -51,13 +51,25 @@ function brasilia(value) {
   return m ? Date.parse(`${m[1]}T${m[2]}:00-03:00`) : NaN;
 }
 
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+/** E-mail do comprador: Customer.email é o campo da Kiwify; os outros são só por precaução. */
+export function customerEmail(payload) {
+  const c = payload?.Customer || payload?.customer || {};
+  for (const v of [c.email, c.Email, payload?.email, payload?.buyer?.email]) {
+    const e = normEmail(v);
+    if (EMAIL_RE.test(e)) return e;
+  }
+  return "";
+}
+
 /**
  * Resume um aviso da Kiwify no que importa para liberar o acesso.
  * Devolve { email, hasAccess, accessUntil, event, orderId, subscriptionId, at } ou null (aviso ignorado).
  */
 export function kiwifyRecord(payload, now = Date.now()) {
   const event = payload?.webhook_event_type;
-  const email = normEmail(payload?.Customer?.email ?? payload?.customer?.email);
+  const email = customerEmail(payload);
   if (!event || !email) return null;
 
   const sub = payload.Subscription || {};
