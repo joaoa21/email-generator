@@ -79,6 +79,12 @@
         return r.ok ? { ok: true, data: (r.data && r.data.user) || null } : r;
       });
     },
+    /** Token curto (JWT, 5 minutos) para o servidor do site saber quem está pedindo. Não guardar. */
+    getToken: function () {
+      return call("/token").then(function (r) {
+        return r.ok && r.data && r.data.token ? { ok: true, data: r.data.token } : r.ok ? { ok: false, code: "NO_TOKEN", message: message() } : r;
+      });
+    },
     login: function (email, password) {
       return call("/sign-in/email", { email: email, password: password });
     },

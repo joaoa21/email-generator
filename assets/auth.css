@@ -67,11 +67,15 @@
   line-height: 1.2;
   color: #191713;
 }
-.auth-gate-text { margin: 0 0 22px; font: 0.92rem/1.55 "Archivo", sans-serif; color: #4a463e; }
-.auth-gate-actions { display: flex; flex-direction: column; gap: 10px; }
+.auth-gate-text { margin: 0 0 12px; font: 0.92rem/1.55 "Archivo", sans-serif; color: #4a463e; }
+.auth-gate-actions { display: flex; flex-direction: column; gap: 10px; margin-top: 22px; }
+.auth-gate-foot { margin: 16px 0 0; display: flex; justify-content: center; gap: 18px; flex-wrap: wrap; }
 .auth-gate-back {
   display: inline-block;
-  margin-top: 16px;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
   font: 0.8rem "Archivo", sans-serif;
   color: #4a463e;
   text-decoration: underline;
@@ -107,7 +111,8 @@
   font-family: "Archivo", sans-serif;
 }
 .account-name { margin: 0; font-weight: 600; font-size: 0.9rem; color: #191713; }
-.account-email { margin: 2px 0 12px; font-size: 0.8rem; color: #4a463e; overflow-wrap: anywhere; }
+.account-plan { margin: 0 0 12px; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #0e7340; }
+.account-email { margin: 2px 0 8px; font-size: 0.8rem; color: #4a463e; overflow-wrap: anywhere; }
 .account-out {
   width: 100%;
   min-height: 36px;

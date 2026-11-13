@@ -1369,6 +1369,8 @@ a:focus-visible, button:focus-visible {
 .plan-period { font-family: var(--font-body); font-size: 0.26em; font-weight: 500; color: var(--ink-faint); margin-left: 6px; letter-spacing: 0; }
 .plan-desc { color: var(--ink-soft); line-height: 1.6; max-width: 34ch; margin: 0 0 26px; }
 .plan-cta { width: 100%; justify-content: center; }
+.plan-note { margin: 14px 0 0; font-size: 0.84rem; line-height: 1.5; color: var(--ink-soft); }
+.plan-note a { color: var(--ink); text-underline-offset: 3px; }
 .plan-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
 .plan-list li {
   position: relative;
