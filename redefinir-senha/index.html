@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nova senha | Email Generator</title>
+<meta name="description" content="Crie uma senha nova para a sua conta.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#f4f1ea">
+<meta name="color-scheme" content="light">
+<link rel="canonical" href="https://emailgenerator.com.br/redefinir-senha/">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/assets/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/fonts.css">
+<link rel="stylesheet" href="/assets/auth.css">
+<script src="/assets/auth.js" defer></script>
+<script src="/assets/conta.js" defer></script>
+</head>
+<body class="auth-page" data-page="redefinir-senha">
+  <main class="auth-card">
+    <a href="/" class="auth-brand"><span class="auth-mark" aria-hidden="true">e.</span><span>Email Generator</span></a>
+    <h1 class="auth-title" id="authTitle">Nova senha</h1>
+    <p class="auth-sub" id="authSub">Escolha uma senha nova para a sua conta.</p>
+
+    <form class="auth-form" id="resetForm" novalidate>
+        <div class="auth-field">
+          <label for="password">Senha nova</label>
+          <div class="auth-input-wrap">
+            <input type="password" id="password" name="password" autocomplete="new-password" required maxlength="128">
+            <button type="button" class="auth-show" aria-pressed="false" aria-label="Mostrar senha">Mostrar</button>
+          </div>
+          <ul class="auth-rules" id="rules" aria-label="Requisitos da senha"></ul>
+        </div>
+        <div class="auth-field">
+          <label for="password2">Repita a senha nova</label>
+          <div class="auth-input-wrap">
+            <input type="password" id="password2" name="password2" autocomplete="new-password" required maxlength="128">
+            <button type="button" class="auth-show" aria-pressed="false" aria-label="Mostrar senha">Mostrar</button>
+          </div>
+        </div>
+        <button type="submit" class="auth-btn auth-btn-primary">Salvar senha</button>
+    </form>
+    <p class="auth-alert" id="resetAlert" role="alert" hidden></p>
+    <div class="auth-done">
+      <a class="auth-btn auth-btn-primary" id="resetGo" href="/entrar/" hidden>Entrar</a>
+    </div>
+    <p class="auth-foot"><a href="/entrar/">Voltar para entrar</a></p>
+  </main>
+</body>
+</html>

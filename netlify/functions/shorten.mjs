@@ -1,8 +1,11 @@
 import { getStore } from "@netlify/blobs";
 import { codeFor, json, normalize } from "../lib/links.mjs";
+import { accessFrom } from "../lib/access.mjs";
 
 export default async (req) => {
   if (req.method !== "POST") return json({ error: "Método não permitido" }, 405);
+  // encurtar faz parte do plano Pro: exige o cookie de acesso
+  if (!(await accessFrom(req))) return json({ error: "Assinatura necessária para encurtar links" }, 403);
 
   let link;
   try {

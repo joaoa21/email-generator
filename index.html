@@ -10,7 +10,6 @@
 <meta name="description" content="Crie e-mails HTML online com 8 modelos prontos para Gmail, Outlook e o seu ESP. E gere links de WhatsApp com mensagem, link curto e QR Code.">
 <link rel="canonical" href="https://emailgenerator.com.br/">
 <meta name="robots" content="index, follow, max-image-preview:large">
-<meta name="author" content="João Alberto">
 <meta name="theme-color" content="#f4f1ea">
 <meta name="color-scheme" content="light">
 
@@ -49,13 +48,9 @@
    "inLanguage": "pt-BR",
    "description": "Gerador de e-mail HTML online com 8 modelos e gerador de link de WhatsApp com link curto e QR Code.",
    "publisher": {
-    "@type": "Person",
-    "name": "João Alberto",
-    "url": "https://joaoa.com.br",
-    "sameAs": [
-     "https://www.linkedin.com/in/joaoa210/",
-     "https://github.com/joaoa21"
-    ]
+    "@type": "Organization",
+    "name": "Email Generator",
+    "url": "https://emailgenerator.com.br/"
    }
   },
   {
@@ -73,14 +68,12 @@
     "Copiar para o Gmail ou exportar HTML",
     "Revisão antes de enviar"
    ],
-   "author": {
-    "@type": "Person",
-    "name": "João Alberto",
-    "url": "https://joaoa.com.br",
-    "sameAs": [
-     "https://www.linkedin.com/in/joaoa210/",
-     "https://github.com/joaoa21"
-    ]
+   "offers": {
+    "@type": "Offer",
+    "name": "Plano Pro",
+    "price": "59.90",
+    "priceCurrency": "BRL",
+    "url": "https://emailgenerator.com.br/#plano"
    }
   },
   {
@@ -98,14 +91,12 @@
     "Validação de DDD e celular",
     "Prévia da conversa"
    ],
-   "author": {
-    "@type": "Person",
-    "name": "João Alberto",
-    "url": "https://joaoa.com.br",
-    "sameAs": [
-     "https://www.linkedin.com/in/joaoa210/",
-     "https://github.com/joaoa21"
-    ]
+   "offers": {
+    "@type": "Offer",
+    "name": "Plano Pro",
+    "price": "59.90",
+    "priceCurrency": "BRL",
+    "url": "https://emailgenerator.com.br/#plano"
    }
   },
   {
@@ -180,7 +171,7 @@
      "name": "Quanto custa?",
      "acceptedAnswer": {
       "@type": "Answer",
-      "text": "Por enquanto, nada: o gerador de e-mail HTML e o gerador de link de WhatsApp estão liberados sem custo."
+      "text": "O plano Pro custa R$ 59,90 por mês e libera tudo: o gerador de e-mail HTML com os 8 modelos e o gerador de link de WhatsApp com link curto, contagem de cliques e QR Code."
      }
     },
     {
@@ -188,7 +179,7 @@
      "name": "Onde ficam os meus dados?",
      "acceptedAnswer": {
       "@type": "Answer",
-      "text": "O e-mail que você monta fica salvo só no seu navegador. No servidor, guardamos apenas o número e a mensagem de um link curto de WhatsApp, quando você pede para encurtar. Para as estatísticas de visita usamos o Trackik: ele não guarda seu endereço IP e não lê o que você digita. Por padrão, não guarda nada no seu navegador: cada pessoa é contada uma vez por dia, com um código anônimo que muda diariamente. Se você aceitar os cookies, guardamos no seu navegador um código anônimo para reconhecer quando você volta em outros dias e ativamos o Google Analytics. Você pode recusar ou mudar de ideia a qualquer momento em “Preferências de cookies”, no rodapé. Os dados de visitas são apagados depois de 25 meses."
+      "text": "O e-mail que você monta fica salvo só no seu navegador. No servidor, guardamos o número e a mensagem de um link curto de WhatsApp, quando você pede para encurtar, e, para a assinatura, o e-mail da conta e a situação do pagamento informada pela Kiwify. A senha fica só no serviço de login, nunca no site. Para as estatísticas de visita usamos o Trackik: ele não guarda seu endereço IP e não lê o que você digita. Por padrão, não guarda nada no seu navegador: cada pessoa é contada uma vez por dia, com um código anônimo que muda diariamente. Se você aceitar os cookies, guardamos no seu navegador um código anônimo para reconhecer quando você volta em outros dias e ativamos o Google Analytics. Você pode recusar ou mudar de ideia a qualquer momento em “Preferências de cookies”, no rodapé. Os dados de visitas são apagados depois de 25 meses."
      }
     }
    ]
@@ -223,13 +214,11 @@
       <a href="#solucao">Ferramentas</a>
       <a href="guias/">Guias</a>
       <a href="#modelos">Modelos</a>
+      <a href="#plano">Plano</a>
       <a href="#perguntas">Perguntas</a>
     </nav>
 
-    <a href="gerador-de-email-html/" class="nav-cta">
-      Criar e-mail
-      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.4"/></svg>
-    </a>
+    <a href="entrar/" class="nav-cta" rel="nofollow">Entrar</a>
 
     <button class="nav-burger" id="navBurger" aria-label="Abrir menu" aria-expanded="false">
       <span></span><span></span>
@@ -240,8 +229,9 @@
     <a href="#solucao">Ferramentas</a>
     <a href="guias/">Guias</a>
     <a href="#modelos">Modelos</a>
+    <a href="#plano">Plano</a>
     <a href="#perguntas">Perguntas</a>
-    <a href="gerador-de-email-html/" class="nav-mobile-cta">Criar e-mail →</a>
+    <a href="entrar/" class="nav-mobile-cta" rel="nofollow">Entrar</a>
   </div>
 </header>
 
@@ -567,10 +557,39 @@
   </div>
 </section>
 
-<!-- 06 · GUIAS -->
-<section class="section" id="guias">
+<!-- 06 · PLANO -->
+<section class="section" id="plano">
   <div class="section-head reveal">
     <span class="section-num mono">06</span>
+    <h2 class="section-title">Plano</h2>
+  </div>
+
+  <div class="plan reveal">
+    <div class="plan-price">
+      <span class="plan-name mono">Pro</span>
+      <p class="plan-value"><span class="plan-currency">R$</span>59,90<span class="plan-period">/mês</span></p>
+      <p class="plan-desc">Tudo liberado nas duas ferramentas: todos os modelos, exportação e link curto do WhatsApp.</p>
+      <a href="https://pay.kiwify.com.br/v20hAKz" class="btn btn-ink btn-lg plan-cta" rel="nofollow">Assinar o Pro</a>
+      <p class="plan-note">Pagamento pela Kiwify. Depois, <a href="criar-conta/" rel="nofollow">crie sua conta</a> com o mesmo e-mail da compra.</p>
+    </div>
+    <ul class="plan-list">
+      <li>Os 8 modelos de e-mail, com cores e conteúdo editáveis</li>
+      <li>Editor por etapas com prévia no desktop e no celular</li>
+      <li>Botões que funcionam no Outlook (VML)</li>
+      <li>Copiar para o Gmail, copiar o HTML ou baixar o arquivo</li>
+      <li>Revisão antes de enviar: links, imagens e textos</li>
+      <li>Link de WhatsApp com mensagem pronta</li>
+      <li>Link curto no próprio domínio, com contagem de cliques</li>
+      <li>QR Code em PNG para material impresso</li>
+      <li>Novos modelos e melhorias sem custo extra</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 07 · GUIAS -->
+<section class="section" id="guias">
+  <div class="section-head reveal">
+    <span class="section-num mono">07</span>
     <h2 class="section-title">Guias</h2>
   </div>
 
@@ -596,10 +615,10 @@
   </ul>
 </section>
 
-<!-- 07 · PERGUNTAS -->
+<!-- 08 · PERGUNTAS -->
 <section class="section" id="perguntas">
   <div class="section-head reveal">
-    <span class="section-num mono">07</span>
+    <span class="section-num mono">08</span>
     <h2 class="section-title">Perguntas frequentes</h2>
   </div>
 
@@ -638,11 +657,11 @@
     </details>
     <details class="reveal">
       <summary>Quanto custa?</summary>
-      <p>Por enquanto, nada: o gerador de e-mail HTML e o gerador de link de WhatsApp estão liberados sem custo.</p>
+      <p>O plano Pro custa R$ 59,90 por mês e libera tudo: o gerador de e-mail HTML com os 8 modelos e o gerador de link de WhatsApp com link curto, contagem de cliques e QR Code. <a href="#plano">Veja o que está incluído</a>.</p>
     </details>
     <details class="reveal">
       <summary>Onde ficam os meus dados?</summary>
-      <p>O e-mail que você monta fica salvo só no seu navegador. No servidor, guardamos apenas o número e a mensagem de um link curto de WhatsApp, quando você pede para encurtar. Para as estatísticas de visita usamos o Trackik: ele não guarda seu endereço IP e não lê o que você digita. Por padrão, não guarda nada no seu navegador: cada pessoa é contada uma vez por dia, com um código anônimo que muda diariamente. Se você aceitar os cookies, guardamos no seu navegador um código anônimo para reconhecer quando você volta em outros dias e ativamos o Google Analytics. Você pode recusar ou mudar de ideia a qualquer momento em “Preferências de cookies”, no rodapé. Os dados de visitas são apagados depois de 25 meses.</p>
+      <p>O e-mail que você monta fica salvo só no seu navegador. No servidor, guardamos o número e a mensagem de um link curto de WhatsApp, quando você pede para encurtar, e, para a assinatura, o e-mail da conta e a situação do pagamento informada pela Kiwify. A senha fica só no serviço de login, nunca no site. Para as estatísticas de visita usamos o Trackik: ele não guarda seu endereço IP e não lê o que você digita. Por padrão, não guarda nada no seu navegador: cada pessoa é contada uma vez por dia, com um código anônimo que muda diariamente. Se você aceitar os cookies, guardamos no seu navegador um código anônimo para reconhecer quando você volta em outros dias e ativamos o Google Analytics. Você pode recusar ou mudar de ideia a qualquer momento em “Preferências de cookies”, no rodapé. Os dados de visitas são apagados depois de 25 meses.</p>
     </details>
   </div>
 </section>
@@ -680,7 +699,6 @@
       <a href="guias/">Guias</a>
     </nav>
     <p class="footer-line mono">© <span id="year">2026</span></p>
-    <a href="https://joaoa.com.br" target="_blank" rel="noopener" class="footer-credit">feito por <strong>João Alberto<span>.</span></strong></a>
   </div>
 </footer>
 

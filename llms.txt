@@ -1,6 +1,6 @@
 # Email Generator
 
-> Ferramentas online em português para quem faz marketing e CRM: um gerador de e-mail HTML com 8 modelos prontos, compatível com Gmail e Outlook, e um gerador de link de WhatsApp com mensagem pronta, link curto com contagem de cliques e QR Code. Funciona no navegador, sem instalar nada. Criado por João Alberto (https://joaoa.com.br).
+> Ferramentas online em português para quem faz marketing e CRM: um gerador de e-mail HTML com 8 modelos prontos, compatível com Gmail e Outlook, e um gerador de link de WhatsApp com mensagem pronta, link curto com contagem de cliques e QR Code. Funciona no navegador, sem instalar nada.
 
 ## Ferramentas
 
@@ -16,6 +16,6 @@
 ## Fatos
 
 - Idioma: português do Brasil.
-- Preço: por enquanto, uso liberado sem custo.
+- Preço: plano Pro por R$ 59,90 por mês, com tudo liberado nas duas ferramentas.
 - Privacidade: o e-mail montado fica salvo só no navegador de quem usa; o servidor guarda apenas número e mensagem dos links curtos de WhatsApp.
 - Compatibilidade do e-mail: Gmail, Outlook (incluindo o clássico para Windows), Apple Mail, celular e ESPs como Mailchimp, RD Station e Brevo.

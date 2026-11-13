@@ -1335,32 +1335,62 @@ a:focus-visible, button:focus-visible {
 
 }
 
-/* ── CRÉDITO ── */
-.footer-credit {
-  margin-left: auto;
-  font-size: 0.8rem;
-  color: rgba(244, 241, 234, 0.6);
-  text-decoration: none;
-  transition: color 0.2s;
+/* ── PLANO ── */
+.plan {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.9fr) 1.1fr;
+  gap: clamp(28px, 5vw, 64px);
+  align-items: center;
+  background: var(--white, #fff);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  padding: clamp(28px, 5vw, 56px);
 }
-
-.footer-credit:hover { color: var(--paper); }
-
-.footer-credit strong {
-  margin-left: 7px;
-  font-family: "Instrument Sans", sans-serif;
-  font-weight: 700;
-  font-size: 1.02rem;
-  letter-spacing: -0.02em;
+.plan-name {
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: var(--ink);
   color: var(--paper);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
-
-.footer-credit:hover { border-color: var(--paper); }
-
-/* ponto final translúcido da marca (joaoa.com.br) */
-.footer-credit strong span { opacity: 0.35; }
-
-
+.plan-value {
+  margin: 18px 0 10px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(3rem, 8vw, 4.6rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+}
+.plan-currency { font-size: 0.4em; vertical-align: 0.95em; margin-right: 6px; letter-spacing: 0; }
+.plan-period { font-family: var(--font-body); font-size: 0.26em; font-weight: 500; color: var(--ink-faint); margin-left: 6px; letter-spacing: 0; }
+.plan-desc { color: var(--ink-soft); line-height: 1.6; max-width: 34ch; margin: 0 0 26px; }
+.plan-cta { width: 100%; justify-content: center; }
+.plan-note { margin: 14px 0 0; font-size: 0.84rem; line-height: 1.5; color: var(--ink-soft); }
+.plan-note a { color: var(--ink); text-underline-offset: 3px; }
+.plan-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.plan-list li {
+  position: relative;
+  padding-left: 32px;
+  line-height: 1.5;
+  color: var(--ink);
+}
+.plan-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 2px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--wa) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center / 12px no-repeat;
+}
+@media (max-width: 780px) {
+  .plan { grid-template-columns: 1fr; }
+}
 
 /* ── GUIAS, 404 E BREADCRUMB ─────────────────────────────── */
 

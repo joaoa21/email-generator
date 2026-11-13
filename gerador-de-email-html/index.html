@@ -27,7 +27,7 @@
     <meta name="twitter:image" content="https://emailgenerator.com.br/assets/og.jpg" />
 
     <script type="application/ld+json">
-      {"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "Gerador de E-mail HTML", "url": "https://emailgenerator.com.br/gerador-de-email-html/", "applicationCategory": "BusinessApplication", "operatingSystem": "Web", "inLanguage": "pt-BR", "description": "Gerador de e-mail HTML online, compatível com Gmail e Outlook, com 8 modelos prontos, prévia em desktop e celular e revisão antes do envio.", "featureList": ["8 modelos de e-mail", "Botões compatíveis com Outlook (VML)", "Prévia em desktop e celular", "Copiar para o Gmail ou exportar HTML", "Revisão antes de enviar"], "isPartOf": {"@type": "WebSite", "name": "Email Generator", "url": "https://emailgenerator.com.br/"}, "author": {"@type": "Person", "name": "João Alberto", "url": "https://joaoa.com.br"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Início", "item": "https://emailgenerator.com.br/"}, {"@type": "ListItem", "position": 2, "name": "Gerador de E-mail HTML", "item": "https://emailgenerator.com.br/gerador-de-email-html/"}]}]}
+      {"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "Gerador de E-mail HTML", "url": "https://emailgenerator.com.br/gerador-de-email-html/", "applicationCategory": "BusinessApplication", "operatingSystem": "Web", "inLanguage": "pt-BR", "description": "Gerador de e-mail HTML online, compatível com Gmail e Outlook, com 8 modelos prontos, prévia em desktop e celular e revisão antes do envio.", "featureList": ["8 modelos de e-mail", "Botões compatíveis com Outlook (VML)", "Prévia em desktop e celular", "Copiar para o Gmail ou exportar HTML", "Revisão antes de enviar"], "isPartOf": {"@type": "WebSite", "name": "Email Generator", "url": "https://emailgenerator.com.br/"}, "offers": {"@type": "Offer", "name": "Plano Pro", "price": "59.90", "priceCurrency": "BRL", "url": "https://emailgenerator.com.br/#plano"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Início", "item": "https://emailgenerator.com.br/"}, {"@type": "ListItem", "position": 2, "name": "Gerador de E-mail HTML", "item": "https://emailgenerator.com.br/gerador-de-email-html/"}]}]}
     </script>
     <link rel="icon" href="/favicon.ico" sizes="48x48">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -40,12 +40,15 @@
     <script src="https://analytics-hub-production-9abd.up.railway.app/t.js" data-key="pk_-Bw0enH3m8DaFeRWu7YP8heo80o1-hBN" defer></script>
     <!-- Aviso de cookies: Google Analytics e contagem precisa do Trackik só com "Aceitar" -->
     <link rel="stylesheet" href="../assets/consent.css">
+    <link rel="stylesheet" href="/assets/auth.css">
+    <script src="/assets/auth.js" defer></script>
+    <script src="/assets/auth-gate.js" defer></script>
     <script src="../assets/consent.js" defer></script>
 
     <link rel="stylesheet" href="style.css" />
   </head>
 
-  <body>
+  <body data-motor="email">
     <h1 class="sr-only">Gerador de e-mail HTML online</h1>
     <header class="header">
       <div class="header-left">
@@ -795,7 +798,7 @@
           </div>
         </section>
 
-        <div class="sidebar-credit mono">feito por <a href="https://joaoa.com.br" target="_blank" rel="noopener">João Alberto<span>.</span></a></div>
+        <div class="sidebar-credit mono"></div>
       </form>
 
       <section class="preview-area" aria-label="Prévia do e-mail">
@@ -832,14 +835,14 @@
 
     <!-- painéis flutuantes do editor de texto -->
     <div id="colorPopup" class="popover color-pop" role="dialog" aria-labelledby="colorTitle" hidden>
-      <p class="pop-title" id="colorTitle">Cor do texto</p>
-      <div class="swatches" id="swatches"></div>
-      <div class="pop-row">
-        <input type="color" id="popupColor" aria-label="Cor personalizada" />
-        <input type="text" class="pop-input pop-hex" id="popupColorHex" maxlength="7" aria-label="Cor em hexadecimal" />
-        <button type="button" class="pop-btn primary" data-action="color-apply">Aplicar</button>
-      </div>
+      <p class="pop-title" id="colorTitle">Cor do trecho</p>
+      <div id="textColorPanel"></div>
       <button type="button" class="pop-link" data-action="color-reset">Remover formatação do trecho</button>
+    </div>
+
+    <div id="pickerPop" class="popover color-pop" role="dialog" aria-labelledby="pickerTitle" hidden>
+      <p class="pop-title" id="pickerTitle">Cor</p>
+      <div id="pickerPanel"></div>
     </div>
 
     <div id="linkPopup" class="popover link-pop" role="dialog" aria-labelledby="linkTitle" hidden>
@@ -854,14 +857,6 @@
     <div id="menuPopup" class="popover menu-pop" role="menu" hidden></div>
 
     <!-- modelos: cada arquivo registra um layout em window.EmailTemplates -->
-    <script src="templates/cards.js" defer></script>
-    <script src="templates/gradient.js" defer></script>
-    <script src="templates/minimal.js" defer></script>
-    <script src="templates/coupon.js" defer></script>
-    <script src="templates/newsletter.js" defer></script>
-    <script src="templates/vitrine.js" defer></script>
-    <script src="templates/invite.js" defer></script>
-    <script src="templates/letter.js" defer></script>
-    <script src="script.js" defer></script>
+    <script src="color-panel.js" defer></script>
   </body>
 </html>
