@@ -1265,7 +1265,7 @@ input[type="color"]::-moz-color-swatch { border: none; border-radius: 50%; }
 
 .preview-frame-wrap iframe { width: 100%; height: 600px; border: none; display: block; }
 
-/* ── CRÉDITO ── */
+/* ── RODAPÉ DO PAINEL (preferências de cookies) ── */
 .sidebar-credit {
   margin-top: auto;
   padding: 16px 20px 22px;
@@ -1275,28 +1275,6 @@ input[type="color"]::-moz-color-swatch { border: none; border-radius: 50%; }
   text-align: center;
 }
 
-.sidebar-credit a {
-  font-family: "Instrument Sans", sans-serif;
-  font-weight: 700;
-  font-size: 0.88rem;
-  letter-spacing: -0.02em;
-  color: var(--ink);
-  text-decoration: none;
-}
-
-/* sublinhado: o link precisa se distinguir do texto ao redor além da cor */
-.sidebar-credit a {
-  display: inline-block;
-  min-height: 24px;
-  line-height: 24px;
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 3px;
-}
-.sidebar-credit a:hover { text-decoration-thickness: 2px; }
-
-/* ponto final translúcido da marca (joaoa.com.br) */
-.sidebar-credit a span { opacity: 0.35; }
 
 /* ── RESPONSIVO ── */
 @media (max-width: 1180px) {

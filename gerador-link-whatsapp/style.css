@@ -668,7 +668,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 
 
-/* ── CRÉDITO ── */
+/* ── RODAPÉ DO PAINEL (preferências de cookies) ── */
 .sidebar-credit {
   margin-top: 8px;
   padding-top: 14px;
@@ -677,28 +677,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   text-align: center;
 }
 
-.sidebar-credit a {
-  font-family: "Instrument Sans", sans-serif;
-  font-weight: 700;
-  font-size: 0.88rem;
-  letter-spacing: -0.02em;
-  color: var(--ink);
-  text-decoration: none;
-}
-
-/* sublinhado: o link precisa se distinguir do texto ao redor além da cor */
-.sidebar-credit a {
-  display: inline-block;
-  min-height: 24px;
-  line-height: 24px;
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 3px;
-}
-.sidebar-credit a:hover { text-decoration-thickness: 2px; }
-
-/* ponto final translúcido da marca (joaoa.com.br) */
-.sidebar-credit a span { opacity: 0.35; }
 
 
 
