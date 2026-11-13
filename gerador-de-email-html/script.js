@@ -798,14 +798,17 @@
     var row = input.closest(".color-row");
     var hex = row.querySelector(".hex-input");
     var picker = row.querySelector('input[type="color"]');
+    var chip = row.querySelector(".color-chip");
     if (input === picker) {
       hex.value = picker.value;
       hex.removeAttribute("aria-invalid");
+      if (chip) chip.style.background = picker.value;
       return;
     }
     var v = hex.value.trim();
     if (HEX_RE.test(v)) {
       picker.value = hex6(v).toLowerCase();
+      if (chip) chip.style.background = picker.value;
       hex.removeAttribute("aria-invalid");
     } else {
       hex.setAttribute("aria-invalid", "true");
@@ -1408,55 +1411,113 @@
     this.removeAttribute("aria-invalid");
   });
 
-  /* ── COR ── */
+  /* ── COR ── seletor no estilo do Canva (color-panel.js) */
   var colorPop = $("colorPopup");
-  var SWATCHES = ["#191713", "#4a463e", "#8a857a", "#ffffff", "#c8451f", "#e11d48", "#f59e0b", "#fff43d", "#16a34a", "#0284c7", "#2563eb", "#7c3aed"];
+  var pickerPop = $("pickerPop");
 
-  (function buildSwatches() {
-    var box = $("swatches");
-    SWATCHES.forEach(function (c) {
-      var b = document.createElement("button");
-      b.type = "button";
-      b.className = "swatch";
-      b.dataset.color = c;
-      b.style.background = c;
-      b.setAttribute("aria-label", "Cor " + c);
-      b.title = c;
-      box.appendChild(b);
+  /* cores já usadas no e-mail (campos visíveis no modelo atual e trechos coloridos) */
+  function docColors() {
+    var list = [];
+    each(document.querySelectorAll("#sidebar .color-row .hex-input"), function (hex) {
+      if (!outOfTemplate(hex.id) && HEX_RE.test(hex.value.trim())) list.push(hex6(hex.value.trim()).toLowerCase());
     });
-  })();
+    each(document.querySelectorAll(".block-wrap[data-color]"), function (w) {
+      if (HEX_RE.test(w.dataset.color)) list.push(hex6(w.dataset.color).toLowerCase());
+    });
+    return list;
+  }
 
-  colorPop.addEventListener("mousedown", function (e) {
-    if (e.target.closest(".swatch, .pop-btn, .pop-link")) e.preventDefault();
+  /* logos do e-mail, para tirar as cores da marca (o placeholder não conta) */
+  function logoUrls() {
+    return ["logoUrl", "footerLogoUrl"].map(function (id) {
+      var f = $(id);
+      var v = f && !outOfTemplate(id) ? f.value.trim() : "";
+      return v && v !== PLACEHOLDER_LOGO ? safeUrl(v, true) : "";
+    }).filter(Boolean);
+  }
+
+  /* texto sobre fundo: avisa quando fica difícil de ler */
+  function contentBg() {
+    return !outOfTemplate("cardBgHex") ? "cardBgHex" : "bgHex";
+  }
+  var CONTRAST = {
+    btnTxtHex: function () { return { id: "btnBgHex", label: "o fundo do botão", min: 3 }; },
+    btnBgHex: function () { return { id: "btnTxtHex", label: "o texto do botão", min: 3 }; },
+    textHex: function () { return { id: contentBg(), label: "o fundo do conteúdo", min: 4.5 }; },
+    titleColorHex: function () { return { id: contentBg(), label: "o fundo do conteúdo", min: 3 }; },
+  };
+  function against(id) {
+    var rule = CONTRAST[id] && CONTRAST[id]();
+    return rule && $(rule.id) ? { hex: $(rule.id).value, label: rule.label, min: rule.min } : null;
+  }
+
+  /* cada campo de cor ganha uma bolinha que abre o seletor (o seletor do sistema fica escondido) */
+  each(document.querySelectorAll("#sidebar .color-row"), function (row) {
+    var native = row.querySelector('input[type="color"]');
+    var hex = row.querySelector(".hex-input");
+    var label = row.closest(".color-field, .field").querySelector("label");
+    var panelTitle = row.closest(".panel").querySelector(".panel-title");
+    var name = (panelTitle ? panelTitle.textContent.trim() + " · " : "") + (label ? label.textContent.trim() : "");
+    var chip = document.createElement("button");
+    chip.type = "button";
+    chip.className = "color-chip";
+    chip.setAttribute("aria-haspopup", "dialog");
+    chip.setAttribute("aria-expanded", "false");
+    chip.setAttribute("aria-label", native.getAttribute("aria-label") || "Escolher cor");
+    chip.dataset.title = name;
+    chip.dataset.hex = hex.id;
+    native.hidden = true;
+    native.tabIndex = -1;
+    row.insertBefore(chip, native);
   });
-  colorPop.addEventListener("click", function (e) {
-    var sw = e.target.closest(".swatch");
-    if (sw) applyColorValue(sw.dataset.color);
+
+  function openPicker(chip) {
+    var hex = $(chip.dataset.hex);
+    $("pickerTitle").textContent = chip.dataset.title || "Cor";
+    var panel = ColorPanel.mount($("pickerPanel"), {
+      value: hex.value,
+      mode: "live",
+      docColors: docColors(),
+      logos: logoUrls(),
+      against: against(hex.id),
+      onPick: function (c) {
+        hex.value = c;
+        hex.dispatchEvent(new Event("input", { bubbles: true }));
+      },
+      onResize: function () {
+        if (openPop === pickerPop) showPop(pickerPop, chip, null);
+      },
+    });
+    showPop(pickerPop, chip, null);
+    panel.focus();
+  }
+
+  sidebar.addEventListener("click", function (e) {
+    var chip = e.target.closest(".color-chip");
+    if (!chip) return;
+    if (openPop === pickerPop && popTrigger === chip) return closePop(true);
+    openPicker(chip);
   });
 
   function openColor(trigger, ed) {
     var c = trigger.closest(".block-wrap").dataset.color || "#c8451f";
-    $("popupColor").value = hex6(c);
-    $("popupColorHex").value = c;
-    $("popupColorHex").removeAttribute("aria-invalid");
     showPop(colorPop, trigger, ed);
-    colorPop.querySelector(".swatch").focus();
+    var panel = ColorPanel.mount($("textColorPanel"), {
+      value: c,
+      mode: "apply",
+      docColors: docColors(),
+      logos: logoUrls(),
+      onPick: applyColorValue,
+      onResize: function () {
+        if (openPop === colorPop) showPop(colorPop, trigger, ed);
+      },
+    });
+    showPop(colorPop, trigger, ed);
+    panel.focus();
   }
 
-  colorPop.addEventListener("input", function (e) {
-    if (e.target.id === "popupColor") {
-      $("popupColorHex").value = e.target.value;
-    } else if (e.target.id === "popupColorHex") {
-      var v = e.target.value.trim();
-      if (HEX_RE.test(v)) $("popupColor").value = hex6(v).toLowerCase();
-      e.target.toggleAttribute("aria-invalid", !HEX_RE.test(v));
-    }
-  });
-  colorPop.addEventListener("keydown", function (e) {
-    if (e.key === "Enter" && e.target.id === "popupColorHex") {
-      e.preventDefault();
-      applyColor();
-    }
+  colorPop.addEventListener("mousedown", function (e) {
+    if (e.target.closest(".pop-link")) e.preventDefault();
   });
 
   function applyColorValue(c) {
@@ -1473,15 +1534,6 @@
     wrap.dataset.color = c;
     wrap.querySelector(".tb-bar").style.background = c;
     update();
-  }
-
-  function applyColor() {
-    var c = color($("popupColorHex").value, null);
-    if (!c) {
-      $("popupColorHex").setAttribute("aria-invalid", "true");
-      return;
-    }
-    applyColorValue(c);
   }
 
   function resetColor() {
@@ -1976,7 +2028,6 @@
     "add-block": addBlock,
     "add-article": ARTICLES.add,
     "add-product": PRODUCTS.add,
-    "color-apply": applyColor,
     "color-reset": resetColor,
     "link-apply": applyLink,
     "link-remove": removeLink,

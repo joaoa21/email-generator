@@ -832,14 +832,14 @@
 
     <!-- painéis flutuantes do editor de texto -->
     <div id="colorPopup" class="popover color-pop" role="dialog" aria-labelledby="colorTitle" hidden>
-      <p class="pop-title" id="colorTitle">Cor do texto</p>
-      <div class="swatches" id="swatches"></div>
-      <div class="pop-row">
-        <input type="color" id="popupColor" aria-label="Cor personalizada" />
-        <input type="text" class="pop-input pop-hex" id="popupColorHex" maxlength="7" aria-label="Cor em hexadecimal" />
-        <button type="button" class="pop-btn primary" data-action="color-apply">Aplicar</button>
-      </div>
+      <p class="pop-title" id="colorTitle">Cor do trecho</p>
+      <div id="textColorPanel"></div>
       <button type="button" class="pop-link" data-action="color-reset">Remover formatação do trecho</button>
+    </div>
+
+    <div id="pickerPop" class="popover color-pop" role="dialog" aria-labelledby="pickerTitle" hidden>
+      <p class="pop-title" id="pickerTitle">Cor</p>
+      <div id="pickerPanel"></div>
     </div>
 
     <div id="linkPopup" class="popover link-pop" role="dialog" aria-labelledby="linkTitle" hidden>
@@ -862,6 +862,7 @@
     <script src="templates/vitrine.js" defer></script>
     <script src="templates/invite.js" defer></script>
     <script src="templates/letter.js" defer></script>
+    <script src="color-panel.js" defer></script>
     <script src="script.js" defer></script>
   </body>
 </html>
