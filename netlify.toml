@@ -20,7 +20,20 @@
 [[headers]]
   for = "/*"
   [headers.values]
-    Content-Security-Policy = "default-src 'self'; script-src 'self' https://www.googletagmanager.com https://analytics-hub-production-9abd.up.railway.app https://unpkg.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://analytics-hub-production-9abd.up.railway.app https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com; frame-src 'self'; frame-ancestors 'self' https://app.trackik.com.br; base-uri 'self'; form-action 'self'; object-src 'none'"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' https://www.googletagmanager.com https://analytics-hub-production-9abd.up.railway.app https://unpkg.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://auth.emailgenerator.com.br https://analytics-hub-production-9abd.up.railway.app https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com; frame-src 'self'; frame-ancestors 'self' https://app.trackik.com.br; base-uri 'self'; form-action 'self'; object-src 'none'"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+
+# links de confirmação e de nova senha trazem um token: não vaza para outros sites
+[[headers]]
+  for = "/verificar-email/*"
+  [headers.values]
+    Referrer-Policy = "no-referrer"
+    Cache-Control = "no-store"
+
+[[headers]]
+  for = "/redefinir-senha/*"
+  [headers.values]
+    Referrer-Policy = "no-referrer"
+    Cache-Control = "no-store"
