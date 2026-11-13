@@ -106,3 +106,12 @@ test("token do Authik: confere assinatura, emissor e público", async () => {
   assert.equal(await verifyAuthToken("nao-e-um-token", { keys }), null);
   assert.equal(await verifyAuthToken(null, { keys }), null);
 });
+
+test("e-mail do comprador: Customer.email e alternativas, só se for um e-mail", async () => {
+  const { customerEmail } = await import("../netlify/lib/access.mjs");
+  assert.equal(customerEmail({ Customer: { email: " Ana@Exemplo.com " } }), "ana@exemplo.com");
+  assert.equal(customerEmail({ customer: { email: "b@c.de" } }), "b@c.de");
+  assert.equal(customerEmail({ email: "x@y.zz" }), "x@y.zz");
+  assert.equal(customerEmail({ Customer: { email: "nao-e-email" } }), "");
+  assert.equal(customerEmail({}), "");
+});
